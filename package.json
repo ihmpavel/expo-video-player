@@ -1,0 +1,42 @@
+{
+  "name": "expo-video-player",
+  "version": "1.1.0",
+  "description": "Customizable Video Player controls for Expo",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Pavel Ihm",
+  "license": "MIT",
+  "repository": {
+    "type": "git"
+  },
+  "devDependencies": {
+    "@types/expo": "^31.0.4",
+    "@types/expo__vector-icons": "^6.2.3",
+    "@types/react": "^16.7.18",
+    "@types/react-native": "^0.57.20",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.2.2"
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "video-player",
+    "player",
+    "customizable"
+  ],
+  "homepage": "https://github.com/ihmpavel/expo-video-player",
+  "bugs": "https://github.com/ihmpavel/expo-video-player/issues",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint --exclude **/*.d.ts lib/**/*.ts lib/**/*.tsx",
+    "lint:fix": "tslint --fix --exclude **/*.d.ts lib/**/*.ts lib/**/*.tsx"
+  },
+  "peerDependencies": {
+    "expo": ">=26.0.0"
+  },
+  "dependencies": {
+    "tslib": "^1.9.3"
+  }
+}

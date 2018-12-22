@@ -1,0 +1,5 @@
+lib/
+example/
+.idea/
+tsconfig.json
+tslint.json
