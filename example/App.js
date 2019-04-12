@@ -10,11 +10,12 @@ export default class App extends React.Component {
         <VideoPlayer
           videoProps={{
             shouldPlay: true,
-              resizeMode: Video.RESIZE_MODE_CONTAIN,
-              source: {
-                uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-              },
+            resizeMode: Video.RESIZE_MODE_CONTAIN,
+            source: {
+              uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            }
           }}
+          showFullscreenButton={false}
           isPortrait={true}
           playFromPositionMillis={0}/>
       </View>
@@ -25,7 +26,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'center',
   },

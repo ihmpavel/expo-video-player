@@ -10,14 +10,14 @@
     "type": "git"
   },
   "devDependencies": {
-    "@types/expo": "^31.0.4",
-    "@types/expo__vector-icons": "^6.2.3",
-    "@types/react": "^16.7.18",
-    "@types/react-native": "^0.57.20",
-    "tslint": "^5.12.0",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.2.2"
+    "@types/expo": "^32.0.10",
+    "@types/expo__vector-icons": "^9.0.1",
+    "@types/react": "^16.8.13",
+    "@types/react-native": "^0.57.43",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.3"
   },
   "keywords": [
     "expo",

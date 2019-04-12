@@ -1,4 +1,4 @@
-import { Color, PointerEventsProperty } from 'csstype'
+import { Color } from 'csstype'
 import { Audio, PlaybackObject, PlaybackStatus, Video, VideoProps } from 'expo'
 import React, { ReactNode } from 'react'
 import {
@@ -232,7 +232,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
   }
 
   // Handle events during playback
-  private setPlaybackState(playbackState: PlaybackStates) {
+  private setPlaybackState = (playbackState: PlaybackStates) => {
     const {debug} = getProps(this.props)
     if (this.state.playbackState !== playbackState) {
       debug &&
@@ -251,7 +251,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
     }
   }
 
-  private setSeekState(seekState: SeekStates) {
+  private setSeekState = (seekState: SeekStates) => {
     const {debug} = getProps(this.props)
 
     debug &&
@@ -277,7 +277,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
     }
   }
 
-  private playbackCallback(status: PlaybackStatus) {
+  private playbackCallback = (status: PlaybackStatus) => {
     const {errorCallback, playbackCallback} = getProps(this.props)
 
     try {
@@ -331,7 +331,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
   }
 
   // Seeking
-  private getSeekSliderPosition() {
+  private getSeekSliderPosition = () => {
     if (
       this.playbackInstance !== null &&
       this.state.playbackInstancePosition !== null &&
@@ -345,7 +345,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
     return 0
   }
 
-  private onSeekSliderValueChange = () => {
+  private onSeekSliderValueChange = async () => {
     if (
       this.playbackInstance !== null &&
       this.state.seekState !== SeekStates.Seeking
@@ -358,7 +358,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
           ? this.shouldPlayAtEndOfSeek
           : this.state.shouldPlay
       // Pause the video
-      this.playbackInstance.setStatusAsync({shouldPlay: false})
+      await this.playbackInstance.setStatusAsync({shouldPlay: false})
     }
   }
 
@@ -430,7 +430,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
   }
 
   // Controls view
-  private getMMSSFromMillis(millis: number) {
+  private getMMSSFromMillis = (millis: number) => {
     const totalSeconds = millis / 1000
     const seconds = Math.floor(totalSeconds % 60)
     const minutes = Math.floor(totalSeconds / 60)
@@ -446,7 +446,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
   }
 
   // Controls Behavior
-  private async replay() {
+  private replay = async () => {
     if (this.playbackInstance !== null) {
       await this.playbackInstance
         .setStatusAsync({
@@ -459,10 +459,13 @@ export default class VideoPlayer extends React.Component<Props, State> {
     }
   }
 
-  private togglePlay() {
+  private togglePlay = async () => {
+    if (this.state.controlsState === ControlStates.Hidden) {
+      return
+    }
     const shouldPlay = this.state.playbackState !== PlaybackStates.Playing
     if (this.playbackInstance !== null) {
-      this.playbackInstance.setStatusAsync({shouldPlay})
+      await this.playbackInstance.setStatusAsync({shouldPlay})
     }
   }
 
@@ -545,9 +548,9 @@ export default class VideoPlayer extends React.Component<Props, State> {
   }
 
   render() {
-    const { width: maxWidth, height: maxHeight } = Dimensions.get('window')
+    const {width: maxWidth, height: maxHeight} = Dimensions.get('window')
     const centeredContentWidth = 60
-    const screenRatio = Dimensions.get('window').width / Dimensions.get('window').height
+    const screenRatio = maxWidth / maxHeight
 
     let videoHeight = maxHeight
     let videoWidth = videoHeight * screenRatio
@@ -603,15 +606,13 @@ export default class VideoPlayer extends React.Component<Props, State> {
         }}>
         <View
           style={
-            center
-              ? {
-                backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
-                justifyContent: 'center',
-                width: centeredContentWidth,
-                height: centeredContentWidth,
-                borderRadius: centeredContentWidth,
-              }
-              : {}
+            center && {
+              backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
+              justifyContent: 'center',
+              width: centeredContentWidth,
+              height: centeredContentWidth,
+              borderRadius: centeredContentWidth,
+            }
           }>
           {children}
         </View>
@@ -623,7 +624,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
         {
           children?: ReactNode,
           style?: ViewStyle,
-          pointerEvents?: PointerEventsProperty,
+          pointerEvents?: PointerEvent,
           otherProps?: ViewProps
         }
     ) => (
@@ -662,7 +663,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
     )
 
     return (
-      <TouchableWithoutFeedback onPress={() => this.toggleControls()}>
+      <TouchableWithoutFeedback onPress={this.toggleControls}>
         <View
           style={{backgroundColor: 'black'}}>
           <Video
@@ -671,7 +672,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
               this.playbackInstance = component
               ref && ref(component)
             }}
-            onPlaybackStatusUpdate={(status: PlaybackStatus) => this.playbackCallback(status)}
+            onPlaybackStatusUpdate={this.playbackCallback}
             style={{
               width: videoWidth,
               height: videoHeight,
@@ -681,10 +682,9 @@ export default class VideoPlayer extends React.Component<Props, State> {
 
           {/* Spinner */}
           {/* Due to loading Animation, it cannot use CenteredView */}
-          {((this.state.playbackState === PlaybackStates.Buffering &&
-            Date.now() - this.state.lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY)
-            ||
-            this.state.playbackState === PlaybackStates.Loading) && (
+          {((this.state.playbackState === PlaybackStates.Buffering
+            && Date.now() - this.state.lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY)
+            || this.state.playbackState === PlaybackStates.Loading) && (
             <View
               style={[
                 {
@@ -703,8 +703,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
           )}
 
           {/* Play/pause buttons */}
-          {(this.state.seekState === SeekStates.NotSeeking ||
-            this.state.seekState === SeekStates.Seeked) &&
+          {(this.state.seekState !== SeekStates.Seeking) &&
           (this.state.playbackState === PlaybackStates.Playing ||
             this.state.playbackState === PlaybackStates.Paused) && (
             <CenteredView
@@ -716,7 +715,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
               style={{
                 opacity: this.state.controlsOpacity,
               }}>
-              <Control center={true} callback={() => this.togglePlay()}>
+              <Control center={true} callback={this.togglePlay}>
                 {this.state.playbackState === PlaybackStates.Playing
                   ? <PauseIconElem/>
                   : <PlayIconElem/>
@@ -728,7 +727,7 @@ export default class VideoPlayer extends React.Component<Props, State> {
           {/* Replay button to show at the end of a video */}
           {this.state.playbackState === PlaybackStates.Ended && (
             <CenteredView>
-              <Control center={true} callback={() => this.replay()}>
+              <Control center={true} callback={this.replay}>
                 <ReplayIconElem/>
               </Control>
             </CenteredView>
@@ -768,8 +767,8 @@ export default class VideoPlayer extends React.Component<Props, State> {
 
             {/* Seek bar */}
             <TouchableWithoutFeedback
-              onLayout={e => this.onSliderLayout(e)}
-              onPress={e => this.onSeekBarTap(e)}>
+              onLayout={this.onSliderLayout}
+              onPress={this.onSeekBarTap}>
               <Slider
                 style={{marginRight: 10, marginLeft: 10, flex: 1}}
                 thumbTintColor={sliderColor}

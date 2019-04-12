@@ -1,7 +1,7 @@
 # Basic info
 Video component for Expo built on default Video component. Inspired by [expo/videoplayer](https://github.com/expo/videoplayer)
 
-The library has a lot of options, but a lot of them are optional (source is required). See the props table below. The `Video` component also supports 18:9 phones.
+The library has a lot of options, but a lot of them are optional (source is required). See the props table below. The `Video` component also supports phones, which screen ratio is not 16:9.
 
 ## Installation
 `yarn add expo-video-player` _or_ `npm install expo-video-player`
@@ -35,7 +35,7 @@ prop | type | default | required | description
 ---- | :-------: | :-------: | :-------: | -----------
 **debug** | `boolean` | `false` | :x: | Write internal logs to console
 _VIDEO PROPS_ |
-**videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video#expovideo) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video#props) to Expo component (at least source is required)
+**videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video/#props) to Expo component (at least source is required)
 _ANIMATIONS_ |
 **fadeInDuration** | `number` | `200` | :x: | How long should the fadeIn animation for the controls run? (in milliseconds)
 **fadeOutDuration** | `number` | `1000` | :x: | How long should the fadeOut animation run? (in milliseconds)
