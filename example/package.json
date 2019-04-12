@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "expo": "^32.0.6",
-    "expo-video-player": "^1.1.0",
+    "expo-video-player": "^1.2.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
   },

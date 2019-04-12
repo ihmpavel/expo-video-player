@@ -2578,10 +2578,10 @@ expo-task-manager@~1.0.0:
     expo-errors "~1.0.0"
     expo-task-manager-interface "~1.0.0"
 
-expo-video-player@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.1.0.tgz#2ba631320a610b91dc9bcdfae730213d78104d04"
-  integrity sha512-LgQzkvF4GSLxuypaRt52vG+/T9rLtiMBzjLnkm39NcddEV4ufOhCArKHgSzx/2g3XM9ToShvM2tO0l9h7Wm0Hg==
+expo-video-player@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.2.0.tgz#33705bae055fc495be79af6a1e120e994cf3a829"
+  integrity sha512-/LvvMGtbFlcPpmtgZH2QllU+gc2fM+eCgUq1zl8UflvnCRlsu9EZRAk1XR7OXCE4Io+6/5RhR3rux0KeSHvWlA==
   dependencies:
     tslib "^1.9.3"
 
