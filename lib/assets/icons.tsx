@@ -1,6 +1,6 @@
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
-import { ActivityIndicator, StyleSheet } from 'react-native'
 
 const ICON_COLOR = '#FFF'
 const CENTER_ICON_SIZE = 36
@@ -8,53 +8,43 @@ const BOTTOM_BAR_ICON_SIZE = 30
 
 const style = StyleSheet.create({
   iconStyle: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 })
 
-
-  export const PlayIcon = () =>
+export const PlayIcon = () => (
   <MaterialIcons
-    name="play-arrow"
+    name='play-arrow'
     size={CENTER_ICON_SIZE}
     color={ICON_COLOR}
     style={style.iconStyle}
   />
+)
 
-export const PauseIcon = () =>
+export const PauseIcon = () => (
+  <MaterialIcons name='pause' size={CENTER_ICON_SIZE} color={ICON_COLOR} style={style.iconStyle} />
+)
+
+export const Spinner = () => <ActivityIndicator color={ICON_COLOR} size='large' />
+
+export const FullscreenEnterIcon = () => (
   <MaterialIcons
-    name="pause"
-    size={CENTER_ICON_SIZE}
-    color={ICON_COLOR}
-    style={style.iconStyle}
-  />
-
-export const Spinner = () =>
-  <ActivityIndicator
-    color={ICON_COLOR}
-    size="large"
-  />
-
-export const FullscreenEnterIcon = () =>
-  <MaterialIcons
-    name="fullscreen"
+    name='fullscreen'
     size={BOTTOM_BAR_ICON_SIZE}
     color={ICON_COLOR}
     style={style.iconStyle}
   />
+)
 
-export const FullscreenExitIcon = () =>
+export const FullscreenExitIcon = () => (
   <MaterialIcons
-    name="fullscreen-exit"
+    name='fullscreen-exit'
     size={BOTTOM_BAR_ICON_SIZE}
     color={ICON_COLOR}
     style={style.iconStyle}
   />
+)
 
-export const ReplayIcon = () =>
-  <MaterialIcons
-    name="replay"
-    size={CENTER_ICON_SIZE}
-    color={ICON_COLOR}
-    style={style.iconStyle}
-  />
+export const ReplayIcon = () => (
+  <MaterialIcons name='replay' size={CENTER_ICON_SIZE} color={ICON_COLOR} style={style.iconStyle} />
+)

@@ -1,42 +1,54 @@
 {
   "name": "expo-video-player",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Customizable Video Player controls for Expo",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "author": "Pavel Ihm",
-  "license": "MIT",
-  "repository": {
-    "type": "git"
-  },
-  "devDependencies": {
-    "@types/expo": "^32.0.10",
-    "@types/expo__vector-icons": "^9.0.1",
-    "@types/react": "^16.8.13",
-    "@types/react-native": "^0.57.43",
-    "tslint": "^5.15.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
-    "typescript": "^3.4.3"
-  },
   "keywords": [
+    "customizable",
     "expo",
-    "react-native",
-    "video-player",
     "player",
-    "customizable"
+    "react-native",
+    "video-player"
   ],
   "homepage": "https://github.com/ihmpavel/expo-video-player",
   "bugs": "https://github.com/ihmpavel/expo-video-player/issues",
-  "scripts": {
-    "build": "tsc",
-    "lint": "tslint --exclude **/*.d.ts lib/**/*.ts lib/**/*.tsx",
-    "lint:fix": "tslint --fix --exclude **/*.d.ts lib/**/*.ts lib/**/*.tsx"
+  "repository": {
+    "type": "git"
   },
-  "peerDependencies": {
-    "expo": ">=26.0.0"
+  "license": "MIT",
+  "author": "Pavel Ihm",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc & yarn copy",
+    "copy": "copyfiles -u 1 \"./lib/assets/*.png\" \"./dist\"",
+    "lint": "eslint \"lib/**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint \"lib/**/*.{js,ts,tsx}\" --fix"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.10.0",
+    "with-default-props": "^0.2.1"
+  },
+  "devDependencies": {
+    "@react-native-community/netinfo": "~3.2.1",
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.8",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "copyfiles": "^2.1.1",
+    "eslint": "^6.2.2",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-config-react-app": "^5.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react-native": "^3.7.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.4.0",
+    "expo": "^34.0.4",
+    "expo-av": "^6.0.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
+  },
+  "peerDependencies": {
+    "@react-native-community/netinfo": ">=3.2.1",
+    "expo": ">=33.0.0",
+    "expo-av": ">=5.0.2"
   }
 }
