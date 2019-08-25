@@ -1,5 +1,4 @@
 lib/
-example/
-.idea/
+example-app/
+.vscode/
 tsconfig.json
-tslint.json

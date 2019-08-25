@@ -1,49 +1,21 @@
-import { PlaybackStatus, VideoProps } from 'expo';
-import React from 'react';
-import { Animated, TextStyle } from 'react-native';
-declare enum ControlStates {
-    Shown = 0,
-    Showing = 1,
-    Hidden = 2,
-    Hiding = 3
-}
-declare enum PlaybackStates {
-    Loading = 0,
-    Playing = 1,
-    Paused = 2,
-    Buffering = 3,
-    Error = 4,
-    Ended = 5
-}
-declare enum SeekStates {
-    NotSeeking = 0,
-    Seeking = 1,
-    Seeked = 2
-}
+import { ImageURISource, TextStyle } from 'react-native';
+import { Color } from 'csstype';
+import { PlaybackStatus } from 'expo-av/build/AV';
+import { VideoProps } from 'expo-av/build/Video';
+import { ReactNode } from 'react';
 declare enum ErrorSeverity {
     Fatal = 0,
     NonFatal = 1
 }
-interface IError {
+declare type Error = {
     type: ErrorSeverity;
     message: string;
     obj: object;
-}
-interface State {
-    playbackState: PlaybackStates;
-    lastPlaybackStateUpdate: number;
-    seekState: SeekStates;
-    playbackInstancePosition: number;
-    playbackInstanceDuration: number;
-    shouldPlay: boolean;
-    error: string;
-    controlsOpacity: Animated.Value;
-    controlsState: ControlStates;
-    sliderWidth: number;
-    isConnected: boolean;
-}
-declare const defaultProps: {
-    children: React.ReactNode;
+};
+declare type Props = {
+    videoProps: VideoProps;
+    isPortrait: boolean;
+    children: ReactNode;
     fadeInDuration: number;
     fadeOutDuration: number;
     quickFadeOutDuration: number;
@@ -55,75 +27,42 @@ declare const defaultProps: {
     fullscreenEnterIcon: () => JSX.Element;
     fullscreenExitIcon: () => JSX.Element;
     showFullscreenButton: boolean;
-    iosThumbImage: any;
-    iosTrackImage: any;
+    iosThumbImage: ImageURISource;
+    iosTrackImage: ImageURISource;
     textStyle: TextStyle;
     debug: boolean;
     playbackCallback: (callback: PlaybackStatus) => void;
-    errorCallback: (error: IError) => void;
+    errorCallback: (error: Error) => void;
     switchToLandscape: () => void;
     switchToPortrait: () => void;
     showControlsOnLoad: boolean;
-    sliderColor: string;
-    videoProps: VideoProps;
+    sliderColor: Color;
 };
-declare type Props = {
-    isPortrait: boolean;
-} & Partial<DefaultProps>;
-declare type DefaultProps = Readonly<typeof defaultProps>;
-export default class VideoPlayer extends React.Component<Props, State> {
-    private shouldPlayAtEndOfSeek;
-    private playbackInstance;
-    private showingAnimation;
-    private hideAnimation;
-    private controlsTimer;
-    static defaultProps: {
-        children: React.ReactNode;
-        fadeInDuration: number;
-        fadeOutDuration: number;
-        quickFadeOutDuration: number;
-        hideControlsTimerDuration: number;
-        playIcon: () => JSX.Element;
-        replayIcon: () => JSX.Element;
-        pauseIcon: () => JSX.Element;
-        spinner: () => JSX.Element;
-        fullscreenEnterIcon: () => JSX.Element;
-        fullscreenExitIcon: () => JSX.Element;
-        showFullscreenButton: boolean;
-        iosThumbImage: any;
-        iosTrackImage: any;
-        textStyle: TextStyle;
-        debug: boolean;
-        playbackCallback: (callback: PlaybackStatus) => void;
-        errorCallback: (error: IError) => void;
-        switchToLandscape: () => void;
-        switchToPortrait: () => void;
-        showControlsOnLoad: boolean;
-        sliderColor: string;
-        videoProps: VideoProps;
-    };
-    constructor(props: Props);
-    componentWillReceiveProps(nextProps: Props): void;
-    componentDidMount(): Promise<void>;
-    componentWillUnmount(): void;
-    private handleConnectivityChange;
-    private setPlaybackState;
-    private setSeekState;
-    private playbackCallback;
-    private getSeekSliderPosition;
-    private onSeekSliderValueChange;
-    private onSeekSliderSlidingComplete;
-    private isPlayingOrBufferingOrPaused;
-    private onSeekBarTap;
-    private onSliderLayout;
-    private getMMSSFromMillis;
-    private replay;
-    private togglePlay;
-    private toggleControls;
-    private showControls;
-    private hideControls;
-    private onTimerDone;
-    private resetControlsTimer;
-    render(): JSX.Element;
-}
-export {};
+declare const _default: (props: Pick<Props, "isPortrait" | "videoProps"> & {
+    spinner?: (() => JSX.Element) | undefined;
+    children?: null | undefined;
+    playIcon?: (() => JSX.Element) | undefined;
+    pauseIcon?: (() => JSX.Element) | undefined;
+    fullscreenEnterIcon?: (() => JSX.Element) | undefined;
+    fullscreenExitIcon?: (() => JSX.Element) | undefined;
+    replayIcon?: (() => JSX.Element) | undefined;
+    switchToLandscape?: (() => void) | undefined;
+    switchToPortrait?: (() => void) | undefined;
+    sliderColor?: string | undefined;
+    iosThumbImage?: any;
+    iosTrackImage?: any;
+    showFullscreenButton?: boolean | undefined;
+    textStyle?: {
+        color: string;
+        fontSize: number;
+    } | undefined;
+    errorCallback?: ((error: Error) => void) | undefined;
+    debug?: boolean | undefined;
+    playbackCallback?: (() => undefined) | undefined;
+    fadeInDuration?: number | undefined;
+    quickFadeOutDuration?: number | undefined;
+    fadeOutDuration?: number | undefined;
+    hideControlsTimerDuration?: number | undefined;
+    showControlsOnLoad?: boolean | undefined;
+}, ref?: unknown) => JSX.Element;
+export default _default;
