@@ -2043,12 +2043,13 @@ expo-sqlite@~6.0.0:
     "@types/websql" "^0.0.27"
     lodash "^4.17.11"
 
-expo-video-player@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.2.0.tgz#33705bae055fc495be79af6a1e120e994cf3a829"
-  integrity sha512-/LvvMGtbFlcPpmtgZH2QllU+gc2fM+eCgUq1zl8UflvnCRlsu9EZRAk1XR7OXCE4Io+6/5RhR3rux0KeSHvWlA==
+expo-video-player@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.3.0.tgz#ca6c6abf7e206d9ee14acc9fa8fdde2205f03454"
+  integrity sha512-FTfMaKej5+AC1AtUL+MAdKpwxUJaLbgrF+1eP+LRu9l0oUv2XF20Q3loKy1KUGHe6nYb3q8UWTKZh6VtLUD39w==
   dependencies:
-    tslib "^1.9.3"
+    tslib "^1.10.0"
+    with-default-props "^0.2.1"
 
 expo-web-browser@~6.0.0:
   version "6.0.0"
@@ -4966,7 +4967,7 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
 
-tslib@^1.9.3:
+tslib@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
@@ -5194,6 +5195,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+with-default-props@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/with-default-props/-/with-default-props-0.2.1.tgz#41470545d2fa945308993c86a81c7481c298cb95"
+  integrity sha512-yTrBg7EGzFwpZLCN5M4ropSbZ/V+scx5DXBE6HZhKCevsRaYCRBBf/69UvfaWxu/zRaWX5j9Y/F4YFs1Q1yg4w==
 
 wordwrap@^1.0.0:
   version "1.0.0"
