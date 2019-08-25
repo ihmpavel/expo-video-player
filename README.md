@@ -12,7 +12,7 @@ If you are using TypeScript, _type definitions_ are in the project itself.
 
 ## Usage
 
-Example app can be found in the [example folder](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
+Example app can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
 
 ```
 import { Video } from 'expo-av'

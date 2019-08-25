@@ -17,5 +17,5 @@
 ## 1.1.0 (April 12, 2019)
 - Fix: Crashing app
 
-## 1.0.0 (December 22, 2019)
+## 1.0.0 (December 22, 2018)
 - Initial release 🙌🤗
