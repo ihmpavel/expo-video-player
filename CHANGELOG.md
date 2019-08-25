@@ -1,6 +1,9 @@
 # ChangeLog
 
 
+## 1.3.1 (August 25, 2019)
+- Fix: Do not add to npm registry Lint source files
+
 ## 1.3.0 (August 25, 2019)
 - Enhancement: Added changelog
 - Enhancement: Fully rewritten, code cleanup
