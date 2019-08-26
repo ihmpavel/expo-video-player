@@ -39,6 +39,8 @@ prop | type | default | required | description
 _VIDEO PROPS_ |
 **videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video/#props) to Expo component (at least source is required)
 **isPortrait** | `boolean` |  | :heavy_check_mark: | Specify orientation of the video
+**width** | `number` | `Dimensions.get('window').width` | :x: | Specify width of the video (automatically set height based on screen ratio)
+**height** | `number` | `Dimensions.get('window').height` | :x: | Specify height (automatically set width based on screen ratio)
 _ANIMATIONS_ |
 **fadeInDuration** | `number` | `200` | :x: | How long should the fadeIn animation for the controls run? (in milliseconds)
 **fadeOutDuration** | `number` | `1000` | :x: | How long should the fadeOut animation run? (in milliseconds)
@@ -58,6 +60,7 @@ _APPEARANCE_ |
 **showControlsOnLoad** | `boolean` | `false` | :x: | Boolean indicating whether controls should be visible on load
 **sliderColor** | `color` | `#009485` | :x: | Color for ANDROID [thumbTintColor](https://facebook.github.io/react-native/docs/slider#thumbtintcolor) and iOS [minimumTrackImage](https://facebook.github.io/react-native/docs/slider#thumbtintcolor)
 **textStyle** | `TextStyle` | `{color: '#FFF', fontSize: 12}` | :x: | Default styling for text (eg. errors)
+**videoBackground** | `color` | `#000` | :x: | Default background around video
 _CALLBACKS_ |
 **errorCallback** | `function` | `error => console.error('Error: ', error.message, error.type, error.obj)` | :x: | Function when an error occurs
 **playbackCallback** | `function` | `callback => {}` | :x: | Function when playing changes (buffering/seeking/...)

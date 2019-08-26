@@ -15,6 +15,8 @@ declare type Error = {
 declare type Props = {
     videoProps: VideoProps;
     isPortrait: boolean;
+    width: number;
+    height: number;
     children: ReactNode;
     fadeInDuration: number;
     fadeOutDuration: number;
@@ -30,6 +32,7 @@ declare type Props = {
     iosThumbImage: ImageURISource;
     iosTrackImage: ImageURISource;
     textStyle: TextStyle;
+    videoBackground: Color;
     debug: boolean;
     playbackCallback: (callback: PlaybackStatus) => void;
     errorCallback: (error: Error) => void;
@@ -41,6 +44,8 @@ declare type Props = {
 declare const _default: (props: Pick<Props, "isPortrait" | "videoProps"> & {
     spinner?: (() => JSX.Element) | undefined;
     children?: null | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
     playIcon?: (() => JSX.Element) | undefined;
     pauseIcon?: (() => JSX.Element) | undefined;
     fullscreenEnterIcon?: (() => JSX.Element) | undefined;
@@ -56,6 +61,7 @@ declare const _default: (props: Pick<Props, "isPortrait" | "videoProps"> & {
         color: string;
         fontSize: number;
     } | undefined;
+    videoBackground?: string | undefined;
     errorCallback?: ((error: Error) => void) | undefined;
     debug?: boolean | undefined;
     playbackCallback?: (() => undefined) | undefined;

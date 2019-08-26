@@ -1,10 +1,10 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Video } from 'expo-av'
 import React from 'react'
 import VideoPlayer from 'expo-video-player'
 
 const App = () => (
-  <View style={styles.container}>
+  <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
     <VideoPlayer
       videoProps={{
         shouldPlay: true,
@@ -13,16 +13,59 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      isPortrait={false}
+      isPortrait={true}
+      videoBackground='transparent'
+      height={250}
     />
-  </View>
+
+    <VideoPlayer
+      videoProps={{
+        shouldPlay: false,
+        resizeMode: Video.RESIZE_MODE_CONTAIN,
+        source: {
+          uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        },
+      }}
+      isPortrait={true}
+      showControlsOnLoad={true}
+      showFullscreenButton={false}
+      width={200}
+      height={200}
+    />
+
+    <VideoPlayer
+      videoProps={{
+        shouldPlay: false,
+        resizeMode: Video.RESIZE_MODE_CONTAIN,
+        source: {
+          uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        },
+      }}
+      isPortrait={true}
+      videoBackground='yellow'
+      height={100}
+    />
+
+    <VideoPlayer
+      videoProps={{
+        shouldPlay: true,
+        resizeMode: Video.RESIZE_MODE_CONTAIN,
+        source: {
+          uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        },
+      }}
+      isPortrait={true}
+    />
+  </ScrollView>
 )
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     backgroundColor: '#FFF',
     flex: 1,
+  },
+  contentContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
   },
 })
