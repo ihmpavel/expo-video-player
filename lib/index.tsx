@@ -26,8 +26,8 @@ import {
 } from './assets/icons'
 import { PlaybackStatus } from 'expo-av/build/AV'
 import { VideoProps } from 'expo-av/build/Video'
+import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
-import NetInfo from '@react-native-community/netinfo'
 import React, { ReactNode, useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -73,6 +73,10 @@ type Error = {
 
 const defaultProps = {
   children: null,
+  debug: false,
+
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height,
 
   // Animations
   fadeInDuration: 200,
@@ -96,9 +100,9 @@ const defaultProps = {
     color: '#FFF',
     fontSize: 12,
   },
+  videoBackground: '#000',
 
   // Callbacks
-  debug: false,
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   playbackCallback: () => undefined,
@@ -113,7 +117,10 @@ const defaultProps = {
 type Props = {
   // Expo props
   videoProps: VideoProps
+
   isPortrait: boolean
+  width: number
+  height: number
 
   children: ReactNode
 
@@ -136,6 +143,7 @@ type Props = {
   iosThumbImage: ImageURISource
   iosTrackImage: ImageURISource
   textStyle: TextStyle
+  videoBackground: Color
 
   // Callbacks
   debug: boolean
@@ -154,7 +162,7 @@ const VideoPlayer = (props: Props) => {
   let shouldPlayAtEndOfSeek = false
   let controlsTimer: number | null = null
 
-  const [isOnline, setIsOnline] = useState<boolean | null>(null)
+  const { isConnected } = useNetInfo()
   const [playbackState, setPlaybackState] = useState<PlaybackStates>(PlaybackStates.Loading)
   const [lastPlaybackStateUpdate, setLastPlaybackStateUpdate] = useState<number>(Date.now())
   const [seekState, setSeekState] = useState<SeekStates>(SeekStates.NotSeeking)
@@ -202,16 +210,8 @@ const VideoPlayer = (props: Props) => {
       throw new Error('`Source` is required')
     }
 
-    const NetInfoListener = NetInfo.addEventListener(({ isConnected }) => {
-      setIsOnline(isConnected)
-      debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`)
-    })
+    debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`)
     setAudio()
-
-    return () => {
-      // removing NetInfoListener
-      NetInfoListener()
-    }
   })
 
   // Handle events during playback
@@ -289,7 +289,7 @@ const VideoPlayer = (props: Props) => {
           updatePlaybackState(PlaybackStates.Ended)
         } else {
           // If the video is buffering but there is no Internet, you go to the Error state
-          if (!isOnline && status.isBuffering) {
+          if (!isConnected && status.isBuffering) {
             updatePlaybackState(PlaybackStates.Error)
             setError(
               'You are probably offline. Please make sure you are connected to the Internet to watch this video'
@@ -306,7 +306,7 @@ const VideoPlayer = (props: Props) => {
   const getSeekSliderPosition = () => {
     if (
       playbackInstance !== null
-      // WILL IT HAPPEN &&
+      // WILL IT HAPPEN? &&
       // playbackInstancePosition !== null &&
       // playbackInstanceDuration !== null
     ) {
@@ -388,17 +388,10 @@ const VideoPlayer = (props: Props) => {
   // Controls view
   const getMMSSFromMillis = (millis: number) => {
     const totalSeconds = millis / 1000
-    const seconds = Math.floor(totalSeconds % 60)
-    const minutes = Math.floor(totalSeconds / 60)
+    const seconds = String(Math.floor(totalSeconds % 60))
+    const minutes = String(Math.floor(totalSeconds / 60))
 
-    const padWithZero = (n: number) => {
-      const str = n.toString()
-      if (n < 10) {
-        return '0' + str
-      }
-      return str
-    }
-    return padWithZero(minutes) + ':' + padWithZero(seconds)
+    return minutes.padStart(2, '0') + ':' + seconds.padStart(2, '0')
   }
 
   // Controls Behavior
@@ -498,19 +491,6 @@ const VideoPlayer = (props: Props) => {
     controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration)
   }
 
-  // render() {
-  const { width: maxWidth, height: maxHeight } = Dimensions.get('window')
-  const centeredContentWidth = 60
-  const screenRatio = maxWidth / maxHeight
-
-  let videoHeight = maxHeight
-  let videoWidth = videoHeight * screenRatio
-
-  if (videoWidth > maxWidth) {
-    videoWidth = maxWidth
-    videoHeight = videoWidth / screenRatio
-  }
-
   const {
     playIcon: VideoPlayIcon,
     pauseIcon: VideoPauseIcon,
@@ -527,7 +507,21 @@ const VideoPlayer = (props: Props) => {
     showFullscreenButton,
     textStyle,
     videoProps,
+    videoBackground,
+    width,
+    height,
   } = props
+
+  const centeredContentWidth = 60
+  const screenRatio = width / height
+
+  let videoHeight = height
+  let videoWidth = videoHeight * screenRatio
+
+  if (videoWidth > width) {
+    videoWidth = props.width
+    videoHeight = videoWidth / screenRatio
+  }
 
   // Do not let the user override `ref`, `callback`, and `style`
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -619,7 +613,7 @@ const VideoPlayer = (props: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={toggleControls}>
-      <View style={{ backgroundColor: 'black' }}>
+      <View style={{ backgroundColor: videoBackground }}>
         <Video
           source={source}
           ref={component => {
@@ -746,8 +740,6 @@ const VideoPlayer = (props: Props) => {
       </View>
     </TouchableWithoutFeedback>
   )
-  // }
 }
 
-// export default VideoPlayer
 export default withDefaultProps(VideoPlayer, defaultProps)
