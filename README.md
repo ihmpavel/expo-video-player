@@ -1,7 +1,7 @@
 # Basic info
 Video component for Expo built on default Video component. Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_ 
 
-The library has a lot of options, but most of them are optional (`source` and `isPortrait` are required). See the props table below. The `Video` component also supports phones, which screen ratio is not 16:9.
+The library has a lot of options, but most of them are optional (`source` and `inFullscreen` are required). See the props table below. The `Video` component also supports phones, which screen ratio is not 16:9.
 
 
 ## Installation
@@ -26,7 +26,7 @@ import VideoPlayer from 'expo-video-player'
       uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     },
   }}
-  isPortrait={true}
+  inFullscreen={true}
 />
 ```
 
@@ -38,7 +38,8 @@ prop | type | default | required | description
 **debug** | `boolean` | `false` | :x: | Write internal logs to console
 _VIDEO PROPS_ |
 **videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video/#props) to Expo component (at least source is required)
-**isPortrait** | `boolean` |  | :heavy_check_mark: | Specify orientation of the video
+**inFullscreen** | `boolean` |  | :heavy_check_mark: | Specify if video is inFullscreen (show enter/leave fullscreen icons)
+**isPortrait** (_@deprecated - will be removed in next major version_) | `boolean` |  | :heavy_check_mark: | Specify orientation of the video
 **width** | `number` | `Dimensions.get('window').width` | :x: | Specify width of the video (automatically set height based on screen ratio)
 **height** | `number` | `Dimensions.get('window').height` | :x: | Specify height (automatically set width based on screen ratio)
 _ANIMATIONS_ |

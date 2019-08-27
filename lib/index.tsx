@@ -39,30 +39,30 @@ const BUFFERING_SHOW_DELAY = 200
 
 // UI states
 enum ControlStates {
-  Shown,
-  Showing,
-  Hidden,
-  Hiding,
+  Shown = 'Show',
+  Showing = 'Showing',
+  Hidden = 'Hidden',
+  Hiding = 'Hiding',
 }
 
 enum PlaybackStates {
-  Loading,
-  Playing,
-  Paused,
-  Buffering,
-  Error,
-  Ended,
+  Loading = 'Loading',
+  Playing = 'Playing',
+  Paused = 'Paused',
+  Buffering = 'Buffering',
+  Error = 'Error',
+  Ended = 'Ended',
 }
 
 enum SeekStates {
-  NotSeeking,
-  Seeking,
-  Seeked,
+  NotSeeking = 'NotSeeking',
+  Seeking = 'Seeking',
+  Seeked = 'Seeked',
 }
 
 enum ErrorSeverity {
-  Fatal,
-  NonFatal,
+  Fatal = 'Fatal',
+  NonFatal = 'NonFatal',
 }
 
 type Error = {
@@ -74,6 +74,11 @@ type Error = {
 const defaultProps = {
   children: null,
   debug: false,
+
+  inFullscreen: false,
+  // @deprecated - will be removed in next major version
+  // use instead `inFullscreen`
+  isPortrait: false,
 
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,
@@ -118,7 +123,11 @@ type Props = {
   // Expo props
   videoProps: VideoProps
 
+  inFullscreen: boolean
+  // @deprecated - will be removed in next major version
+  // use instead `inFullscreen`
   isPortrait: boolean
+
   width: number
   height: number
 
@@ -201,16 +210,14 @@ const VideoPlayer = (props: Props) => {
     }
   }
 
-  // https://usehooks.com/useEventListener/
   useEffect(() => {
-    const { videoProps, debug } = props
+    const { videoProps } = props
 
     if (videoProps.source === null) {
       console.error('`Source` is a required property')
       throw new Error('`Source` is required')
     }
 
-    debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`)
     setAudio()
   })
 
@@ -500,7 +507,9 @@ const VideoPlayer = (props: Props) => {
     replayIcon: VideoReplayIcon,
     switchToLandscape,
     switchToPortrait,
-    isPortrait,
+    inFullscreen: newIsPortrait,
+    // @deprecated - will be removed in next major version
+    isPortrait: deprecatedIsPortrait,
     sliderColor,
     iosThumbImage,
     iosTrackImage,
@@ -511,6 +520,9 @@ const VideoPlayer = (props: Props) => {
     width,
     height,
   } = props
+
+  // remove in next major version
+  const inFullscreen = newIsPortrait ? newIsPortrait : deprecatedIsPortrait
 
   const centeredContentWidth = 60
   const screenRatio = width / height
@@ -730,10 +742,10 @@ const VideoPlayer = (props: Props) => {
               transparent={true}
               center={false}
               callback={() => {
-                isPortrait ? switchToLandscape() : switchToPortrait()
+                inFullscreen ? switchToLandscape() : switchToPortrait()
               }}
             >
-              {isPortrait ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
+              {inFullscreen ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
             </Control>
           )}
         </Animated.View>

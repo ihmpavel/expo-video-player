@@ -11,7 +11,7 @@
     "@react-native-community/netinfo": "~3.2.1",
     "expo": "^34.0.4",
     "expo-av": "~6.0.0",
-    "expo-video-player": "^1.4.0",
+    "expo-video-player": "^1.5.0",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",

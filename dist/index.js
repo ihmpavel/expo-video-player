@@ -14,34 +14,38 @@ const BUFFERING_SHOW_DELAY = 200;
 // UI states
 var ControlStates;
 (function (ControlStates) {
-    ControlStates[ControlStates["Shown"] = 0] = "Shown";
-    ControlStates[ControlStates["Showing"] = 1] = "Showing";
-    ControlStates[ControlStates["Hidden"] = 2] = "Hidden";
-    ControlStates[ControlStates["Hiding"] = 3] = "Hiding";
+    ControlStates["Shown"] = "Show";
+    ControlStates["Showing"] = "Showing";
+    ControlStates["Hidden"] = "Hidden";
+    ControlStates["Hiding"] = "Hiding";
 })(ControlStates || (ControlStates = {}));
 var PlaybackStates;
 (function (PlaybackStates) {
-    PlaybackStates[PlaybackStates["Loading"] = 0] = "Loading";
-    PlaybackStates[PlaybackStates["Playing"] = 1] = "Playing";
-    PlaybackStates[PlaybackStates["Paused"] = 2] = "Paused";
-    PlaybackStates[PlaybackStates["Buffering"] = 3] = "Buffering";
-    PlaybackStates[PlaybackStates["Error"] = 4] = "Error";
-    PlaybackStates[PlaybackStates["Ended"] = 5] = "Ended";
+    PlaybackStates["Loading"] = "Loading";
+    PlaybackStates["Playing"] = "Playing";
+    PlaybackStates["Paused"] = "Paused";
+    PlaybackStates["Buffering"] = "Buffering";
+    PlaybackStates["Error"] = "Error";
+    PlaybackStates["Ended"] = "Ended";
 })(PlaybackStates || (PlaybackStates = {}));
 var SeekStates;
 (function (SeekStates) {
-    SeekStates[SeekStates["NotSeeking"] = 0] = "NotSeeking";
-    SeekStates[SeekStates["Seeking"] = 1] = "Seeking";
-    SeekStates[SeekStates["Seeked"] = 2] = "Seeked";
+    SeekStates["NotSeeking"] = "NotSeeking";
+    SeekStates["Seeking"] = "Seeking";
+    SeekStates["Seeked"] = "Seeked";
 })(SeekStates || (SeekStates = {}));
 var ErrorSeverity;
 (function (ErrorSeverity) {
-    ErrorSeverity[ErrorSeverity["Fatal"] = 0] = "Fatal";
-    ErrorSeverity[ErrorSeverity["NonFatal"] = 1] = "NonFatal";
+    ErrorSeverity["Fatal"] = "Fatal";
+    ErrorSeverity["NonFatal"] = "NonFatal";
 })(ErrorSeverity || (ErrorSeverity = {}));
 const defaultProps = {
     children: null,
     debug: false,
+    inFullscreen: false,
+    // @deprecated - will be removed in next major version
+    // use instead `inFullscreen`
+    isPortrait: false,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
     // Animations
@@ -113,14 +117,12 @@ const VideoPlayer = (props) => {
             });
         }
     };
-    // https://usehooks.com/useEventListener/
     useEffect(() => {
-        const { videoProps, debug } = props;
+        const { videoProps } = props;
         if (videoProps.source === null) {
             console.error('`Source` is a required property');
             throw new Error('`Source` is required');
         }
-        debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`);
         setAudio();
     });
     // Handle events during playback
@@ -349,7 +351,11 @@ const VideoPlayer = (props) => {
         }
         controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration);
     };
-    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, isPortrait, sliderColor, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
+    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen: newIsPortrait, 
+    // @deprecated - will be removed in next major version
+    isPortrait: deprecatedIsPortrait, sliderColor, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
+    // remove in next major version
+    const inFullscreen = newIsPortrait ? newIsPortrait : deprecatedIsPortrait;
     const centeredContentWidth = 60;
     const screenRatio = width / height;
     let videoHeight = height;
@@ -492,9 +498,9 @@ const VideoPlayer = (props) => {
 
           
           {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
-        isPortrait ? switchToLandscape() : switchToPortrait();
+        inFullscreen ? switchToLandscape() : switchToPortrait();
     }}>
-              {isPortrait ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
+              {inFullscreen ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
             </Control>)}
         </Animated.View>
       </View>
