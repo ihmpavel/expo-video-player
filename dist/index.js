@@ -115,12 +115,11 @@ const VideoPlayer = (props) => {
     };
     // https://usehooks.com/useEventListener/
     useEffect(() => {
-        const { videoProps, debug } = props;
+        const { videoProps } = props;
         if (videoProps.source === null) {
             console.error('`Source` is a required property');
             throw new Error('`Source` is required');
         }
-        debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`);
         setAudio();
     });
     // Handle events during playback
@@ -128,7 +127,7 @@ const VideoPlayer = (props) => {
         if (playbackState !== newPlaybackState) {
             const { debug } = props;
             debug &&
-                console.info('[playback]', playbackState, ' -> ', newPlaybackState, ' [seek] ', seekState, ' [shouldPlay] ', shouldPlay);
+                console.info('[playback]', PlaybackStates[playbackState], ' -> ', PlaybackStates[newPlaybackState], ' [seek] ', SeekStates[seekState], ' [shouldPlay] ', shouldPlay);
             setPlaybackState(newPlaybackState);
             setLastPlaybackStateUpdate(Date.now());
         }
@@ -136,7 +135,7 @@ const VideoPlayer = (props) => {
     const updateSeekState = (newSeekState) => {
         const { debug } = props;
         debug &&
-            console.info('[seek]', seekState, ' -> ', newSeekState, ' [playback] ', playbackState, ' [shouldPlay] ', shouldPlay);
+            console.info('[seek]', SeekStates[seekState], ' -> ', SeekStates[newSeekState], ' [playback] ', PlaybackStates[playbackState], ' [shouldPlay] ', shouldPlay);
         setSeekState(newSeekState);
         // Don't keep the controls timer running when the state is seeking
         if (newSeekState === SeekStates.Seeking) {

@@ -203,14 +203,13 @@ const VideoPlayer = (props: Props) => {
 
   // https://usehooks.com/useEventListener/
   useEffect(() => {
-    const { videoProps, debug } = props
+    const { videoProps } = props
 
     if (videoProps.source === null) {
       console.error('`Source` is a required property')
       throw new Error('`Source` is required')
     }
 
-    debug && console.info(`User is ${isConnected ? 'on' : 'off'}line`)
     setAudio()
   })
 
@@ -221,11 +220,11 @@ const VideoPlayer = (props: Props) => {
       debug &&
         console.info(
           '[playback]',
-          playbackState,
+          PlaybackStates[playbackState],
           ' -> ',
-          newPlaybackState,
+          PlaybackStates[newPlaybackState],
           ' [seek] ',
-          seekState,
+          SeekStates[seekState],
           ' [shouldPlay] ',
           shouldPlay
         )
@@ -240,11 +239,11 @@ const VideoPlayer = (props: Props) => {
     debug &&
       console.info(
         '[seek]',
-        seekState,
+        SeekStates[seekState],
         ' -> ',
-        newSeekState,
+        SeekStates[newSeekState],
         ' [playback] ',
-        playbackState,
+        PlaybackStates[playbackState],
         ' [shouldPlay] ',
         shouldPlay
       )
