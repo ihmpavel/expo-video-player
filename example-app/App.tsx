@@ -13,7 +13,7 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      isPortrait={true}
+      inFullscreen={true}
       videoBackground='transparent'
       height={250}
     />
@@ -26,7 +26,7 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      isPortrait={true}
+      inFullscreen={true}
       showControlsOnLoad={true}
       showFullscreenButton={false}
       width={200}
@@ -41,7 +41,7 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      isPortrait={true}
+      inFullscreen={true}
       videoBackground='yellow'
       height={100}
     />
@@ -54,7 +54,7 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      isPortrait={true}
+      inFullscreen={true}
     />
   </ScrollView>
 )

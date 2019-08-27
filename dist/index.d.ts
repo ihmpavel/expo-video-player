@@ -4,8 +4,8 @@ import { PlaybackStatus } from 'expo-av/build/AV';
 import { VideoProps } from 'expo-av/build/Video';
 import { ReactNode } from 'react';
 declare enum ErrorSeverity {
-    Fatal = 0,
-    NonFatal = 1
+    Fatal = "Fatal",
+    NonFatal = "NonFatal"
 }
 declare type Error = {
     type: ErrorSeverity;
@@ -14,6 +14,7 @@ declare type Error = {
 };
 declare type Props = {
     videoProps: VideoProps;
+    inFullscreen: boolean;
     isPortrait: boolean;
     width: number;
     height: number;
@@ -41,7 +42,7 @@ declare type Props = {
     showControlsOnLoad: boolean;
     sliderColor: Color;
 };
-declare const _default: (props: Pick<Props, "isPortrait" | "videoProps"> & {
+declare const _default: (props: Pick<Props, "videoProps"> & {
     spinner?: (() => JSX.Element) | undefined;
     children?: null | undefined;
     height?: number | undefined;
@@ -53,6 +54,8 @@ declare const _default: (props: Pick<Props, "isPortrait" | "videoProps"> & {
     replayIcon?: (() => JSX.Element) | undefined;
     switchToLandscape?: (() => void) | undefined;
     switchToPortrait?: (() => void) | undefined;
+    inFullscreen?: boolean | undefined;
+    isPortrait?: boolean | undefined;
     sliderColor?: string | undefined;
     iosThumbImage?: any;
     iosTrackImage?: any;

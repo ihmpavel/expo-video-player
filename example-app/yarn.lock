@@ -1831,9 +1831,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.191:
-  version "1.3.238"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.238.tgz#6d6496e393a709b7b186823281d49b1a5d96a6cf"
-  integrity sha512-k+s6EIiSTgfOm7WiMlGBMMMtBQXSui8OfLN1sXU3RohJOuLGVq0lVm7hXyDIDBcbPM0MeZabAdIPQOSEZT3ZLg==
+  version "1.3.241"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.241.tgz#859dc49ab7f90773ed698767372d384190f60cb1"
+  integrity sha512-Gb9E6nWZlbgjDDNe5cAvMJixtn79krNJ70EDpq/M10lkGo7PGtBUe7Y0CYVHsBScRwi6ybCS+YetXAN9ysAHDg==
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -2043,10 +2043,10 @@ expo-sqlite@~6.0.0:
     "@types/websql" "^0.0.27"
     lodash "^4.17.11"
 
-expo-video-player@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.3.0.tgz#ca6c6abf7e206d9ee14acc9fa8fdde2205f03454"
-  integrity sha512-FTfMaKej5+AC1AtUL+MAdKpwxUJaLbgrF+1eP+LRu9l0oUv2XF20Q3loKy1KUGHe6nYb3q8UWTKZh6VtLUD39w==
+expo-video-player@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-1.4.0.tgz#b44e6d79047f6ce004ef462c9fd46c052e9c96dc"
+  integrity sha512-+NDRgTNt5Yrq+u4JbY27AqcIHnFcrr5SJalI5hT5RaEUb6TzEe1+rEM4j3I+4h7QAbJcvyjxsDZJxNuH58ap6Q==
   dependencies:
     tslib "^1.10.0"
     with-default-props "^0.2.1"
@@ -4350,9 +4350,9 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     safe-regex "^1.1.0"
 
 regexp-tree@^0.1.6:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.11.tgz#c9c7f00fcf722e0a56c7390983a7a63dd6c272f3"
-  integrity sha512-7/l/DgapVVDzZobwMCCgMlqiqyLFJ0cduo/j+3BcDJIB+yJdsYCfKuI3l/04NV+H/rfNRdPIDbXNZHM9XvQatg==
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.12.tgz#28eaaa6e66eeb3527c15108a3ff740d9e574e420"
+  integrity sha512-TsXZ8+cv2uxMEkLfgwO0E068gsNMLfuYwMMhiUxf0Kw2Vcgzq93vgl6wIlIYuPmfMqMjfQ9zAporiozqCnwLuQ==
 
 regexpu-core@^4.5.4:
   version "4.5.5"
