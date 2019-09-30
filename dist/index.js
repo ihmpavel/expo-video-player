@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __rest } from "tslib";
 import { Animated, Dimensions, Slider, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
@@ -368,9 +368,9 @@ const VideoPlayer = (props) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = tslib_1.__rest(videoProps, ["ref", "style", "onPlaybackStatusUpdate", "source"]);
+    const { ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = __rest(videoProps, ["ref", "style", "onPlaybackStatusUpdate", "source"]);
     const Control = (_a) => {
-        var { callback, center, children, transparent = false } = _a, otherProps = tslib_1.__rest(_a, ["callback", "center", "children", "transparent"]);
+        var { callback, center, children, transparent = false } = _a, otherProps = __rest(_a, ["callback", "center", "children", "transparent"]);
         return (<TouchableOpacity {...otherProps} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }} onPress={() => {
             resetControlsTimer();
             callback();
@@ -389,7 +389,7 @@ const VideoPlayer = (props) => {
     const CenteredView = (_a) => {
         var { children, style: viewStyle } = _a, 
         // pointerEvents,
-        otherProps = tslib_1.__rest(_a, ["children", "style"]);
+        otherProps = __rest(_a, ["children", "style"]);
         return (<Animated.View {...otherProps} style={[
             {
                 position: 'absolute',
@@ -452,7 +452,9 @@ const VideoPlayer = (props) => {
         opacity: controlsOpacity,
     }}>
               <Control center={true} callback={togglePlay}>
-                {playbackState === PlaybackStates.Playing ? <VideoPauseIcon /> : <VideoPlayIcon />}
+                
+                {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
+                {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
             </CenteredView>)}
 
