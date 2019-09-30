@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { Video } from 'expo-av'
 import React from 'react'
 import VideoPlayer from 'expo-video-player'

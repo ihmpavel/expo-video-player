@@ -674,7 +674,9 @@ const VideoPlayer = (props: Props) => {
               }}
             >
               <Control center={true} callback={togglePlay}>
-                {playbackState === PlaybackStates.Playing ? <VideoPauseIcon /> : <VideoPlayIcon />}
+                {/* Due to rendering, we have to split them */}
+                {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
+                {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
             </CenteredView>
           )}

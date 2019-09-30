@@ -9,19 +9,19 @@
   },
   "dependencies": {
     "@react-native-community/netinfo": "~3.2.1",
-    "expo": "^34.0.4",
-    "expo-av": "~6.0.0",
-    "expo-video-player": "^1.5.0",
+    "expo": "^35.0.0",
+    "expo-av": "~7.0.1",
+    "expo-video-player": "^1.5.1",
     "react": "16.8.3",
-    "react-dom": "^16.8.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-    "react-native-web": "^0.11.4"
+    "react-dom": "^16.10.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-web": "^0.11.7"
   },
   "devDependencies": {
-    "@types/react": "^16.9.2",
-    "@types/react-native": "^0.60.8",
-    "babel-preset-expo": "^6.0.0",
-    "typescript": "^3.5.3"
+    "@types/react": "^16.9.4",
+    "@types/react-native": "^0.60.17",
+    "babel-preset-expo": "^7.0.0",
+    "typescript": "^3.6.3"
   },
   "private": true
 }

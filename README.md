@@ -3,6 +3,8 @@ Video component for Expo built on default Video component. Inspired by [expo/vid
 
 The library has a lot of options, but most of them are optional (`source` and `inFullscreen` are required). See the props table below. The `Video` component also supports phones, which screen ratio is not 16:9.
 
+For compatibility informations check <a href='#compatibility'>Compatibility</a>
+
 
 ## Installation
 `yarn add expo-video-player` _or_ `npm install expo-video-player`
@@ -11,7 +13,6 @@ If you are using TypeScript, _type definitions_ are in the project itself.
 
 
 ## Usage
-
 Example app can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
 
 ```
@@ -39,7 +40,6 @@ prop | type | default | required | description
 _VIDEO PROPS_ |
 **videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video/#props) to Expo component (at least source is required)
 **inFullscreen** | `boolean` |  | :heavy_check_mark: | Specify if video is inFullscreen (show enter/leave fullscreen icons)
-**isPortrait** (_@deprecated - will be removed in next major version_) | `boolean` |  | :heavy_check_mark: | Specify orientation of the video
 **width** | `number` | `Dimensions.get('window').width` | :x: | Specify width of the video (automatically set height based on screen ratio)
 **height** | `number` | `Dimensions.get('window').height` | :x: | Specify height (automatically set width based on screen ratio)
 _ANIMATIONS_ |
@@ -67,6 +67,17 @@ _CALLBACKS_ |
 **playbackCallback** | `function` | `callback => {}` | :x: | Function when playing changes (buffering/seeking/...)
 **switchToPortrait** | `function` | `() => console.warn('Pass in this function 'switchToPortrait' in props to enable fullscreening')` | :x: | Pass your function to make something on click (eg. rotate phone)
 **switchToLandscape** | `function` | `() => console.warn('Pass in this function 'switchToLandscape' in props to enable fullscreening')` | :x: | Pass your function to make something on click (eg. rotate phone)
+
+
+## Compatibility
+Library version | Expo SDK version
+---- | -------
+1.5.x | >= SDK 34 
+1.4.x | >= SDK 34 
+1.3.x | >= SDK 34 
+1.2.x | >= SDK 33
+1.1.x | >= SDK 32
+1.x.x | >= SDK 32
 
 
 ### CHANGELOG

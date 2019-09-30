@@ -1,6 +1,14 @@
 # ChangeLog
 
 
+## 1.5.1 (September 30, 2019)
+- Fix: Play/Pause icon clicking
+
+## 1.5.0 (August 27, 2019)
+- Enhancements: Human readable debug
+- Enhancements: Renamed `isPortrait` to `inFullscreen`
+- Fix: Removed buggy internet status debug
+
 ## 1.4.0 (August 27, 2019)
 - Enhancement: Added width/height props to `<Video />` [#7](https://github.com/ihmpavel/expo-video-player/issues/7)
 - Enhancement: Added `videoBackground` prop
