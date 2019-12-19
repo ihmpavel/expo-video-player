@@ -15,7 +15,7 @@ const App = () => (
       }}
       inFullscreen={true}
       videoBackground='transparent'
-      height={250}
+      height={220}
     />
 
     <VideoPlayer
