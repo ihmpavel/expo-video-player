@@ -1,15 +1,16 @@
 # Basic info
 Video component for Expo built on default Video component. Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_ 
 
-The library has a lot of options, but most of them are optional (`source` and `inFullscreen` are required). See the props table below. The `Video` component also supports phones, which screen ratio is not 16:9.
+The package has lot of configuration options to fix your needs. Only `source` and `inFullscreen` are required. See the props table below. The `Video` component also supports phones, which screen ratio is not standard.
 
-For compatibility informations check <a href='#compatibility'>Compatibility</a>
+For compatibility information check <a href='#compatibility'>Compatibility</a>
 
 
 ## Installation
+- Expo video player
 `yarn add expo-video-player` _or_ `npm install expo-video-player`
-
-If you are using TypeScript, _type definitions_ are in the project itself.
+- Dependencies
+You may also need `expo-av` and `@react-native-community/netinfo`. Install them with `expo-cli` (`expo install expo-av @react-native-community/netinfo`)
 
 
 ## Usage

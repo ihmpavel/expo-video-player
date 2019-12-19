@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 1.5.2 (December 20, 2019)
+- Enhancements: Expo SDK 36
+- Enhancements: Updated README
 
 ## 1.5.1 (September 30, 2019)
 - Fix: Play/Pause icon clicking
