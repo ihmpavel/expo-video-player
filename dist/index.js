@@ -429,18 +429,16 @@ const VideoPlayer = (props) => {
         
         {((playbackState === PlaybackStates.Buffering &&
         Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
-        playbackState === PlaybackStates.Loading) && (<View style={[
-        {
-            position: 'absolute',
-            left: (videoWidth - centeredContentWidth) / 2,
-            top: (videoHeight - centeredContentWidth) / 2,
-            width: centeredContentWidth,
-            height: centeredContentWidth,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-    ]}>
+        playbackState === PlaybackStates.Loading) && (<View style={{
+        position: 'absolute',
+        left: (videoWidth - centeredContentWidth) / 2,
+        top: (videoHeight - centeredContentWidth) / 2,
+        width: centeredContentWidth,
+        height: centeredContentWidth,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }}>
             <VideoSpinner />
           </View>)}
 
