@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 1.5.3 (December 29, 2019)
+- Fix: TypeScript types
+- Enhancements: Updated README
+
 ## 1.5.2 (December 20, 2019)
 - Enhancements: Expo SDK 36
 - Enhancements: Updated README

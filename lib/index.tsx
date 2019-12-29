@@ -76,9 +76,6 @@ const defaultProps = {
   debug: false,
 
   inFullscreen: false,
-  // @deprecated - will be removed in next major version
-  // use instead `inFullscreen`
-  isPortrait: false,
 
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,
@@ -109,8 +106,8 @@ const defaultProps = {
 
   // Callbacks
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  playbackCallback: () => undefined,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  playbackCallback: (callback: PlaybackStatus) => {},
   switchToLandscape: () =>
     console.warn(`Pass in this function 'switchToLandscape in props to enable fullscreening`),
   switchToPortrait: () =>
@@ -124,9 +121,6 @@ type Props = {
   videoProps: VideoProps
 
   inFullscreen: boolean
-  // @deprecated - will be removed in next major version
-  // use instead `inFullscreen`
-  isPortrait: boolean
 
   width: number
   height: number
@@ -183,9 +177,7 @@ const VideoPlayer = (props: Props) => {
   const [controlsState, setControlsState] = useState(
     props.showControlsOnLoad ? ControlStates.Shown : ControlStates.Hidden
   )
-  const [controlsOpacity, setControlsOpacity] = useState(
-    new Animated.Value(props.showControlsOnLoad ? 1 : 0)
-  )
+  const [controlsOpacity] = useState(new Animated.Value(props.showControlsOnLoad ? 1 : 0))
 
   // Set audio mode to play even in silent mode (like the YouTube app)
   const setAudio = async () => {
@@ -507,9 +499,7 @@ const VideoPlayer = (props: Props) => {
     replayIcon: VideoReplayIcon,
     switchToLandscape,
     switchToPortrait,
-    inFullscreen: newIsPortrait,
-    // @deprecated - will be removed in next major version
-    isPortrait: deprecatedIsPortrait,
+    inFullscreen,
     sliderColor,
     iosThumbImage,
     iosTrackImage,
@@ -520,9 +510,6 @@ const VideoPlayer = (props: Props) => {
     width,
     height,
   } = props
-
-  // remove in next major version
-  const inFullscreen = newIsPortrait ? newIsPortrait : deprecatedIsPortrait
 
   const centeredContentWidth = 60
   const screenRatio = width / height

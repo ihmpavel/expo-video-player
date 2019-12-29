@@ -17,7 +17,8 @@
     "strict": true,
     "target": "es2017",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "skipLibCheck": true
   },
   "include": [
     "lib"

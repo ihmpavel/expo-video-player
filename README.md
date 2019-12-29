@@ -1,7 +1,7 @@
 # Basic info
-Video component for Expo built on default Video component. Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_ 
+Video component for Expo built on default Video component.
 
-The package has lot of configuration options to fix your needs. Only `source` and `inFullscreen` are required. See the props table below. The `Video` component also supports phones, which screen ratio is not standard.
+The package has lot of configuration options to fit your needs. Only `source` and `inFullscreen` are required. See the props table below. The `Video` component also supports phones, which screen ratio is not standard.
 
 For compatibility information check <a href='#compatibility'>Compatibility</a>
 
@@ -92,5 +92,6 @@ Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/tree/master/CH
 
 
 #### Some articles 
+ - Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_ 
  - [Creating a typescript module](https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724)
  - [Creating a component for React](https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce)

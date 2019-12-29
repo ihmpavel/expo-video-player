@@ -43,9 +43,6 @@ const defaultProps = {
     children: null,
     debug: false,
     inFullscreen: false,
-    // @deprecated - will be removed in next major version
-    // use instead `inFullscreen`
-    isPortrait: false,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
     // Animations
@@ -71,8 +68,8 @@ const defaultProps = {
     videoBackground: '#000',
     // Callbacks
     errorCallback: (error) => console.error('Error: ', error.message, error.type, error.obj),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    playbackCallback: () => undefined,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    playbackCallback: (callback) => { },
     switchToLandscape: () => console.warn(`Pass in this function 'switchToLandscape in props to enable fullscreening`),
     switchToPortrait: () => console.warn(`Pass in this function 'switchToPortrait in props to enable fullscreening`),
     showControlsOnLoad: false,
@@ -94,7 +91,7 @@ const VideoPlayer = (props) => {
     const [error, setError] = useState('');
     const [sliderWidth, setSliderWidth] = useState(0);
     const [controlsState, setControlsState] = useState(props.showControlsOnLoad ? ControlStates.Shown : ControlStates.Hidden);
-    const [controlsOpacity, setControlsOpacity] = useState(new Animated.Value(props.showControlsOnLoad ? 1 : 0));
+    const [controlsOpacity] = useState(new Animated.Value(props.showControlsOnLoad ? 1 : 0));
     // Set audio mode to play even in silent mode (like the YouTube app)
     const setAudio = async () => {
         const { errorCallback } = props;
@@ -351,11 +348,7 @@ const VideoPlayer = (props) => {
         }
         controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration);
     };
-    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen: newIsPortrait, 
-    // @deprecated - will be removed in next major version
-    isPortrait: deprecatedIsPortrait, sliderColor, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
-    // remove in next major version
-    const inFullscreen = newIsPortrait ? newIsPortrait : deprecatedIsPortrait;
+    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
     const centeredContentWidth = 60;
     const screenRatio = width / height;
     let videoHeight = height;
