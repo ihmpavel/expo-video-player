@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 1.5.4 (December 29, 2019)
+- Fix: Building
+
 ## 1.5.3 (December 29, 2019)
 - Fix: TypeScript types
 - Enhancements: Updated README
