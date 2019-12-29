@@ -15,7 +15,6 @@ declare type Error = {
 declare type Props = {
     videoProps: VideoProps;
     inFullscreen: boolean;
-    isPortrait: boolean;
     width: number;
     height: number;
     children: ReactNode;
@@ -43,19 +42,16 @@ declare type Props = {
     sliderColor: Color;
 };
 declare const _default: (props: Pick<Props, "videoProps"> & {
-    spinner?: (() => JSX.Element) | undefined;
     children?: null | undefined;
-    height?: number | undefined;
-    width?: number | undefined;
     playIcon?: (() => JSX.Element) | undefined;
     pauseIcon?: (() => JSX.Element) | undefined;
+    spinner?: (() => JSX.Element) | undefined;
     fullscreenEnterIcon?: (() => JSX.Element) | undefined;
     fullscreenExitIcon?: (() => JSX.Element) | undefined;
     replayIcon?: (() => JSX.Element) | undefined;
     switchToLandscape?: (() => void) | undefined;
     switchToPortrait?: (() => void) | undefined;
     inFullscreen?: boolean | undefined;
-    isPortrait?: boolean | undefined;
     sliderColor?: string | undefined;
     iosThumbImage?: any;
     iosTrackImage?: any;
@@ -65,9 +61,11 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
         fontSize: number;
     } | undefined;
     videoBackground?: string | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
     errorCallback?: ((error: Error) => void) | undefined;
     debug?: boolean | undefined;
-    playbackCallback?: (() => undefined) | undefined;
+    playbackCallback?: ((callback: PlaybackStatus) => void) | undefined;
     fadeInDuration?: number | undefined;
     quickFadeOutDuration?: number | undefined;
     fadeOutDuration?: number | undefined;

@@ -1,6 +1,6 @@
 {
   "name": "expo-video-player",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Customizable Video Player controls for Expo",
   "keywords": [
     "customizable",
@@ -24,19 +24,15 @@
     "lint": "eslint \"lib/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"lib/**/*.{js,ts,tsx}\" --fix"
   },
-  "dependencies": {
-    "tslib": "^1.10.0",
-    "with-default-props": "^0.2.1"
-  },
   "devDependencies": {
-    "@react-native-community/netinfo": "~5.0.0",
-    "@types/react": "^16.9.16",
-    "@types/react-native": "^0.60.25",
-    "@typescript-eslint/eslint-plugin": "^2.12.0",
-    "@typescript-eslint/parser": "^2.12.0",
+    "@react-native-community/netinfo": "~5.0.1",
+    "@types/react": "^16.9.17",
+    "@types/react-native": "^0.60.26",
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
     "copyfiles": "^2.1.1",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-config-react-app": "^5.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react-native": "^3.8.1",
@@ -44,7 +40,8 @@
     "expo": "^36.0.2",
     "expo-av": "^8.0.0",
     "prettier": "^1.19.1",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4",
+    "with-default-props": "^0.2.1"
   },
   "peerDependencies": {
     "@react-native-community/netinfo": ">=3.2.1",
