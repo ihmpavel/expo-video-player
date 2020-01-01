@@ -814,10 +814,10 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
-"@react-native-community/netinfo@~5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.0.1.tgz#e3486374d7319bf7f9027648fd6fb5715c0b168f"
-  integrity sha512-GgKlSeoLeEwZuKn1SOlk6GxrZAIgMQmncSOReUq3un5SRbBqlhzd42QV1aKSV9qo0rgevp2JqPpxT/Xxkfs4pg==
+"@react-native-community/netinfo@~5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.2.0.tgz#0ad6d5d5cfd01d31d16ef819fe15c29fa7352bd4"
+  integrity sha512-AhpRzJEAPnqNS6hN8xluoKC5t0toaTQTl+IlGdKhGbvvTvarANnBvmvwLbvTyOOkDCZJc2RTPKVXqhPk/O6P/g==
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
