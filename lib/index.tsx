@@ -302,17 +302,7 @@ const VideoPlayer = (props: Props) => {
   }
 
   // Seeking
-  const getSeekSliderPosition = () => {
-    if (
-      playbackInstance !== null
-      // WILL IT HAPPEN? &&
-      // playbackInstancePosition !== null &&
-      // playbackInstanceDuration !== null
-    ) {
-      return playbackInstancePosition / playbackInstanceDuration
-    }
-    return 0
-  }
+  const getSeekSliderPosition = () => playbackInstancePosition / playbackInstanceDuration || 0
 
   const onSeekSliderValueChange = async () => {
     if (playbackInstance !== null && seekState !== SeekStates.Seeking) {
