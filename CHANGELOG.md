@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 1.5.5 (January 1, 2020)
+- Happy new Year 🎉
+- Fix: Simplify logic
+
 ## 1.5.4 (December 29, 2019)
 - Fix: Building
 
