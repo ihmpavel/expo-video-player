@@ -815,9 +815,9 @@
     tiny-queue "^0.2.1"
 
 "@react-native-community/netinfo@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.2.0.tgz#0ad6d5d5cfd01d31d16ef819fe15c29fa7352bd4"
-  integrity sha512-AhpRzJEAPnqNS6hN8xluoKC5t0toaTQTl+IlGdKhGbvvTvarANnBvmvwLbvTyOOkDCZJc2RTPKVXqhPk/O6P/g==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.3.1.tgz#ee61eb6bee6f7d5c51a8be4f19be031eccae16ab"
+  integrity sha512-mX5E99/LXtZNPdn9ar0Yscho85QiOm4iWrSyz6uhDKzTj8xZT+Sd2T62hvT5wsPcWR2Z2iu6bXUilrCiMXLGpg==
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
