@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 1.5.6 (January 29, 2020)
+- Fix: Switch inFullscreen logic
+- Enhancements: Remove deprecated Slider
+
 ## 1.5.5 (January 1, 2020)
 - Happy new Year 🎉
 - Fix: Simplify logic

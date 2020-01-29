@@ -66,8 +66,8 @@ _APPEARANCE_ |
 _CALLBACKS_ |
 **errorCallback** | `function` | `error => console.error('Error: ', error.message, error.type, error.obj)` | :x: | Function when an error occurs
 **playbackCallback** | `function` | `callback => {}` | :x: | Function when playing changes (buffering/seeking/...)
-**switchToPortrait** | `function` | `() => console.warn('Pass in this function 'switchToPortrait' in props to enable fullscreening')` | :x: | Pass your function to make something on click (eg. rotate phone)
-**switchToLandscape** | `function` | `() => console.warn('Pass in this function 'switchToLandscape' in props to enable fullscreening')` | :x: | Pass your function to make something on click (eg. rotate phone)
+**switchToPortrait** | `function` | `() => console.warn('Pass your logic to switchToPortrait prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
+**switchToLandscape** | `function` | `() => console.warn('Pass your logic to switchToLandscape prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
 
 
 ## Compatibility

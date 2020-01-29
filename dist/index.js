@@ -1,10 +1,11 @@
 import { __rest } from "tslib";
-import { Animated, Dimensions, Slider, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
+import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
 import React, { useEffect, useState } from 'react';
+import Slider from '@react-native-community/slider';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const IOS_THUMB_IMAGE = require('./assets/thumb.png');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -70,8 +71,8 @@ const defaultProps = {
     errorCallback: (error) => console.error('Error: ', error.message, error.type, error.obj),
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     playbackCallback: (callback) => { },
-    switchToLandscape: () => console.warn(`Pass in this function 'switchToLandscape in props to enable fullscreening`),
-    switchToPortrait: () => console.warn(`Pass in this function 'switchToPortrait in props to enable fullscreening`),
+    switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
+    switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
     showControlsOnLoad: false,
     sliderColor: SLIDER_COLOR,
 };
@@ -482,9 +483,9 @@ const VideoPlayer = (props) => {
 
           
           {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
-        inFullscreen ? switchToLandscape() : switchToPortrait();
+        inFullscreen ? switchToPortrait() : switchToLandscape();
     }}>
-              {inFullscreen ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
+              {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
             </Control>)}
         </Animated.View>
       </View>
