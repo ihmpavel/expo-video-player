@@ -4,7 +4,6 @@ import {
   GestureResponderEvent,
   ImageURISource,
   LayoutChangeEvent,
-  Slider,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -29,6 +28,7 @@ import { VideoProps } from 'expo-av/build/Video'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
 import React, { ReactNode, useEffect, useState } from 'react'
+import Slider from '@react-native-community/slider'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const IOS_THUMB_IMAGE = require('./assets/thumb.png')
@@ -108,10 +108,8 @@ const defaultProps = {
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   playbackCallback: (callback: PlaybackStatus) => {},
-  switchToLandscape: () =>
-    console.warn(`Pass in this function 'switchToLandscape in props to enable fullscreening`),
-  switchToPortrait: () =>
-    console.warn(`Pass in this function 'switchToPortrait in props to enable fullscreening`),
+  switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
+  switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
   showControlsOnLoad: false,
   sliderColor: SLIDER_COLOR,
 }
@@ -719,10 +717,10 @@ const VideoPlayer = (props: Props) => {
               transparent={true}
               center={false}
               callback={() => {
-                inFullscreen ? switchToLandscape() : switchToPortrait()
+                inFullscreen ? switchToPortrait() : switchToLandscape()
               }}
             >
-              {inFullscreen ? <VideoFullscreenEnterIcon /> : <VideoFullscreenExitIcon />}
+              {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
             </Control>
           )}
         </Animated.View>
