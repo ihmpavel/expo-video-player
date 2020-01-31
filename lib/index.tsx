@@ -4,6 +4,7 @@ import {
   GestureResponderEvent,
   ImageURISource,
   LayoutChangeEvent,
+  Slider,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -28,7 +29,6 @@ import { VideoProps } from 'expo-av/build/Video'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
 import React, { ReactNode, useEffect, useState } from 'react'
-import Slider from '@react-native-community/slider'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const IOS_THUMB_IMAGE = require('./assets/thumb.png')
