@@ -1,11 +1,10 @@
 import { __rest } from "tslib";
-import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
+import { Animated, Dimensions, Slider, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
 import React, { useEffect, useState } from 'react';
-import Slider from '@react-native-community/slider';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const IOS_THUMB_IMAGE = require('./assets/thumb.png');
 // eslint-disable-next-line @typescript-eslint/no-var-requires

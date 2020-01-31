@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 1.5.7 (January 31, 2020)
+- Fix: Revert removing depracated Slider from RN Core
+
 ## 1.5.6 (January 29, 2020)
 - Fix: Switch inFullscreen logic
 - Enhancements: Remove deprecated Slider
