@@ -4,6 +4,7 @@ import { Audio, Video } from 'expo-av';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const IOS_THUMB_IMAGE = require('./assets/thumb.png');
@@ -68,7 +69,7 @@ const defaultProps = {
     videoBackground: '#000',
     // Callbacks
     errorCallback: (error) => console.error('Error: ', error.message, error.type, error.obj),
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     playbackCallback: (callback) => { },
     switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
     switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
@@ -177,7 +178,8 @@ const VideoPlayer = (props) => {
                     // If the video is buffering but there is no Internet, you go to the Error state
                     if (!isConnected && status.isBuffering) {
                         updatePlaybackState(PlaybackStates.Error);
-                        setError('You are probably offline. Please make sure you are connected to the Internet to watch this video');
+                        setError('You are probably offline.' +
+                            'Please make sure you are connected to the Internet to watch this video');
                     }
                     else {
                         updatePlaybackState(isPlayingOrBufferingOrPaused(status));
