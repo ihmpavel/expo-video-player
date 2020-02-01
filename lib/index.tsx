@@ -28,6 +28,7 @@ import { PlaybackStatus } from 'expo-av/build/AV'
 import { VideoProps } from 'expo-av/build/Video'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactNode, useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -106,7 +107,7 @@ const defaultProps = {
 
   // Callbacks
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   playbackCallback: (callback: PlaybackStatus) => {},
   switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
@@ -161,7 +162,7 @@ const VideoPlayer = (props: Props) => {
   let showingAnimation: Animated.CompositeAnimation | null = null
   let hideAnimation: Animated.CompositeAnimation | null = null
   let shouldPlayAtEndOfSeek = false
-  let controlsTimer: number | null = null
+  let controlsTimer: NodeJS.Timeout | null = null
 
   const { isConnected } = useNetInfo()
   const [playbackState, setPlaybackState] = useState<PlaybackStates>(PlaybackStates.Loading)
@@ -289,7 +290,8 @@ const VideoPlayer = (props: Props) => {
           if (!isConnected && status.isBuffering) {
             updatePlaybackState(PlaybackStates.Error)
             setError(
-              'You are probably offline. Please make sure you are connected to the Internet to watch this video'
+              'You are probably offline.' +
+                'Please make sure you are connected to the Internet to watch this video'
             )
           } else {
             updatePlaybackState(isPlayingOrBufferingOrPaused(status))

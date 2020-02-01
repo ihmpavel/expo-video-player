@@ -13,6 +13,10 @@ module.exports = {
       jsx: true,
     },
   },
+  env: {
+    node: true,
+    jest: true,
+  },
   rules: {
     // Typescript
     "@typescript-eslint/semi": ["error", "never"],
@@ -25,6 +29,7 @@ module.exports = {
     "@typescript-eslint/class-name-casing": "error",
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/no-empty-function": 0,
     // React Native
     "react-native/no-inline-styles": 0,
     "react-native/no-color-literals": 0,

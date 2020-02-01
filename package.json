@@ -35,6 +35,7 @@
     "@types/jest": "^24.1.1",
     "@types/react": "^16.9.19",
     "@types/react-native": "^0.61.8",
+    "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "copyfiles": "^2.2.0",
@@ -56,6 +57,7 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
+    "react-test-renderer": "^16.12.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.7.5"
   },
