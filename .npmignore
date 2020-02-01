@@ -2,5 +2,6 @@ lib/
 example-app/
 .vscode/
 .eslintrc.js
+.jest.config.js
 .prettierrc.js
 tsconfig.json
