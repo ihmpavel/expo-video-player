@@ -17,5 +17,5 @@
     "skipLibCheck": true
   },
   "include": ["lib"],
-  "exclude": ["node_modules", "dist", "example-app"]
+  "exclude": ["node_modules", "dist", "example-app", "lib/**/__tests__/", "lib/setupTests.ts"]
 }
