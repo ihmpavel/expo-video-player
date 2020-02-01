@@ -28,6 +28,8 @@ module.exports = {
     // React Native
     "react-native/no-inline-styles": 0,
     "react-native/no-color-literals": 0,
+    // React
+    "react/jsx-uses-vars": "error",
     // Eslint
     "semi": "off",
     "arrow-parens": ["error", "as-needed"],
@@ -50,5 +52,7 @@ module.exports = {
   },
   plugins: [
     "sort-imports-es6-autofix",
+    "react",
+    "react-native"
   ],
 }
