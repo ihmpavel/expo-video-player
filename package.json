@@ -23,7 +23,7 @@
     "copy": "copyfiles -u 1 \"./lib/assets/*.png\" \"./dist\"",
     "lint": "eslint \"lib/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"lib/**/*.{js,ts,tsx}\" --fix",
-    "test": "npm run lint && npm run tsc-test && npm run jest",
+    "test": "yarn lint && yarn tsc-test && yarn jest",
     "tsc-test": "tsc --project . --noEmit",
     "jest": "jest"
   },
