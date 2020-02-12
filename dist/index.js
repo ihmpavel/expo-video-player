@@ -347,7 +347,7 @@ const VideoPlayer = (props) => {
     let videoHeight = height;
     let videoWidth = videoHeight * screenRatio;
     if (videoWidth > width) {
-        videoWidth = props.width;
+        videoWidth = width;
         videoHeight = videoWidth / screenRatio;
     }
     // Do not let the user override `ref`, `callback`, and `style`

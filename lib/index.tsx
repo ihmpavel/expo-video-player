@@ -508,7 +508,7 @@ const VideoPlayer = (props: Props) => {
   let videoWidth = videoHeight * screenRatio
 
   if (videoWidth > width) {
-    videoWidth = props.width
+    videoWidth = width
     videoHeight = videoWidth / screenRatio
   }
 
