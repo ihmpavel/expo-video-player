@@ -1,7 +1,6 @@
+import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video';
 import { ImageURISource, TextStyle } from 'react-native';
 import { Color } from 'csstype';
-import { PlaybackStatus } from 'expo-av/build/AV';
-import { VideoProps } from 'expo-av/build/Video';
 import { ReactNode } from 'react';
 declare enum ErrorSeverity {
     Fatal = "Fatal",
@@ -34,7 +33,7 @@ declare type Props = {
     textStyle: TextStyle;
     videoBackground: Color;
     debug: boolean;
-    playbackCallback: (callback: PlaybackStatus) => void;
+    playbackCallback: (callback: AVPlaybackStatus) => void;
     errorCallback: (error: Error) => void;
     switchToLandscape: () => void;
     switchToPortrait: () => void;
@@ -65,7 +64,7 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     height?: number | undefined;
     errorCallback?: ((error: Error) => void) | undefined;
     debug?: boolean | undefined;
-    playbackCallback?: ((callback: PlaybackStatus) => void) | undefined;
+    playbackCallback?: ((callback: AVPlaybackStatus) => void) | undefined;
     fadeInDuration?: number | undefined;
     quickFadeOutDuration?: number | undefined;
     fadeOutDuration?: number | undefined;

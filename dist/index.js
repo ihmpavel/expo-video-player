@@ -215,7 +215,7 @@ const VideoPlayer = (props) => {
                 });
                 // The underlying <Video> has successfully updated playback position
                 // TODO: If `shouldPlayAtEndOfSeek` is false, should we still set the playbackState to Paused?
-                // But because we setStatusAsync(shouldPlay: false), so the playbackStatus return value will be Paused.
+                // But because we setStatusAsync(shouldPlay: false), so the AVPlaybackStatus return value will be Paused.
                 updateSeekState(SeekStates.NotSeeking);
                 updatePlaybackState(isPlayingOrBufferingOrPaused(playback));
             }
@@ -432,9 +432,7 @@ const VideoPlayer = (props) => {
         {seekState !== SeekStates.Seeking &&
         (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (<CenteredView pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} 
     // @ts-ignore
-    style={{
-        opacity: controlsOpacity,
-    }}>
+    style={{ opacity: controlsOpacity }}>
               <Control center={true} callback={togglePlay}>
                 
                 {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
