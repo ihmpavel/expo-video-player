@@ -1,3 +1,4 @@
+import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import {
   Animated,
   Dimensions,
@@ -24,8 +25,6 @@ import {
   ReplayIcon,
   Spinner,
 } from './assets/icons'
-import { PlaybackStatus } from 'expo-av/build/AV'
-import { VideoProps } from 'expo-av/build/Video'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -108,7 +107,7 @@ const defaultProps = {
   // Callbacks
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  playbackCallback: (callback: PlaybackStatus) => {},
+  playbackCallback: (callback: AVPlaybackStatus) => {},
   switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
   showControlsOnLoad: false,
@@ -149,7 +148,7 @@ type Props = {
 
   // Callbacks
   debug: boolean
-  playbackCallback: (callback: PlaybackStatus) => void
+  playbackCallback: (callback: AVPlaybackStatus) => void
   errorCallback: (error: Error) => void
   switchToLandscape: () => void
   switchToPortrait: () => void
@@ -258,7 +257,7 @@ const VideoPlayer = (props: Props) => {
     }
   }
 
-  const updatePlaybackCallback = (status: PlaybackStatus) => {
+  const updatePlaybackCallback = (status: AVPlaybackStatus) => {
     const { errorCallback, playbackCallback } = props
 
     try {
@@ -331,7 +330,7 @@ const VideoPlayer = (props: Props) => {
 
         // The underlying <Video> has successfully updated playback position
         // TODO: If `shouldPlayAtEndOfSeek` is false, should we still set the playbackState to Paused?
-        // But because we setStatusAsync(shouldPlay: false), so the playbackStatus return value will be Paused.
+        // But because we setStatusAsync(shouldPlay: false), so the AVPlaybackStatus return value will be Paused.
         updateSeekState(SeekStates.NotSeeking)
         updatePlaybackState(isPlayingOrBufferingOrPaused(playback))
       } catch (e) {
@@ -340,7 +339,7 @@ const VideoPlayer = (props: Props) => {
     }
   }
 
-  const isPlayingOrBufferingOrPaused = (status: PlaybackStatus) => {
+  const isPlayingOrBufferingOrPaused = (status: AVPlaybackStatus) => {
     if (!status.isLoaded) {
       return PlaybackStates.Error
     }
@@ -644,9 +643,7 @@ const VideoPlayer = (props: Props) => {
             <CenteredView
               pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'}
               // @ts-ignore
-              style={{
-                opacity: controlsOpacity,
-              }}
+              style={{ opacity: controlsOpacity }}
             >
               <Control center={true} callback={togglePlay}>
                 {/* Due to rendering, we have to split them */}

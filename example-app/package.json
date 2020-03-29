@@ -17,11 +17,11 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@types/react": "^16.9.0",
     "@types/react-native": "^0.60.15",
     "babel-preset-expo": "^8.0.0",
-    "typescript": "^3.8.2"
+    "typescript": "^3.7.2"
   },
   "private": true
 }
