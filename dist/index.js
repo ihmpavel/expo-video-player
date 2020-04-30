@@ -75,6 +75,7 @@ const defaultProps = {
     switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
     showControlsOnLoad: false,
     sliderColor: SLIDER_COLOR,
+    disableSlider: false
 };
 const VideoPlayer = (props) => {
     let playbackInstance = null;
@@ -341,7 +342,7 @@ const VideoPlayer = (props) => {
         }
         controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration);
     };
-    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
+    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, disableSlider, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
     const centeredContentWidth = 60;
     const screenRatio = width / height;
     let videoHeight = height;
@@ -468,13 +469,14 @@ const VideoPlayer = (props) => {
           </Text>
 
           
-          <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
-            <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={iosThumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
-        playbackState === PlaybackStates.Ended ||
-        playbackState === PlaybackStates.Error ||
-        controlsState !== ControlStates.Shown}/>
-          </TouchableWithoutFeedback>
-
+          {!disableSlider ?
+        <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
+              <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={iosThumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
+            playbackState === PlaybackStates.Ended ||
+            playbackState === PlaybackStates.Error ||
+            controlsState !== ControlStates.Shown}/>
+            </TouchableWithoutFeedback>
+        : null}
           
           <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>
             {getMMSSFromMillis(playbackInstanceDuration)}

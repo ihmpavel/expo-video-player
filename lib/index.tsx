@@ -112,6 +112,7 @@ const defaultProps = {
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
   showControlsOnLoad: false,
   sliderColor: SLIDER_COLOR,
+  disableSlider: false
 }
 
 type Props = {
@@ -154,6 +155,7 @@ type Props = {
   switchToPortrait: () => void
   showControlsOnLoad: boolean
   sliderColor: Color
+  disableSlider: boolean
 }
 
 const VideoPlayer = (props: Props) => {
@@ -490,6 +492,7 @@ const VideoPlayer = (props: Props) => {
     switchToPortrait,
     inFullscreen,
     sliderColor,
+    disableSlider,
     iosThumbImage,
     iosTrackImage,
     showFullscreenButton,
@@ -686,25 +689,28 @@ const VideoPlayer = (props: Props) => {
           </Text>
 
           {/* Seek bar */}
-          <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
-            <Slider
-              style={{ marginRight: 10, marginLeft: 10, flex: 1 }}
-              thumbTintColor={sliderColor}
-              minimumTrackTintColor={sliderColor}
-              trackImage={iosTrackImage}
-              thumbImage={iosThumbImage}
-              value={getSeekSliderPosition()}
-              onValueChange={onSeekSliderValueChange}
-              onSlidingComplete={onSeekSliderSlidingComplete}
-              disabled={
-                playbackState === PlaybackStates.Loading ||
-                playbackState === PlaybackStates.Ended ||
-                playbackState === PlaybackStates.Error ||
-                controlsState !== ControlStates.Shown
-              }
-            />
-          </TouchableWithoutFeedback>
-
+          {
+            !disableSlider ?
+            <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
+              <Slider
+                style={{ marginRight: 10, marginLeft: 10, flex: 1 }}
+                thumbTintColor={sliderColor}
+                minimumTrackTintColor={sliderColor}
+                trackImage={iosTrackImage}
+                thumbImage={iosThumbImage}
+                value={getSeekSliderPosition()}
+                onValueChange={onSeekSliderValueChange}
+                onSlidingComplete={onSeekSliderSlidingComplete}
+                disabled={
+                  playbackState === PlaybackStates.Loading ||
+                  playbackState === PlaybackStates.Ended ||
+                  playbackState === PlaybackStates.Error ||
+                  controlsState !== ControlStates.Shown
+                }
+              />
+            </TouchableWithoutFeedback>
+            : null
+          }
           {/* Duration display */}
           <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>
             {getMMSSFromMillis(playbackInstanceDuration)}
