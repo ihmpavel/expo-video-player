@@ -690,7 +690,7 @@ const VideoPlayer = (props: Props) => {
 
           {/* Seek bar */}
           {
-            !disableSlider ?
+            !disableSlider &&
             <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
               <Slider
                 style={{ marginRight: 10, marginLeft: 10, flex: 1 }}
@@ -709,7 +709,6 @@ const VideoPlayer = (props: Props) => {
                 }
               />
             </TouchableWithoutFeedback>
-            : null
           }
           {/* Duration display */}
           <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>

@@ -1,6 +1,7 @@
-export declare const PlayIcon: () => any;
-export declare const PauseIcon: () => any;
-export declare const Spinner: () => any;
-export declare const FullscreenEnterIcon: () => any;
-export declare const FullscreenExitIcon: () => any;
-export declare const ReplayIcon: () => any;
+/// <reference types="react" />
+export declare const PlayIcon: () => JSX.Element;
+export declare const PauseIcon: () => JSX.Element;
+export declare const Spinner: () => JSX.Element;
+export declare const FullscreenEnterIcon: () => JSX.Element;
+export declare const FullscreenExitIcon: () => JSX.Element;
+export declare const ReplayIcon: () => JSX.Element;
