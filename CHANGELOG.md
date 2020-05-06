@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 1.5.8 (May 6, 2020)
+- Enhancements: Allow disabling Slider
+
 ## 1.5.7 (January 31, 2020)
 - Fix: Revert removing depracated Slider from RN Core
 

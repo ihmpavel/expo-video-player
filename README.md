@@ -60,7 +60,7 @@ _APPEARANCE_ |
 **iosThumbImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/thumb.png) | :x: | iOS [thumbImage](https://facebook.github.io/react-native/docs/slider#thumbimage)
 **iosTrackImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/track.png) | :x: | iOS [trackImage](https://facebook.github.io/react-native/docs/slider#trackimage)
 **showControlsOnLoad** | `boolean` | `false` | :x: | Boolean indicating whether controls should be visible on load
-**disableSlider** | `boolean` | `false` | :x: | Boolean indicating whether controls are disable or not
+**disableSlider** | `boolean` | `false` | :x: | Boolean indicating whether controls are disabled or not
 **sliderColor** | `color` | `#009485` | :x: | Color for ANDROID [thumbTintColor](https://facebook.github.io/react-native/docs/slider#thumbtintcolor) and iOS [minimumTrackImage](https://facebook.github.io/react-native/docs/slider#thumbtintcolor)
 **textStyle** | `TextStyle` | `{color: '#FFF', fontSize: 12}` | :x: | Default styling for text (eg. errors)
 **videoBackground** | `color` | `#000` | :x: | Default background around video

@@ -53,6 +53,7 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     switchToPortrait?: (() => void) | undefined;
     inFullscreen?: boolean | undefined;
     sliderColor?: string | undefined;
+    disableSlider?: boolean | undefined;
     iosThumbImage?: any;
     iosTrackImage?: any;
     showFullscreenButton?: boolean | undefined;
@@ -71,5 +72,5 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     fadeOutDuration?: number | undefined;
     hideControlsTimerDuration?: number | undefined;
     showControlsOnLoad?: boolean | undefined;
-    disableSlider?: boolean | undefined;
 }, ref?: unknown) => JSX.Element;
+export default _default;
