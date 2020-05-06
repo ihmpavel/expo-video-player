@@ -39,6 +39,7 @@ declare type Props = {
     switchToPortrait: () => void;
     showControlsOnLoad: boolean;
     sliderColor: Color;
+    disableSlider: boolean;
 };
 declare const _default: (props: Pick<Props, "videoProps"> & {
     children?: null | undefined;
@@ -70,5 +71,5 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     fadeOutDuration?: number | undefined;
     hideControlsTimerDuration?: number | undefined;
     showControlsOnLoad?: boolean | undefined;
+    disableSlider?: boolean | undefined;
 }, ref?: unknown) => JSX.Element;
-export default _default;

@@ -60,6 +60,7 @@ _APPEARANCE_ |
 **iosThumbImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/thumb.png) | :x: | iOS [thumbImage](https://facebook.github.io/react-native/docs/slider#thumbimage)
 **iosTrackImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/track.png) | :x: | iOS [trackImage](https://facebook.github.io/react-native/docs/slider#trackimage)
 **showControlsOnLoad** | `boolean` | `false` | :x: | Boolean indicating whether controls should be visible on load
+**disableSlider** | `boolean` | `false` | :x: | Boolean indicating whether controls are disable or not
 **sliderColor** | `color` | `#009485` | :x: | Color for ANDROID [thumbTintColor](https://facebook.github.io/react-native/docs/slider#thumbtintcolor) and iOS [minimumTrackImage](https://facebook.github.io/react-native/docs/slider#thumbtintcolor)
 **textStyle** | `TextStyle` | `{color: '#FFF', fontSize: 12}` | :x: | Default styling for text (eg. errors)
 **videoBackground** | `color` | `#000` | :x: | Default background around video
@@ -73,9 +74,9 @@ _CALLBACKS_ |
 ## Compatibility
 Library version | Expo SDK version
 ---- | -------
-1.5.x | >= SDK 34 
-1.4.x | >= SDK 34 
-1.3.x | >= SDK 34 
+1.5.x | >= SDK 34
+1.4.x | >= SDK 34
+1.3.x | >= SDK 34
 1.2.x | >= SDK 33
 1.1.x | >= SDK 32
 1.x.x | >= SDK 32
@@ -91,7 +92,7 @@ Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/tree/master/CH
 - [ ] make tests
 
 
-#### Some articles 
- - Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_ 
+#### Some articles
+ - Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_
  - [Creating a typescript module](https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724)
  - [Creating a component for React](https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce)
