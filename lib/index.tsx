@@ -112,7 +112,7 @@ const defaultProps = {
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
   showControlsOnLoad: false,
   sliderColor: SLIDER_COLOR,
-  disableSlider: false
+  disableSlider: false,
 }
 
 type Props = {
@@ -689,8 +689,7 @@ const VideoPlayer = (props: Props) => {
           </Text>
 
           {/* Seek bar */}
-          {
-            !disableSlider &&
+          {!disableSlider && (
             <TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
               <Slider
                 style={{ marginRight: 10, marginLeft: 10, flex: 1 }}
@@ -709,7 +708,7 @@ const VideoPlayer = (props: Props) => {
                 }
               />
             </TouchableWithoutFeedback>
-          }
+          )}
           {/* Duration display */}
           <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>
             {getMMSSFromMillis(playbackInstanceDuration)}
