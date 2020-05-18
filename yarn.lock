@@ -1483,9 +1483,9 @@
     ws "^1.1.0"
 
 "@react-native-community/netinfo@^5.8.0":
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.8.0.tgz#6afdc9fb8cc6ecf964949f39d03776f57017303a"
-  integrity sha512-MIidbcOggE4InzMunRmo7BW7wovHfoEnlYp11jyIkG4MNXaMFUbXJHUufNby2iuQnQmnTA4AfKWK9uBD8NGDRg==
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.8.1.tgz#deeb447aa21bf040ce07f307f131e47dee7a5017"
+  integrity sha512-tG6JsEvpdgQuI6C8j/JbTrd6RYTLNl0aYhOqfaHqoIJ3mVkc/ExCLjHsZMqtjyZ/6WrPrKDCaBZkctYugwT2Ag==
 
 "@sinonjs/commons@^1.7.0":
   version "1.7.2"
