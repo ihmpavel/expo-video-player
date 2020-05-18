@@ -60,7 +60,7 @@
     "react-dom": "^16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
     "react-test-renderer": "^16.13.1",
-    "ts-jest": "^25.5.0",
+    "ts-jest": "^26.0.0",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
