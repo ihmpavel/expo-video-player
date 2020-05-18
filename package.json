@@ -69,7 +69,7 @@
     "expo-av": ">=5.0.2"
   },
   "dependencies": {
-    "tslib": "^1.11.2",
+    "tslib": "^2.0.0",
     "with-default-props": "^0.2.1"
   }
 }
