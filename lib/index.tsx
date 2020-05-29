@@ -1,4 +1,4 @@
-import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
+import { AVPlaybackStatus, Audio, Video, VideoProps } from 'expo-av'
 import {
   Animated,
   Dimensions,
@@ -15,7 +15,6 @@ import {
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import { Audio, Video } from 'expo-av'
 import { Color } from 'csstype'
 import {
   FullscreenEnterIcon,
@@ -68,7 +67,7 @@ enum ErrorSeverity {
 type Error = {
   type: ErrorSeverity
   message: string
-  obj: object
+  obj: Record<string, unknown>
 }
 
 const defaultProps = {
@@ -515,9 +514,8 @@ const VideoPlayer = (props: Props) => {
   }
 
   // Do not let the user override `ref`, `callback`, and `style`
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ref, style, onPlaybackStatusUpdate, source, ...otherVideoProps } = videoProps
 
   const Control = ({
@@ -645,6 +643,7 @@ const VideoPlayer = (props: Props) => {
           (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (
             <CenteredView
               pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               style={{ opacity: controlsOpacity }}
             >

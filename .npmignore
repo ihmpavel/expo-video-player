@@ -1,6 +1,7 @@
 lib/
 example-app/
 .vscode/
+.github/
 .eslintrc.js
 .jest.config.js
 .prettierrc.js
