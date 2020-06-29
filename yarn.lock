@@ -3811,9 +3811,9 @@ expo-sqlite@~8.2.1:
     lodash "^4.17.15"
 
 expo@^38.0.3:
-  version "38.0.3"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-38.0.3.tgz#7ed781c14866d18e368cdc42bc5c103fb6576e71"
-  integrity sha512-HGuNA5/NHQRFZINoi+CaSOq6n9GG2Mwz7TBXR4TIse7nJcqZkyNO7uUS+hGewgLnsktOPA/wL09q0+P9D4ErWQ==
+  version "38.0.4"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-38.0.4.tgz#577814a89e085a52db702e37859706832e63ea42"
+  integrity sha512-/up/xUtvfgaNgtCd49Sa1FT3PX5UN8xloregNZz/I3iJgSqb1DL7DaFSHsdAau+CrkqIFJaXOkW7coESkaB5Aw==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@expo/vector-icons" "^10.0.2"
