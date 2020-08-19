@@ -41,7 +41,7 @@ declare type Props = {
     sliderColor: string;
     disableSlider: boolean;
 };
-declare const _default: (props: Pick<Props, "thumbImage" | "videoProps"> & {
+declare const _default: (props: Pick<Props, "videoProps"> & {
     children?: null | undefined;
     playIcon?: (() => JSX.Element) | undefined;
     pauseIcon?: (() => JSX.Element) | undefined;
@@ -54,6 +54,7 @@ declare const _default: (props: Pick<Props, "thumbImage" | "videoProps"> & {
     inFullscreen?: boolean | undefined;
     sliderColor?: string | undefined;
     disableSlider?: boolean | undefined;
+    thumbImage?: null | undefined;
     iosTrackImage?: null | undefined;
     showFullscreenButton?: boolean | undefined;
     textStyle?: {
@@ -72,6 +73,5 @@ declare const _default: (props: Pick<Props, "thumbImage" | "videoProps"> & {
     fadeOutDuration?: number | undefined;
     hideControlsTimerDuration?: number | undefined;
     showControlsOnLoad?: boolean | undefined;
-    iosThumbImage?: null | undefined;
 }, ref?: unknown) => JSX.Element;
 export default _default;

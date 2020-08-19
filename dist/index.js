@@ -58,7 +58,7 @@ const defaultProps = {
     fullscreenExitIcon: FullscreenExitIcon,
     // Appearance
     showFullscreenButton: true,
-    iosThumbImage: null,
+    thumbImage: null,
     iosTrackImage: null,
     textStyle: {
         color: '#FFF',

@@ -22,8 +22,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc & yarn copy",
-    "copy": "copyfiles -u 1 \"./lib/assets/*.png\" \"./dist\"",
+    "build": "rm -rf dist && tsc",
     "lint": "eslint \"lib/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"lib/**/*.{js,ts,tsx}\" --fix",
     "test": "yarn lint && yarn tsc-test && yarn jest",

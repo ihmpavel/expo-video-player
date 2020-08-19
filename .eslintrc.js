@@ -30,6 +30,7 @@ module.exports = {
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     // React Native
     "react-native/no-inline-styles": 0,
     "react-native/no-color-literals": 0,
