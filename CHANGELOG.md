@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 1.6.0 (August 19, 2020)
+- Fix: Renamed iosThumbImage to thumbImage
+- Enhancements: Remove deprecated Slider in favor of [community version](https://github.com/react-native-community/react-native-slider)
+- Enhancements: Added videoRef prop
+
 ## 1.5.8 (May 6, 2020)
 - Enhancements: Allow disabling Slider
 

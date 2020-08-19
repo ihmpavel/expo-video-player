@@ -1,15 +1,12 @@
 import { __rest } from "tslib";
-import { Animated, Dimensions, Slider, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { Audio, Video } from 'expo-av';
+import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
+import Slider from '@react-native-community/slider';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const IOS_THUMB_IMAGE = require('./assets/thumb.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const IOS_TRACK_IMAGE = require('./assets/track.png');
 const SLIDER_COLOR = '#009485';
 const BUFFERING_SHOW_DELAY = 200;
 // UI states
@@ -41,6 +38,7 @@ var ErrorSeverity;
     ErrorSeverity["NonFatal"] = "NonFatal";
 })(ErrorSeverity || (ErrorSeverity = {}));
 const defaultProps = {
+    videoRef: null,
     children: null,
     debug: false,
     inFullscreen: false,
@@ -60,8 +58,8 @@ const defaultProps = {
     fullscreenExitIcon: FullscreenExitIcon,
     // Appearance
     showFullscreenButton: true,
-    iosThumbImage: IOS_THUMB_IMAGE,
-    iosTrackImage: IOS_TRACK_IMAGE,
+    iosThumbImage: null,
+    iosTrackImage: null,
     textStyle: {
         color: '#FFF',
         fontSize: 12,
@@ -342,7 +340,7 @@ const VideoPlayer = (props) => {
         }
         controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration);
     };
-    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, disableSlider, iosThumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
+    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, disableSlider, thumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
     const centeredContentWidth = 60;
     const screenRatio = width / height;
     let videoHeight = height;
@@ -352,10 +350,8 @@ const VideoPlayer = (props) => {
         videoHeight = videoWidth / screenRatio;
     }
     // Do not let the user override `ref`, `callback`, and `style`
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = __rest(videoProps, ["ref", "style", "onPlaybackStatusUpdate", "source"]);
+    const { videoRef, ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = __rest(videoProps, ["videoRef", "ref", "style", "onPlaybackStatusUpdate", "source"]);
     const Control = (_a) => {
         var { callback, center, children, transparent = false } = _a, otherProps = __rest(_a, ["callback", "center", "children", "transparent"]);
         return (<TouchableOpacity {...otherProps} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }} onPress={() => {
@@ -407,6 +403,7 @@ const VideoPlayer = (props) => {
         <Video source={source} ref={component => {
         playbackInstance = component;
         ref && ref(component);
+        videoRef && videoRef(component);
     }} onPlaybackStatusUpdate={updatePlaybackCallback} style={{
         width: videoWidth,
         height: videoHeight,
@@ -426,7 +423,9 @@ const VideoPlayer = (props) => {
         justifyContent: 'center',
         alignItems: 'center',
     }}>
-            <VideoSpinner />
+            {
+    // @ts-ignore
+    <VideoSpinner />}
           </View>)}
 
         
@@ -436,15 +435,21 @@ const VideoPlayer = (props) => {
     style={{ opacity: controlsOpacity }}>
               <Control center={true} callback={togglePlay}>
                 
-                {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
-                {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
+                {
+    // @ts-ignore
+    playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
+                {
+    // @ts-ignore
+    playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
             </CenteredView>)}
 
         
         {playbackState === PlaybackStates.Ended && (<CenteredView>
             <Control center={true} callback={replay}>
-              <VideoReplayIcon />
+              {
+    // @ts-ignore
+    <VideoReplayIcon />}
             </Control>
           </CenteredView>)}
 
@@ -470,7 +475,7 @@ const VideoPlayer = (props) => {
 
           
           {!disableSlider && (<TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
-              <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={iosThumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
+              <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={thumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
         playbackState === PlaybackStates.Ended ||
         playbackState === PlaybackStates.Error ||
         controlsState !== ControlStates.Shown}/>
@@ -484,7 +489,9 @@ const VideoPlayer = (props) => {
           {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
         inFullscreen ? switchToPortrait() : switchToLandscape();
     }}>
-              {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
+              {
+    // @ts-ignore
+    inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
             </Control>)}
         </Animated.View>
       </View>

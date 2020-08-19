@@ -10,7 +10,7 @@ For compatibility information check <a href='#compatibility'>Compatibility</a>
 - Expo video player
 `yarn add expo-video-player` _or_ `npm install expo-video-player`
 - Dependencies
-You may also need `expo-av` and `@react-native-community/netinfo`. Install them with `expo-cli` (`expo install expo-av @react-native-community/netinfo`)
+You may also need `expo-av`, `@react-native-community/netinfo` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/netinfo @react-native-community/slider`)
 
 
 ## Usage
@@ -69,11 +69,13 @@ _CALLBACKS_ |
 **playbackCallback** | `function` | `callback => {}` | :x: | Function when playing changes (buffering/seeking/...)
 **switchToPortrait** | `function` | `() => console.warn('Pass your logic to switchToPortrait prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
 **switchToLandscape** | `function` | `() => console.warn('Pass your logic to switchToLandscape prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
-
+_OTHER_ |
+**videoRef** | `ref` | `null` | :x: | Reference to video to controlling some features
 
 ## Compatibility
 Library version | Expo SDK version
 ---- | -------
+1.6.x | >= SDK 38
 1.5.x | >= SDK 34
 1.4.x | >= SDK 34
 1.3.x | >= SDK 34

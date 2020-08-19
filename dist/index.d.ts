@@ -1,6 +1,5 @@
-import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video';
+import { AVPlaybackStatus, Video, VideoProps } from 'expo-av';
 import { ImageURISource, TextStyle } from 'react-native';
-import { Color } from 'csstype';
 import { ReactNode } from 'react';
 declare enum ErrorSeverity {
     Fatal = "Fatal",
@@ -9,10 +8,11 @@ declare enum ErrorSeverity {
 declare type Error = {
     type: ErrorSeverity;
     message: string;
-    obj: object;
+    obj: Record<string, unknown>;
 };
 declare type Props = {
     videoProps: VideoProps;
+    videoRef: Video | null;
     inFullscreen: boolean;
     width: number;
     height: number;
@@ -28,20 +28,20 @@ declare type Props = {
     fullscreenEnterIcon: () => JSX.Element;
     fullscreenExitIcon: () => JSX.Element;
     showFullscreenButton: boolean;
-    iosThumbImage: ImageURISource;
+    thumbImage: ImageURISource;
     iosTrackImage: ImageURISource;
     textStyle: TextStyle;
-    videoBackground: Color;
+    videoBackground: string;
     debug: boolean;
     playbackCallback: (callback: AVPlaybackStatus) => void;
     errorCallback: (error: Error) => void;
     switchToLandscape: () => void;
     switchToPortrait: () => void;
     showControlsOnLoad: boolean;
-    sliderColor: Color;
+    sliderColor: string;
     disableSlider: boolean;
 };
-declare const _default: (props: Pick<Props, "videoProps"> & {
+declare const _default: (props: Pick<Props, "thumbImage" | "videoProps"> & {
     children?: null | undefined;
     playIcon?: (() => JSX.Element) | undefined;
     pauseIcon?: (() => JSX.Element) | undefined;
@@ -54,8 +54,7 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     inFullscreen?: boolean | undefined;
     sliderColor?: string | undefined;
     disableSlider?: boolean | undefined;
-    iosThumbImage?: any;
-    iosTrackImage?: any;
+    iosTrackImage?: null | undefined;
     showFullscreenButton?: boolean | undefined;
     textStyle?: {
         color: string;
@@ -64,6 +63,7 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     videoBackground?: string | undefined;
     width?: number | undefined;
     height?: number | undefined;
+    videoRef?: null | undefined;
     errorCallback?: ((error: Error) => void) | undefined;
     debug?: boolean | undefined;
     playbackCallback?: ((callback: AVPlaybackStatus) => void) | undefined;
@@ -72,5 +72,6 @@ declare const _default: (props: Pick<Props, "videoProps"> & {
     fadeOutDuration?: number | undefined;
     hideControlsTimerDuration?: number | undefined;
     showControlsOnLoad?: boolean | undefined;
+    iosThumbImage?: null | undefined;
 }, ref?: unknown) => JSX.Element;
 export default _default;
