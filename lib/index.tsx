@@ -5,7 +5,6 @@ import {
   GestureResponderEvent,
   ImageURISource,
   LayoutChangeEvent,
-  Slider,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -15,7 +14,6 @@ import {
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import { Color } from 'csstype'
 import {
   FullscreenEnterIcon,
   FullscreenExitIcon,
@@ -26,14 +24,11 @@ import {
 } from './assets/icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
+import Slider from '@react-native-community/slider'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactNode, useEffect, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const IOS_THUMB_IMAGE = require('./assets/thumb.png')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const IOS_TRACK_IMAGE = require('./assets/track.png')
-const SLIDER_COLOR: Color = '#009485'
+const SLIDER_COLOR = '#009485'
 const BUFFERING_SHOW_DELAY = 200
 
 // UI states
@@ -71,6 +66,8 @@ type Error = {
 }
 
 const defaultProps = {
+  videoRef: null,
+
   children: null,
   debug: false,
 
@@ -95,8 +92,8 @@ const defaultProps = {
 
   // Appearance
   showFullscreenButton: true,
-  iosThumbImage: IOS_THUMB_IMAGE,
-  iosTrackImage: IOS_TRACK_IMAGE,
+  thumbImage: null,
+  iosTrackImage: null,
   textStyle: {
     color: '#FFF',
     fontSize: 12,
@@ -117,6 +114,7 @@ const defaultProps = {
 type Props = {
   // Expo props
   videoProps: VideoProps
+  videoRef: Video | null
 
   inFullscreen: boolean
 
@@ -141,10 +139,10 @@ type Props = {
 
   // Appearance
   showFullscreenButton: boolean
-  iosThumbImage: ImageURISource
+  thumbImage: ImageURISource
   iosTrackImage: ImageURISource
   textStyle: TextStyle
-  videoBackground: Color
+  videoBackground: string
 
   // Callbacks
   debug: boolean
@@ -153,7 +151,7 @@ type Props = {
   switchToLandscape: () => void
   switchToPortrait: () => void
   showControlsOnLoad: boolean
-  sliderColor: Color
+  sliderColor: string
   disableSlider: boolean
 }
 
@@ -492,7 +490,7 @@ const VideoPlayer = (props: Props) => {
     inFullscreen,
     sliderColor,
     disableSlider,
-    iosThumbImage,
+    thumbImage,
     iosTrackImage,
     showFullscreenButton,
     textStyle,
@@ -514,9 +512,8 @@ const VideoPlayer = (props: Props) => {
   }
 
   // Do not let the user override `ref`, `callback`, and `style`
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { ref, style, onPlaybackStatusUpdate, source, ...otherVideoProps } = videoProps
+  const { videoRef, ref, style, onPlaybackStatusUpdate, source, ...otherVideoProps } = videoProps
 
   const Control = ({
     callback,
@@ -608,6 +605,7 @@ const VideoPlayer = (props: Props) => {
           ref={component => {
             playbackInstance = component
             ref && ref(component)
+            videoRef && videoRef(component)
           }}
           onPlaybackStatusUpdate={updatePlaybackCallback}
           style={{
@@ -643,12 +641,11 @@ const VideoPlayer = (props: Props) => {
           (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (
             <CenteredView
               pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               style={{ opacity: controlsOpacity }}
             >
               <Control center={true} callback={togglePlay}>
-                {/* Due to rendering, we have to split them */}
+                {/* Due to rerendering, we have to split them */}
                 {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
                 {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
@@ -695,7 +692,7 @@ const VideoPlayer = (props: Props) => {
                 thumbTintColor={sliderColor}
                 minimumTrackTintColor={sliderColor}
                 trackImage={iosTrackImage}
-                thumbImage={iosThumbImage}
+                thumbImage={thumbImage}
                 value={getSeekSliderPosition()}
                 onValueChange={onSeekSliderValueChange}
                 onSlidingComplete={onSeekSliderSlidingComplete}
