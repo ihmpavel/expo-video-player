@@ -57,8 +57,8 @@ _ICONS_ |
 **spinner** | `JSX.Element` | `ReplayIcon` | :x: | Default icon for pausing the video
 **showFullscreenButton** | `boolean` | `true` | :x: | Boolean indicating whether fullscreen icon should be visible
 _APPEARANCE_ |
-**thumbImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/thumb.png) | :x: | [thumbImage](https://facebook.github.io/react-native/docs/slider#thumbimage)
-**iosTrackImage** | `source` | [`image`](https://github.com/ihmpavel/expo-video-player/tree/master/lib/assets/track.png) | :x: | iOS [trackImage](https://facebook.github.io/react-native/docs/slider#trackimage)
+**thumbImage** | `source` | `undefined` | :x: | [thumbImage](https://facebook.github.io/react-native/docs/slider#thumbimage)
+**iosTrackImage** | `source` | `undefined` | :x: | iOS [trackImage](https://facebook.github.io/react-native/docs/slider#trackimage)
 **showControlsOnLoad** | `boolean` | `false` | :x: | Boolean indicating whether controls should be visible on load
 **disableSlider** | `boolean` | `false` | :x: | Boolean indicating whether controls are disabled or not
 **sliderColor** | `color` | `#009485` | :x: | Color for ANDROID [thumbTintColor](https://facebook.github.io/react-native/docs/slider#thumbtintcolor) and iOS [minimumTrackImage](https://facebook.github.io/react-native/docs/slider#thumbtintcolor)

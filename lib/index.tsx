@@ -24,9 +24,8 @@ import {
 } from './assets/icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
-import Slider from '@react-native-community/slider'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactNode, useEffect, useState } from 'react'
+import Slider from '@react-native-community/slider'
 
 const SLIDER_COLOR = '#009485'
 const BUFFERING_SHOW_DELAY = 200

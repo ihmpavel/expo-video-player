@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 1.6.1 (October 10, 2020)
+- Enhancements: Updated packages and bumped Expo SDK version
+
 ## 1.6.0 (August 19, 2020)
 - Fix: Renamed iosThumbImage to thumbImage
 - Enhancements: Remove deprecated Slider in favor of [community version](https://github.com/react-native-community/react-native-slider)

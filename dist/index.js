@@ -4,9 +4,8 @@ import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback,
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
-import Slider from '@react-native-community/slider';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react';
+import Slider from '@react-native-community/slider';
 const SLIDER_COLOR = '#009485';
 const BUFFERING_SHOW_DELAY = 200;
 // UI states
@@ -423,9 +422,7 @@ const VideoPlayer = (props) => {
         justifyContent: 'center',
         alignItems: 'center',
     }}>
-            {
-    // @ts-ignore
-    <VideoSpinner />}
+            <VideoSpinner />
           </View>)}
 
         
@@ -435,21 +432,15 @@ const VideoPlayer = (props) => {
     style={{ opacity: controlsOpacity }}>
               <Control center={true} callback={togglePlay}>
                 
-                {
-    // @ts-ignore
-    playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
-                {
-    // @ts-ignore
-    playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
+                {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
+                {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
             </CenteredView>)}
 
         
         {playbackState === PlaybackStates.Ended && (<CenteredView>
             <Control center={true} callback={replay}>
-              {
-    // @ts-ignore
-    <VideoReplayIcon />}
+              <VideoReplayIcon />
             </Control>
           </CenteredView>)}
 
@@ -489,9 +480,7 @@ const VideoPlayer = (props) => {
           {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
         inFullscreen ? switchToPortrait() : switchToLandscape();
     }}>
-              {
-    // @ts-ignore
-    inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
+              {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
             </Control>)}
         </Animated.View>
       </View>
