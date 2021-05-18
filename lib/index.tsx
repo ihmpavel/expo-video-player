@@ -101,7 +101,7 @@ const defaultProps = {
 
   // Callbacks
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   playbackCallback: (callback: AVPlaybackStatus) => {},
   switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
@@ -510,8 +510,8 @@ const VideoPlayer = (props: Props) => {
     videoHeight = videoWidth / screenRatio
   }
 
-  // Do not let the user override `ref`, `callback`, and `style`
-  // @ts-ignore
+  // @ts-expect-error Do not let the user override `ref`, `callback`, and `style`
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { videoRef, ref, style, onPlaybackStatusUpdate, source, ...otherVideoProps } = videoProps
 
   const Control = ({
@@ -640,7 +640,7 @@ const VideoPlayer = (props: Props) => {
           (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (
             <CenteredView
               pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'}
-              // @ts-ignore
+              // @ts-expect-error Bad TS types
               style={{ opacity: controlsOpacity }}
             >
               <Control center={true} callback={togglePlay}>

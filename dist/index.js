@@ -354,16 +354,16 @@ const VideoPlayer = (props) => {
     const Control = (_a) => {
         var { callback, center, children, transparent = false } = _a, otherProps = __rest(_a, ["callback", "center", "children", "transparent"]);
         return (<TouchableOpacity {...otherProps} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }} onPress={() => {
-            resetControlsTimer();
-            callback();
-        }}>
+                resetControlsTimer();
+                callback();
+            }}>
       <View style={center && {
-            backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
-            justifyContent: 'center',
-            width: centeredContentWidth,
-            height: centeredContentWidth,
-            borderRadius: centeredContentWidth,
-        }}>
+                backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
+                justifyContent: 'center',
+                width: centeredContentWidth,
+                height: centeredContentWidth,
+                borderRadius: centeredContentWidth,
+            }}>
         {children}
       </View>
     </TouchableOpacity>);
@@ -373,7 +373,46 @@ const VideoPlayer = (props) => {
         // pointerEvents,
         otherProps = __rest(_a, ["children", "style"]);
         return (<Animated.View {...otherProps} style={[
-            {
+                {
+                    position: 'absolute',
+                    left: (videoWidth - centeredContentWidth) / 2,
+                    top: (videoHeight - centeredContentWidth) / 2,
+                    width: centeredContentWidth,
+                    height: centeredContentWidth,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                },
+                viewStyle,
+            ]}>
+      {children}
+    </Animated.View>);
+    };
+    const ErrorText = ({ text }) => (<View style={{
+            position: 'absolute',
+            top: videoHeight / 2,
+            width: videoWidth - 40,
+            marginRight: 20,
+            marginLeft: 20,
+        }}>
+      <Text style={[textStyle, { textAlign: 'center' }]}>{text}</Text>
+    </View>);
+    return (<TouchableWithoutFeedback onPress={toggleControls}>
+      <View style={{ backgroundColor: videoBackground }}>
+        <Video source={source} ref={component => {
+            playbackInstance = component;
+            ref && ref(component);
+            videoRef && videoRef(component);
+        }} onPlaybackStatusUpdate={updatePlaybackCallback} style={{
+            width: videoWidth,
+            height: videoHeight,
+        }} {...otherVideoProps}/>
+
+        {/* Spinner */}
+        {/* Due to loading Animation, it cannot use CenteredView */}
+        {((playbackState === PlaybackStates.Buffering &&
+            Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
+            playbackState === PlaybackStates.Loading) && (<View style={{
                 position: 'absolute',
                 left: (videoWidth - centeredContentWidth) / 2,
                 top: (videoHeight - centeredContentWidth) / 2,
@@ -382,104 +421,65 @@ const VideoPlayer = (props) => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-            },
-            viewStyle,
-        ]}>
-      {children}
-    </Animated.View>);
-    };
-    const ErrorText = ({ text }) => (<View style={{
-        position: 'absolute',
-        top: videoHeight / 2,
-        width: videoWidth - 40,
-        marginRight: 20,
-        marginLeft: 20,
-    }}>
-      <Text style={[textStyle, { textAlign: 'center' }]}>{text}</Text>
-    </View>);
-    return (<TouchableWithoutFeedback onPress={toggleControls}>
-      <View style={{ backgroundColor: videoBackground }}>
-        <Video source={source} ref={component => {
-        playbackInstance = component;
-        ref && ref(component);
-        videoRef && videoRef(component);
-    }} onPlaybackStatusUpdate={updatePlaybackCallback} style={{
-        width: videoWidth,
-        height: videoHeight,
-    }} {...otherVideoProps}/>
-
-        
-        
-        {((playbackState === PlaybackStates.Buffering &&
-        Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
-        playbackState === PlaybackStates.Loading) && (<View style={{
-        position: 'absolute',
-        left: (videoWidth - centeredContentWidth) / 2,
-        top: (videoHeight - centeredContentWidth) / 2,
-        width: centeredContentWidth,
-        height: centeredContentWidth,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }}>
+            }}>
             <VideoSpinner />
           </View>)}
 
-        
+        {/* Play/pause buttons */}
         {seekState !== SeekStates.Seeking &&
-        (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (<CenteredView pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} 
-    // @ts-ignore
-    style={{ opacity: controlsOpacity }}>
+            (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (<CenteredView pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} 
+        // @ts-ignore
+        style={{ opacity: controlsOpacity }}>
               <Control center={true} callback={togglePlay}>
-                
+                {/* Due to rerendering, we have to split them */}
                 {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
                 {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
               </Control>
             </CenteredView>)}
 
-        
+        {/* Replay button to show at the end of a video */}
         {playbackState === PlaybackStates.Ended && (<CenteredView>
             <Control center={true} callback={replay}>
               <VideoReplayIcon />
             </Control>
           </CenteredView>)}
 
-        
+        {/* Error display */}
         {playbackState === PlaybackStates.Error && <ErrorText text={error}/>}
 
-        
+        {/* Bottom bar */}
         <Animated.View pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} style={{
-        position: 'absolute',
-        bottom: 0,
-        width: videoWidth,
-        opacity: controlsOpacity,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingBottom: 4,
-        paddingHorizontal: 4,
-    }}>
-          
+            position: 'absolute',
+            bottom: 0,
+            width: videoWidth,
+            opacity: controlsOpacity,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingBottom: 4,
+            paddingHorizontal: 4,
+        }}>
+          {/* Current time display */}
           <Text style={[textStyle, { backgroundColor: 'transparent', marginLeft: 5 }]}>
             {getMMSSFromMillis(playbackInstancePosition)}
           </Text>
 
-          
+          {/* Seek bar */}
           {!disableSlider && (<TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
               <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={thumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
-        playbackState === PlaybackStates.Ended ||
-        playbackState === PlaybackStates.Error ||
-        controlsState !== ControlStates.Shown}/>
+                playbackState === PlaybackStates.Ended ||
+                playbackState === PlaybackStates.Error ||
+                controlsState !== ControlStates.Shown}/>
             </TouchableWithoutFeedback>)}
-          
+          {/* Duration display */}
           <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>
             {getMMSSFromMillis(playbackInstanceDuration)}
           </Text>
 
-          
+          {/* Fullscreen control */}
           {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
-        inFullscreen ? switchToPortrait() : switchToLandscape();
-    }}>
+                inFullscreen ? switchToPortrait() : switchToLandscape();
+            }}>
               {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
             </Control>)}
         </Animated.View>
