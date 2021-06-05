@@ -11,20 +11,20 @@
     "@react-native-community/netinfo": "6.0.0",
     "@react-native-community/slider": "3.0.3",
     "expo": "^41.0.1",
-    "expo-av": "^9.1.2",
+    "expo-av": "~9.1.2",
     "expo-video-player": "^1.6.1",
-    "react": "^17.0.2",
-    "react-dom": "17.0.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
-    "react-native-screens": "^3.2.0",
-    "react-native-web": "^0.16.3"
+    "react-native-screens": "~3.0.0",
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@types/react": "^17.0.6",
-    "@types/react-native": "^0.64.5",
+    "@babel/core": "~7.9.0",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
     "babel-preset-expo": "8.3.0",
-    "typescript": "^4.2.4"
+    "typescript": "~4.0.0"
   },
   "private": true
 }

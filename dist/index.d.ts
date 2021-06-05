@@ -37,7 +37,7 @@ declare const _default: (props: {
     videoRef?: null | undefined;
     errorCallback?: ((error: Error) => void) | undefined;
     debug?: boolean | undefined;
-    playbackCallback?: ((callback: AVPlaybackStatus) => void) | undefined;
+    playbackCallback?: ((_callback: AVPlaybackStatus) => void) | undefined;
     fadeInDuration?: number | undefined;
     quickFadeOutDuration?: number | undefined;
     fadeOutDuration?: number | undefined;

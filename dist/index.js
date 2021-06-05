@@ -1,10 +1,11 @@
-import { __rest } from "tslib";
+import { __awaiter, __rest } from "tslib";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Audio, Video } from 'expo-av';
 import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { withDefaultProps } from 'with-default-props';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from '@react-native-community/slider';
 const SLIDER_COLOR = '#009485';
 const BUFFERING_SHOW_DELAY = 200;
@@ -66,8 +67,8 @@ const defaultProps = {
     videoBackground: '#000',
     // Callbacks
     errorCallback: (error) => console.error('Error: ', error.message, error.type, error.obj),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    playbackCallback: (callback) => { },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+    playbackCallback: (_callback) => { },
     switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
     switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
     showControlsOnLoad: false,
@@ -92,10 +93,10 @@ const VideoPlayer = (props) => {
     const [controlsState, setControlsState] = useState(props.showControlsOnLoad ? ControlStates.Shown : ControlStates.Hidden);
     const [controlsOpacity] = useState(new Animated.Value(props.showControlsOnLoad ? 1 : 0));
     // Set audio mode to play even in silent mode (like the YouTube app)
-    const setAudio = async () => {
+    const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {
         const { errorCallback } = props;
         try {
-            await Audio.setAudioModeAsync({
+            yield Audio.setAudioModeAsync({
                 allowsRecordingIOS: false,
                 interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
                 playsInSilentModeIOS: true,
@@ -112,7 +113,7 @@ const VideoPlayer = (props) => {
                 obj: e,
             });
         }
-    };
+    });
     useEffect(() => {
         const { videoProps } = props;
         if (videoProps.source === null) {
@@ -188,17 +189,17 @@ const VideoPlayer = (props) => {
     };
     // Seeking
     const getSeekSliderPosition = () => playbackInstancePosition / playbackInstanceDuration || 0;
-    const onSeekSliderValueChange = async () => {
+    const onSeekSliderValueChange = () => __awaiter(void 0, void 0, void 0, function* () {
         if (playbackInstance !== null && seekState !== SeekStates.Seeking) {
             updateSeekState(SeekStates.Seeking);
             // A seek might have finished (Seeked) but since we are not in NotSeeking yet, the `shouldPlay` flag is still false,
             // but we really want it be the stored value from before the previous seek
             shouldPlayAtEndOfSeek = seekState === SeekStates.Seeked ? shouldPlayAtEndOfSeek : shouldPlay;
             // Pause the video
-            await playbackInstance.setStatusAsync({ shouldPlay: false });
+            yield playbackInstance.setStatusAsync({ shouldPlay: false });
         }
-    };
-    const onSeekSliderSlidingComplete = async (value) => {
+    });
+    const onSeekSliderSlidingComplete = (value) => __awaiter(void 0, void 0, void 0, function* () {
         if (playbackInstance !== null) {
             const { debug } = props;
             // Seeking is done, so go to Seeked, and set playbackState to Buffering
@@ -207,7 +208,7 @@ const VideoPlayer = (props) => {
             // Otherwise, the user expects the play button
             updatePlaybackState(shouldPlayAtEndOfSeek ? PlaybackStates.Buffering : PlaybackStates.Paused);
             try {
-                const playback = await playbackInstance.setStatusAsync({
+                const playback = yield playbackInstance.setStatusAsync({
                     positionMillis: value * playbackInstanceDuration,
                     shouldPlay: shouldPlayAtEndOfSeek,
                 });
@@ -221,7 +222,7 @@ const VideoPlayer = (props) => {
                 debug && console.error('Seek error: ', e);
             }
         }
-    };
+    });
     const isPlayingOrBufferingOrPaused = (status) => {
         if (!status.isLoaded) {
             return PlaybackStates.Error;
@@ -256,25 +257,25 @@ const VideoPlayer = (props) => {
         return minutes.padStart(2, '0') + ':' + seconds.padStart(2, '0');
     };
     // Controls Behavior
-    const replay = async () => {
+    const replay = () => __awaiter(void 0, void 0, void 0, function* () {
         if (playbackInstance !== null) {
-            await playbackInstance.setStatusAsync({
+            yield playbackInstance.setStatusAsync({
                 shouldPlay: true,
                 positionMillis: 0,
             });
             // Update playbackState to get out of Ended state
             setPlaybackState(PlaybackStates.Playing);
         }
-    };
-    const togglePlay = async () => {
+    });
+    const togglePlay = () => __awaiter(void 0, void 0, void 0, function* () {
         if (controlsState === ControlStates.Hidden) {
             return;
         }
         const shouldPlay = playbackState !== PlaybackStates.Playing;
         if (playbackInstance !== null) {
-            await playbackInstance.setStatusAsync({ shouldPlay });
+            yield playbackInstance.setStatusAsync({ shouldPlay });
         }
-    };
+    });
     const toggleControls = () => {
         switch (controlsState) {
             case ControlStates.Shown:
@@ -348,31 +349,27 @@ const VideoPlayer = (props) => {
         videoWidth = width;
         videoHeight = videoWidth / screenRatio;
     }
-    // Do not let the user override `ref`, `callback`, and `style`
-    // @ts-ignore
+    // @ts-expect-error Do not let the user override `ref`, `callback`, and `style`
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { videoRef, ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = __rest(videoProps, ["videoRef", "ref", "style", "onPlaybackStatusUpdate", "source"]);
     const Control = (_a) => {
         var { callback, center, children, transparent = false } = _a, otherProps = __rest(_a, ["callback", "center", "children", "transparent"]);
-        return (<TouchableOpacity {...otherProps} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }} onPress={() => {
+        return (_jsx(TouchableOpacity, Object.assign({}, otherProps, { hitSlop: { top: 20, left: 20, bottom: 20, right: 20 }, onPress: () => {
                 resetControlsTimer();
                 callback();
-            }}>
-      <View style={center && {
-                backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
-                justifyContent: 'center',
-                width: centeredContentWidth,
-                height: centeredContentWidth,
-                borderRadius: centeredContentWidth,
-            }}>
-        {children}
-      </View>
-    </TouchableOpacity>);
+            } }, { children: _jsx(View, Object.assign({ style: center && {
+                    backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
+                    justifyContent: 'center',
+                    width: centeredContentWidth,
+                    height: centeredContentWidth,
+                    borderRadius: centeredContentWidth,
+                } }, { children: children }), void 0) }), void 0));
     };
     const CenteredView = (_a) => {
         var { children, style: viewStyle } = _a, 
         // pointerEvents,
         otherProps = __rest(_a, ["children", "style"]);
-        return (<Animated.View {...otherProps} style={[
+        return (_jsx(Animated.View, Object.assign({}, otherProps, { style: [
                 {
                     position: 'absolute',
                     left: (videoWidth - centeredContentWidth) / 2,
@@ -384,106 +381,60 @@ const VideoPlayer = (props) => {
                     alignItems: 'center',
                 },
                 viewStyle,
-            ]}>
-      {children}
-    </Animated.View>);
+            ] }, { children: children }), void 0));
     };
-    const ErrorText = ({ text }) => (<View style={{
+    const ErrorText = ({ text }) => (_jsx(View, Object.assign({ style: {
             position: 'absolute',
             top: videoHeight / 2,
             width: videoWidth - 40,
             marginRight: 20,
             marginLeft: 20,
-        }}>
-      <Text style={[textStyle, { textAlign: 'center' }]}>{text}</Text>
-    </View>);
-    return (<TouchableWithoutFeedback onPress={toggleControls}>
-      <View style={{ backgroundColor: videoBackground }}>
-        <Video source={source} ref={component => {
-            playbackInstance = component;
-            ref && ref(component);
-            videoRef && videoRef(component);
-        }} onPlaybackStatusUpdate={updatePlaybackCallback} style={{
-            width: videoWidth,
-            height: videoHeight,
-        }} {...otherVideoProps}/>
-
-        {/* Spinner */}
-        {/* Due to loading Animation, it cannot use CenteredView */}
-        {((playbackState === PlaybackStates.Buffering &&
-            Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
-            playbackState === PlaybackStates.Loading) && (<View style={{
-                position: 'absolute',
-                left: (videoWidth - centeredContentWidth) / 2,
-                top: (videoHeight - centeredContentWidth) / 2,
-                width: centeredContentWidth,
-                height: centeredContentWidth,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-            <VideoSpinner />
-          </View>)}
-
-        {/* Play/pause buttons */}
-        {seekState !== SeekStates.Seeking &&
-            (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (<CenteredView pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} 
-        // @ts-ignore
-        style={{ opacity: controlsOpacity }}>
-              <Control center={true} callback={togglePlay}>
-                {/* Due to rerendering, we have to split them */}
-                {playbackState === PlaybackStates.Playing && <VideoPauseIcon />}
-                {playbackState === PlaybackStates.Paused && <VideoPlayIcon />}
-              </Control>
-            </CenteredView>)}
-
-        {/* Replay button to show at the end of a video */}
-        {playbackState === PlaybackStates.Ended && (<CenteredView>
-            <Control center={true} callback={replay}>
-              <VideoReplayIcon />
-            </Control>
-          </CenteredView>)}
-
-        {/* Error display */}
-        {playbackState === PlaybackStates.Error && <ErrorText text={error}/>}
-
-        {/* Bottom bar */}
-        <Animated.View pointerEvents={controlsState === ControlStates.Hidden ? 'none' : 'auto'} style={{
-            position: 'absolute',
-            bottom: 0,
-            width: videoWidth,
-            opacity: controlsOpacity,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 4,
-            paddingHorizontal: 4,
-        }}>
-          {/* Current time display */}
-          <Text style={[textStyle, { backgroundColor: 'transparent', marginLeft: 5 }]}>
-            {getMMSSFromMillis(playbackInstancePosition)}
-          </Text>
-
-          {/* Seek bar */}
-          {!disableSlider && (<TouchableWithoutFeedback onLayout={onSliderLayout} onPress={onSeekBarTap}>
-              <Slider style={{ marginRight: 10, marginLeft: 10, flex: 1 }} thumbTintColor={sliderColor} minimumTrackTintColor={sliderColor} trackImage={iosTrackImage} thumbImage={thumbImage} value={getSeekSliderPosition()} onValueChange={onSeekSliderValueChange} onSlidingComplete={onSeekSliderSlidingComplete} disabled={playbackState === PlaybackStates.Loading ||
-                playbackState === PlaybackStates.Ended ||
-                playbackState === PlaybackStates.Error ||
-                controlsState !== ControlStates.Shown}/>
-            </TouchableWithoutFeedback>)}
-          {/* Duration display */}
-          <Text style={[textStyle, { backgroundColor: 'transparent', marginRight: 5 }]}>
-            {getMMSSFromMillis(playbackInstanceDuration)}
-          </Text>
-
-          {/* Fullscreen control */}
-          {showFullscreenButton && (<Control transparent={true} center={false} callback={() => {
-                inFullscreen ? switchToPortrait() : switchToLandscape();
-            }}>
-              {inFullscreen ? <VideoFullscreenExitIcon /> : <VideoFullscreenEnterIcon />}
-            </Control>)}
-        </Animated.View>
-      </View>
-    </TouchableWithoutFeedback>);
+        } }, { children: _jsx(Text, Object.assign({ style: [textStyle, { textAlign: 'center' }] }, { children: text }), void 0) }), void 0));
+    return (_jsx(TouchableWithoutFeedback, Object.assign({ onPress: toggleControls }, { children: _jsxs(View, Object.assign({ style: { backgroundColor: videoBackground } }, { children: [_jsx(Video, Object.assign({ source: source, ref: component => {
+                        playbackInstance = component;
+                        ref && ref(component);
+                        videoRef && videoRef(component);
+                    }, onPlaybackStatusUpdate: updatePlaybackCallback, style: {
+                        width: videoWidth,
+                        height: videoHeight,
+                    } }, otherVideoProps), void 0),
+                ((playbackState === PlaybackStates.Buffering &&
+                    Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
+                    playbackState === PlaybackStates.Loading) && (_jsx(View, Object.assign({ style: {
+                        position: 'absolute',
+                        left: (videoWidth - centeredContentWidth) / 2,
+                        top: (videoHeight - centeredContentWidth) / 2,
+                        width: centeredContentWidth,
+                        height: centeredContentWidth,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    } }, { children: _jsx(VideoSpinner, {}, void 0) }), void 0)),
+                seekState !== SeekStates.Seeking &&
+                    (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (_jsx(CenteredView, Object.assign({ pointerEvents: controlsState === ControlStates.Hidden ? 'none' : 'auto', 
+                    // @ts-expect-error Bad TS types
+                    style: { opacity: controlsOpacity } }, { children: _jsxs(Control, Object.assign({ center: true, callback: togglePlay }, { children: [playbackState === PlaybackStates.Playing && _jsx(VideoPauseIcon, {}, void 0),
+                            playbackState === PlaybackStates.Paused && _jsx(VideoPlayIcon, {}, void 0)] }), void 0) }), void 0)),
+                playbackState === PlaybackStates.Ended && (_jsx(CenteredView, { children: _jsx(Control, Object.assign({ center: true, callback: replay }, { children: _jsx(VideoReplayIcon, {}, void 0) }), void 0) }, void 0)),
+                playbackState === PlaybackStates.Error && _jsx(ErrorText, { text: error }, void 0),
+                _jsxs(Animated.View, Object.assign({ pointerEvents: controlsState === ControlStates.Hidden ? 'none' : 'auto', style: {
+                        position: 'absolute',
+                        bottom: 0,
+                        width: videoWidth,
+                        opacity: controlsOpacity,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingBottom: 4,
+                        paddingHorizontal: 4,
+                    } }, { children: [_jsx(Text, Object.assign({ style: [textStyle, { backgroundColor: 'transparent', marginLeft: 5 }] }, { children: getMMSSFromMillis(playbackInstancePosition) }), void 0),
+                        !disableSlider && (_jsx(TouchableWithoutFeedback, Object.assign({ onLayout: onSliderLayout, onPress: onSeekBarTap }, { children: _jsx(Slider, { style: { marginRight: 10, marginLeft: 10, flex: 1 }, thumbTintColor: sliderColor, minimumTrackTintColor: sliderColor, trackImage: iosTrackImage, thumbImage: thumbImage, value: getSeekSliderPosition(), onValueChange: onSeekSliderValueChange, onSlidingComplete: onSeekSliderSlidingComplete, disabled: playbackState === PlaybackStates.Loading ||
+                                    playbackState === PlaybackStates.Ended ||
+                                    playbackState === PlaybackStates.Error ||
+                                    controlsState !== ControlStates.Shown }, void 0) }), void 0)),
+                        _jsx(Text, Object.assign({ style: [textStyle, { backgroundColor: 'transparent', marginRight: 5 }] }, { children: getMMSSFromMillis(playbackInstanceDuration) }), void 0),
+                        showFullscreenButton && (_jsx(Control, Object.assign({ transparent: true, center: false, callback: () => {
+                                inFullscreen ? switchToPortrait() : switchToLandscape();
+                            } }, { children: inFullscreen ? _jsx(VideoFullscreenExitIcon, {}, void 0) : _jsx(VideoFullscreenEnterIcon, {}, void 0) }), void 0))] }), void 0)] }), void 0) }), void 0));
 };
 export default withDefaultProps(VideoPlayer, defaultProps);

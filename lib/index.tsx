@@ -22,9 +22,9 @@ import {
   ReplayIcon,
   Spinner,
 } from './assets/icons'
+import { ReactNode, useEffect, useState } from 'react'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { withDefaultProps } from 'with-default-props'
-import React, { ReactNode, useEffect, useState } from 'react'
 import Slider from '@react-native-community/slider'
 
 const SLIDER_COLOR = '#009485'
@@ -102,7 +102,7 @@ const defaultProps = {
   // Callbacks
   errorCallback: (error: Error) => console.error('Error: ', error.message, error.type, error.obj),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  playbackCallback: (callback: AVPlaybackStatus) => {},
+  playbackCallback: (_callback: AVPlaybackStatus) => {},
   switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
   switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
   showControlsOnLoad: false,

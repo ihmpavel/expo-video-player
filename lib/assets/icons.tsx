@@ -1,6 +1,5 @@
 import { ActivityIndicator, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import React from 'react'
 
 const ICON_COLOR = '#FFF'
 const CENTER_ICON_SIZE = 36

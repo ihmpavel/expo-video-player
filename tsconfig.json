@@ -1,21 +1,41 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "jsx": "react-native",
-    "lib": ["es2017"],
-    "module": "es2015",
+    "target": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "strict": true,
-    "target": "es2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "jsx": "react-jsx",
     "declaration": true,
     "outDir": "./dist",
-    "skipLibCheck": true
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["lib"],
-  "exclude": ["node_modules", "dist", "example-app", "lib/**/__tests__/", "lib/setupTests.ts"]
+  "include": [
+    "lib"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "example-app",
+    "lib/**/__tests__/",
+    "lib/setupTests.ts"
+  ]
 }
