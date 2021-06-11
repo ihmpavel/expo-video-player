@@ -40,6 +40,17 @@ const VideoPlayer = (props) => {
             }
         };
     }, []);
+    useEffect(() => {
+        if (!props.videoProps.source) {
+            console.error('[VideoPlayer] `Source` is a required in `videoProps`. ' +
+                'Check https://docs.expo.io/versions/latest/sdk/video/#usage');
+            setErrorMessage('`Source` is a required in `videoProps`');
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Error }));
+        }
+        else {
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Playing }));
+        }
+    }, [props.videoProps.source]);
     const hideAnimation = () => {
         Animated.timing(controlsOpacity, {
             toValue: 0,
@@ -79,17 +90,6 @@ const VideoPlayer = (props) => {
             }, 2000);
         }
     };
-    useEffect(() => {
-        if (!props.videoProps.source) {
-            console.error('[VideoPlayer] `Source` is a required in `videoProps`. ' +
-                'Check https://docs.expo.io/versions/latest/sdk/video/#usage');
-            setErrorMessage('`Source` is a required in `videoProps`');
-            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Error }));
-        }
-        else {
-            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Playing }));
-        }
-    }, [props.videoProps.source]);
     // Set audio mode to play even in silent mode (like the YouTube app)
     const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
