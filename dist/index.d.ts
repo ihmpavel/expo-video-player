@@ -1,47 +1,45 @@
 /// <reference types="react" />
-import { AVPlaybackStatus, VideoProps } from 'expo-av';
-declare enum ErrorSeverity {
-    Fatal = "Fatal",
-    NonFatal = "NonFatal"
-}
-declare type Error = {
-    type: ErrorSeverity;
-    message: string;
-    obj: Record<string, unknown>;
+import { AVPlaybackStatus } from 'expo-av';
+import { Props } from './props';
+declare const VideoPlayer: {
+    (props: Props): JSX.Element;
+    defaultProps: {
+        errorCallback: (error: import("./constants").ErrorType) => void;
+        playbackCallback: (status: AVPlaybackStatus) => void;
+        debug: boolean;
+        textStyle: import("react-native").TextStyle;
+        defaultControlsVisible: boolean;
+        slider: {
+            visible: boolean;
+        } & import("@react-native-community/slider").SliderProps;
+        activityIndicator: import("react-native").ActivityIndicatorProps;
+        animation: {
+            fadeInDuration: number;
+            fadeOutDuration: number;
+        };
+        style: {
+            width: number;
+            height: number;
+            videoBackgroundColor: import("react-native").ColorValue;
+            controlsBackgroundColor: import("react-native").ColorValue;
+        };
+        icon: {
+            size: number;
+            color: import("react-native").ColorValue;
+            style: import("react-native").TextStyle;
+            pause?: JSX.Element | undefined;
+            play?: JSX.Element | undefined;
+            replay?: JSX.Element | undefined;
+            fullscreen?: JSX.Element | undefined;
+            exitFullscreen?: JSX.Element | undefined;
+        };
+        timeVisible: boolean;
+        fullscreen: {
+            enterFullscreen: () => void;
+            exitFullscreen: () => void;
+            inFullscreen: boolean;
+            visible: boolean;
+        };
+    };
 };
-declare const _default: (props: {
-    videoProps: VideoProps;
-} & {
-    height?: number | undefined;
-    children?: null | undefined;
-    playIcon?: (() => JSX.Element) | undefined;
-    pauseIcon?: (() => JSX.Element) | undefined;
-    spinner?: (() => JSX.Element) | undefined;
-    fullscreenEnterIcon?: (() => JSX.Element) | undefined;
-    fullscreenExitIcon?: (() => JSX.Element) | undefined;
-    replayIcon?: (() => JSX.Element) | undefined;
-    switchToLandscape?: (() => void) | undefined;
-    switchToPortrait?: (() => void) | undefined;
-    inFullscreen?: boolean | undefined;
-    sliderColor?: string | undefined;
-    disableSlider?: boolean | undefined;
-    thumbImage?: null | undefined;
-    iosTrackImage?: null | undefined;
-    showFullscreenButton?: boolean | undefined;
-    textStyle?: {
-        color: string;
-        fontSize: number;
-    } | undefined;
-    videoBackground?: string | undefined;
-    width?: number | undefined;
-    videoRef?: null | undefined;
-    errorCallback?: ((error: Error) => void) | undefined;
-    debug?: boolean | undefined;
-    playbackCallback?: ((_callback: AVPlaybackStatus) => void) | undefined;
-    fadeInDuration?: number | undefined;
-    quickFadeOutDuration?: number | undefined;
-    fadeOutDuration?: number | undefined;
-    hideControlsTimerDuration?: number | undefined;
-    showControlsOnLoad?: boolean | undefined;
-}, ref?: unknown) => JSX.Element;
-export default _default;
+export default VideoPlayer;
