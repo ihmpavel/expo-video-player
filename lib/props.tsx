@@ -11,7 +11,7 @@ export type Props = RequiredProps & DefaultProps
 export const defaultProps = {
   errorCallback: error =>
     console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   playbackCallback: () => {},
   textStyle: {
     color: '#FFF',
@@ -27,8 +27,8 @@ export const defaultProps = {
     color: '#999',
   },
   animation: {
-    fadeInDuration: 400,
-    fadeOutDuration: 400,
+    fadeInDuration: 300,
+    fadeOutDuration: 300,
   },
   style: {
     width: Dimensions.get('window').width,
@@ -88,9 +88,7 @@ type DefaultProps = {
     pause?: JSX.Element
     play?: JSX.Element
     replay?: JSX.Element
-    // TODO
     fullscreen?: JSX.Element
-    // TODO
     exitFullscreen?: JSX.Element
   }
   timeVisible: boolean

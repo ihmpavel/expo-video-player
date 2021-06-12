@@ -13,6 +13,8 @@
     "@react-native-community/slider": "3.0.3",
     "expo": "^41.0.1",
     "expo-av": "~9.1.2",
+    "expo-screen-orientation": "~3.1.0",
+    "expo-status-bar": "~1.0.4",
     "expo-video-player": "^1.6.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",

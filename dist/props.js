@@ -1,7 +1,7 @@
 import { Dimensions } from 'react-native';
 export const defaultProps = {
     errorCallback: error => console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
-    // eslint-disable-next-line
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     playbackCallback: () => { },
     textStyle: {
         color: '#FFF',
@@ -17,8 +17,8 @@ export const defaultProps = {
         color: '#999',
     },
     animation: {
-        fadeInDuration: 400,
-        fadeOutDuration: 400,
+        fadeInDuration: 300,
+        fadeOutDuration: 300,
     },
     style: {
         width: Dimensions.get('window').width,

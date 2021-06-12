@@ -52,6 +52,7 @@ module.exports = {
     'no-irregular-whitespace': 'warn',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
   plugins: ['sort-imports-es6-autofix', 'react-hooks'],
   settings: {

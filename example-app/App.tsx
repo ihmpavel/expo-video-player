@@ -1,26 +1,190 @@
-import { ScrollView, StyleSheet } from 'react-native'
+import * as ScreenOrientation from 'expo-screen-orientation'
+import { Dimensions, ScrollView, StyleSheet, Text } from 'react-native'
 import { Video } from 'expo-av'
-import React from 'react'
+import { setStatusBarHidden } from 'expo-status-bar'
+import React, { useRef, useState } from 'react'
 import VideoPlayer from 'expo-video-player'
 
-const App = () => (
-  <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-    <VideoPlayer
-      videoProps={{
-        shouldPlay: true,
-        resizeMode: Video.RESIZE_MODE_CONTAIN,
-        source: {
-          uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        },
+const App = () => {
+  const [inFullscreen, setInFullsreen] = useState(false)
+  const [inFullsreen2, setInFullsreen2] = useState(false)
+  const refVideo = useRef(null)
+  const refVideo2 = useRef(null)
+  const refScrollView = useRef(null)
+
+  return (
+    <ScrollView
+      scrollEnabled={!inFullscreen}
+      ref={refScrollView}
+      onContentSizeChange={() => {
+        if (inFullscreen) {
+          refScrollView.current.scrollToEnd({ animated: true })
+        }
       }}
-      style={{
-        videoBackgroundColor: 'black',
-        width: 394,
-        height: 800,
-      }}
-    />
-  </ScrollView>
-)
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
+      <Text style={[styles.text, { fontWeight: 'bold', textTransform: 'uppercase' }]}>
+        Examples
+      </Text>
+      {/* ShouldPlay (autoplay) is true only in the first example */}
+      <Text style={styles.text}>Basic</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: true,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+      />
+
+      <Text style={styles.text}>Only video without controls</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        slider={{
+          visible: false,
+        }}
+        fullscreen={{
+          visible: false,
+        }}
+        timeVisible={false}
+        style={{ height: 160 }}
+      />
+
+      <Text style={styles.text}>Some styling</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        style={{
+          videoBackgroundColor: 'transparent',
+          controlsBackgroundColor: 'red',
+          height: 200,
+        }}
+      />
+
+      <Text style={styles.text}>With custom icons</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        icon={{
+          play: <Text style={{ color: '#FFF' }}>PLAY</Text>,
+          pause: <Text style={{ color: '#FFF' }}>PAUSE</Text>,
+        }}
+        style={{ height: 160 }}
+      />
+
+      <Text style={styles.text}>With some more styling</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        style={{
+          height: 160,
+          width: 160,
+          videoBackgroundColor: 'yellow',
+          controlsBackgroundColor: 'blue',
+        }}
+      />
+
+      <Text style={styles.text}>Fullscren icon hidden</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        fullscreen={{
+          visible: false,
+        }}
+        style={{ height: 160 }}
+      />
+
+      <Text style={styles.text}>Ref - clicking on Enter/Exit fullscreen changes playing</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+          ref: refVideo,
+        }}
+        fullscreen={{
+          enterFullscreen: () => {
+            setInFullsreen2(!inFullsreen2)
+            refVideo.current.setStatusAsync({
+              shouldPlay: true,
+            })
+          },
+          exitFullscreen: () => {
+            setInFullsreen2(!inFullsreen2)
+            refVideo.current.setStatusAsync({
+              shouldPlay: false,
+            })
+          },
+          inFullscreen: inFullsreen2,
+        }}
+        style={{ height: 160 }}
+      />
+
+      <Text style={styles.text}>Fullscren</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+          ref: refVideo2,
+        }}
+        fullscreen={{
+          inFullscreen,
+          enterFullscreen: async () => {
+            setStatusBarHidden(true, 'fade')
+            setInFullsreen(!inFullscreen)
+            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT)
+            refVideo2.current.setStatusAsync({
+              shouldPlay: true,
+            })
+          },
+          exitFullscreen: async () => {
+            setStatusBarHidden(true, 'fade')
+            setInFullsreen(!inFullscreen)
+            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+          },
+        }}
+        style={{
+          videoBackgroundColor: 'black',
+          height: inFullscreen ? Dimensions.get('window').width : 160,
+          width: inFullscreen ? Dimensions.get('window').height : 320,
+        }}
+      />
+    </ScrollView>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +194,11 @@ const styles = StyleSheet.create({
   contentContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 40,
+  },
+  text: {
+    marginTop: 36,
+    marginBottom: 12,
   },
 })
 

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-// Scrtipt does not like variable name `props`
 import { AVPlaybackStatus, Audio, Video } from 'expo-av'
 import {
   ActivityIndicator,
@@ -262,9 +260,9 @@ const VideoPlayer = (tempProps: Props) => {
                   {playbackInstanceInfo.state === PlaybackStates.Buffering && (
                     <ActivityIndicator {...props.activityIndicator} />
                   )}
-                  {typeof props.icon.pause !== 'undefined' && props.icon.pause}
-                  {typeof props.icon.play !== 'undefined' && props.icon.play}
-                  {typeof props.icon.replay !== 'undefined' && props.icon.replay}
+                  {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
+                  {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
+                  {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
                   {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
                     (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
                     (playbackInstanceInfo.state === PlaybackStates.Paused &&
@@ -347,17 +345,17 @@ const VideoPlayer = (tempProps: Props) => {
             background={TouchableNativeFeedback.Ripple('white', true)}
           >
             <View>
-              {typeof props.icon.fullscreen !== 'undefined' && props.icon.fullscreen}
-              {typeof props.icon.exitFullscreen !== 'undefined' && props.icon.exitFullscreen}
-              {(!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
-                (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen && (
-                  <MaterialIcons
-                    name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'}
-                    style={props.icon.style}
-                    size={props.icon.size! / 2}
-                    color={props.icon.color}
-                  />
-                ))}
+              {props.icon.fullscreen}
+              {props.icon.exitFullscreen}
+              {((!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
+                (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen)) && (
+                <MaterialIcons
+                  name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'}
+                  style={props.icon.style}
+                  size={props.icon.size! / 2}
+                  color={props.icon.color}
+                />
+              )}
             </View>
           </TouchableNativeFeedback>
         )}
