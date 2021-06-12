@@ -5,6 +5,13 @@ export declare const ErrorMessage: ({ message, style }: {
     style: TextStyle;
 }) => JSX.Element;
 export declare const getMinutesSecondsFromMilliseconds: (ms: number) => string;
+export declare const deepMerge: (target: {
+    [x: string]: any;
+}, source: {
+    [x: string]: any;
+}) => {
+    [x: string]: any;
+};
 export declare const styles: {
     errorWrapper: {
         paddingHorizontal: number;

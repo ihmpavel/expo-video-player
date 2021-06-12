@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import { Video } from 'expo-av'
 import React from 'react'
-import VideoPlayer from './lib/index'
+import VideoPlayer from 'expo-video-player'
 
 const App = () => (
   <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -13,10 +13,8 @@ const App = () => (
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         },
       }}
-      defaultControlsVisible={true}
       style={{
-        videoBackgroundColor: '#000',
-        controlsBackgroundColor: '#000',
+        videoBackgroundColor: 'black',
         width: 394,
         height: 800,
       }}

@@ -1,14 +1,17 @@
 import { __awaiter, __rest } from "tslib";
+/* eslint-disable react/prop-types */
+// It does not like name `props`
 import { Audio, Video } from 'expo-av';
 import { ActivityIndicator, Animated, StyleSheet, Text, TouchableNativeFeedback, TouchableWithoutFeedback, View, } from 'react-native';
 import { ControlStates, ErrorSeverity, PlaybackStates } from './constants';
-import { ErrorMessage, getMinutesSecondsFromMilliseconds, styles } from './utils';
+import { ErrorMessage, deepMerge, getMinutesSecondsFromMilliseconds, styles } from './utils';
 import { MaterialIcons } from '@expo/vector-icons';
 import { defaultProps } from './props';
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Slider from '@react-native-community/slider';
-const VideoPlayer = (props) => {
+const VideoPlayer = (tempProps) => {
+    const props = deepMerge(defaultProps, tempProps);
     let playbackInstance = null;
     let controlsTimer = null;
     let initialShow = props.defaultControlsVisible;

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+// Scrtipt does not like variable name `props`
 import { AVPlaybackStatus, Audio, Video } from 'expo-av'
 import {
   ActivityIndicator,
@@ -9,14 +11,16 @@ import {
   View,
 } from 'react-native'
 import { ControlStates, ErrorSeverity, PlaybackStates } from './constants'
-import { ErrorMessage, getMinutesSecondsFromMilliseconds, styles } from './utils'
+import { ErrorMessage, deepMerge, getMinutesSecondsFromMilliseconds, styles } from './utils'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Props, defaultProps } from './props'
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
 import Slider from '@react-native-community/slider'
 
-const VideoPlayer = (props: Props) => {
+const VideoPlayer = (tempProps: Props) => {
+  const props = deepMerge(defaultProps, tempProps) as Props
+
   let playbackInstance: Video | null = null
   let controlsTimer: NodeJS.Timeout | null = null
   let initialShow = props.defaultControlsVisible
@@ -35,13 +39,13 @@ const VideoPlayer = (props: Props) => {
   // We need to extract ref, because of misstypes in <Slider />
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ref: sliderRef, ...sliderProps } = props.slider
-  const screenRatio = props.style.width / props.style.height
+  const screenRatio = props.style.width! / props.style.height!
 
   let videoHeight = props.style.height
-  let videoWidth = videoHeight * screenRatio
+  let videoWidth = videoHeight! * screenRatio
 
-  if (videoWidth > props.style.width) {
-    videoWidth = props.style.width
+  if (videoWidth > props.style.width!) {
+    videoWidth = props.style.width!
     videoHeight = videoWidth / screenRatio
   }
 
@@ -56,7 +60,7 @@ const VideoPlayer = (props: Props) => {
       }
     }
   }, [])
-  
+
   useEffect(() => {
     if (!props.videoProps.source) {
       console.error(
@@ -337,8 +341,8 @@ const VideoPlayer = (props: Props) => {
           <TouchableNativeFeedback
             onPress={() =>
               props.fullscreen.inFullscreen
-                ? props.fullscreen.exitFullscreen()
-                : props.fullscreen.enterFullscreen()
+                ? props.fullscreen.exitFullscreen!()
+                : props.fullscreen.enterFullscreen!()
             }
             background={TouchableNativeFeedback.Ripple('white', true)}
           >
@@ -350,7 +354,7 @@ const VideoPlayer = (props: Props) => {
                   <MaterialIcons
                     name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'}
                     style={props.icon.style}
-                    size={props.icon.size / 2}
+                    size={props.icon.size! / 2}
                     color={props.icon.color}
                   />
                 ))}

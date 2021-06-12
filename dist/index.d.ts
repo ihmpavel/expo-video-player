@@ -2,31 +2,30 @@
 import { AVPlaybackStatus } from 'expo-av';
 import { Props } from './props';
 declare const VideoPlayer: {
-    (props: Props): JSX.Element;
+    (tempProps: Props): JSX.Element;
     defaultProps: {
         errorCallback: (error: import("./constants").ErrorType) => void;
         playbackCallback: (status: AVPlaybackStatus) => void;
-        debug: boolean;
         textStyle: import("react-native").TextStyle;
         defaultControlsVisible: boolean;
         slider: {
-            visible: boolean;
+            visible?: boolean | undefined;
         } & import("@react-native-community/slider").SliderProps;
         activityIndicator: import("react-native").ActivityIndicatorProps;
         animation: {
-            fadeInDuration: number;
-            fadeOutDuration: number;
+            fadeInDuration?: number | undefined;
+            fadeOutDuration?: number | undefined;
         };
         style: {
-            width: number;
-            height: number;
-            videoBackgroundColor: import("react-native").ColorValue;
-            controlsBackgroundColor: import("react-native").ColorValue;
+            width?: number | undefined;
+            height?: number | undefined;
+            videoBackgroundColor?: import("react-native").ColorValue | undefined;
+            controlsBackgroundColor?: import("react-native").ColorValue | undefined;
         };
         icon: {
-            size: number;
-            color: import("react-native").ColorValue;
-            style: import("react-native").TextStyle;
+            size?: number | undefined;
+            color?: import("react-native").ColorValue | undefined;
+            style?: import("react-native").TextStyle | undefined;
             pause?: JSX.Element | undefined;
             play?: JSX.Element | undefined;
             replay?: JSX.Element | undefined;
@@ -35,10 +34,10 @@ declare const VideoPlayer: {
         };
         timeVisible: boolean;
         fullscreen: {
-            enterFullscreen: () => void;
-            exitFullscreen: () => void;
-            inFullscreen: boolean;
-            visible: boolean;
+            enterFullscreen?: (() => void) | undefined;
+            exitFullscreen?: (() => void) | undefined;
+            inFullscreen?: boolean | undefined;
+            visible?: boolean | undefined;
         };
     };
 };

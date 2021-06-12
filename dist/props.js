@@ -3,7 +3,6 @@ export const defaultProps = {
     errorCallback: error => console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
     // eslint-disable-next-line
     playbackCallback: () => { },
-    debug: false,
     textStyle: {
         color: '#FFF',
         fontSize: 12,

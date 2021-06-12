@@ -13,7 +13,6 @@ export const defaultProps = {
     console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
   // eslint-disable-next-line
   playbackCallback: () => {},
-  debug: false,
   textStyle: {
     color: '#FFF',
     fontSize: 12,
@@ -66,27 +65,26 @@ type RequiredProps = {
 type DefaultProps = {
   errorCallback: (error: ErrorType) => void
   playbackCallback: (status: AVPlaybackStatus) => void
-  debug: boolean
   textStyle: TextStyle
   defaultControlsVisible: boolean
   slider: {
-    visible: boolean
+    visible?: boolean
   } & SliderProps
   activityIndicator: ActivityIndicatorProps
   animation: {
-    fadeInDuration: number
-    fadeOutDuration: number
+    fadeInDuration?: number
+    fadeOutDuration?: number
   }
   style: {
-    width: number
-    height: number
-    videoBackgroundColor: ColorValue
-    controlsBackgroundColor: ColorValue
+    width?: number
+    height?: number
+    videoBackgroundColor?: ColorValue
+    controlsBackgroundColor?: ColorValue
   }
   icon: {
-    size: number
-    color: ColorValue
-    style: TextStyle
+    size?: number
+    color?: ColorValue
+    style?: TextStyle
     pause?: JSX.Element
     play?: JSX.Element
     replay?: JSX.Element
@@ -97,9 +95,9 @@ type DefaultProps = {
   }
   timeVisible: boolean
   fullscreen: {
-    enterFullscreen: () => void
-    exitFullscreen: () => void
-    inFullscreen: boolean
-    visible: boolean
+    enterFullscreen?: () => void
+    exitFullscreen?: () => void
+    inFullscreen?: boolean
+    visible?: boolean
   }
 }

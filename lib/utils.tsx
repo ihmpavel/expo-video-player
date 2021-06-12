@@ -15,6 +15,22 @@ export const getMinutesSecondsFromMilliseconds = (ms: number) => {
   return minutes.padStart(1, '0') + ':' + seconds.padStart(2, '0')
 }
 
+// https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6#gistcomment-3585151
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const deepMerge = (target: { [x: string]: any }, source: { [x: string]: any }) => {
+  const result = { ...target, ...source }
+  const keys = Object.keys(result)
+
+  for (const key of keys) {
+    const tprop = target[key]
+    const sprop = source[key]
+    if (typeof tprop === 'object' && typeof sprop === 'object') {
+      result[key] = deepMerge(tprop, sprop)
+    }
+  }
+
+  return result
+}
 export const styles = StyleSheet.create({
   errorWrapper: {
     ...StyleSheet.absoluteFillObject,
