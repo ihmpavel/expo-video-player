@@ -1,5 +1,5 @@
 # Basic info
-Video component for Expo built on top of the default Video component.
+Video component for Expo built on top of the Expo's [Video component](https://docs.expo.io/versions/latest/sdk/video/). This library basically adds UI controls like in the YouTube app, which gives you the opportunity to play, pause, replay, change video position and a lot of styling options.
 
 The package has a lot of configuration options to fit all your needs. Only `source` in `videoProps: { source: {} }` is required. Check the <a href='#props'>Props</a> table below.
 
