@@ -1,18 +1,16 @@
 # Basic info
-Video component for Expo built on default Video component.
+Video component for Expo built on top of default Video component.
 
-The package has lot of configuration options to fit all your needs. Only `source` in `videoProps: { source: {} }` is required. See the <a href='#props'>Props</a> table below.
+The package has lot of configuration options to fit all your needs. Only `source` in `videoProps: { source: {} }` is required - [Available source values](https://docs.expo.io/versions/latest/sdk/video/#props). See the <a href='#props'>Props</a> table below.
 
 For compatibility information check <a href='#compatibility'>Compatibility</a>. FAQ is <a href='#faq'>here</a>
 
-# ⚠️ Updating from version 1.x to 2.x
+## ⚠️ Updating from version 1.x to 2.x
 If you are updating from version 1.x to 2.x, you should check breaking changes in the API. [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/update-version-1x-to-2x.md)
 
 ## Installation
-- Expo video player
-`yarn add expo-video-player` _or_ `npm install expo-video-player`
-- Dependencies
-You may also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
+- Expo video player install via `yarn add expo-video-player` _or_ `npm install expo-video-player`
+- You may also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
 
 ## Usage
 Example app with various examples can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
@@ -41,7 +39,7 @@ prop | type | description
 **errorCallback** | (error: ErrorType) => void | Function, which is fired when an error occurs
 **playbackCallback** | (status: AVPlaybackStatus) => void | Function, which is fired every time `onPlaybackStatusUpdate` occurs
 **defaultControlsVisible** | `boolean` | Control, if on video start is visible darker overlay with icons. Default is `false`
-**timeVisible** | `boolean` | Control, if is visible current time and final length. Default is `true`
+**timeVisible** | `boolean` | Show current time and final length in the bottom. Default is `true`
 **textStyle** | `TextStyle` | Object containing `<Text />` styling
 **slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Styling may break layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete`
 **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator)
@@ -67,16 +65,11 @@ Changelog added in version 1.3.0
 Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/tree/master/CHANGELOG.md)
 
 ### FAQ
-- **How to achieve fullscreen?**
--- Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
-- **How to use ref?**
--- Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
-- **What to do, if I disconnect from internet in live video?**
--- You need to stop/pause playback yourself. I highly recommend using [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) for this kind of stuff
-- **Do you support subtitles?**
--- Please check [#1](https://github.com/ihmpavel/expo-video-player/issues/1)
-- **Can I support you?**
--- Yes, please [Become a sponsor](https://github.com/sponsors/ihmpavel)
+- **How to achieve fullscreen?** Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+- **How to use ref?** Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+- **What to do, if I disconnect from the internet while playing online video?** You need to stop/pause playback yourself. I highly recommend using [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) for this kind of stuff
+- **Do you support subtitles?** Please check [#1](https://github.com/ihmpavel/expo-video-player/issues/1)
+- **Can I support you?** Yes, please [Become a sponsor](https://github.com/sponsors/ihmpavel)
 
 ### TODO
 - [ ] make tests
