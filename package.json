@@ -30,7 +30,6 @@
     "jest": "jest"
   },
   "devDependencies": {
-    "@react-native-community/netinfo": "^6.0.0",
     "@react-native-community/slider": "^3.0.3",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.11",
