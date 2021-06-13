@@ -13,14 +13,15 @@ export const defaultProps = {
     console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   playbackCallback: () => {},
+  defaultControlsVisible: false,
+  timeVisible: true,
+  slider: {
+    visible: true,
+  },
   textStyle: {
     color: '#FFF',
     fontSize: 12,
     textAlign: 'center',
-  },
-  defaultControlsVisible: false,
-  slider: {
-    visible: true,
   },
   activityIndicator: {
     size: 'large',
@@ -43,7 +44,6 @@ export const defaultProps = {
       padding: 2,
     },
   },
-  timeVisible: true,
   fullscreen: {
     enterFullscreen: () =>
       // eslint-disable-next-line no-console
@@ -65,8 +65,9 @@ type RequiredProps = {
 type DefaultProps = {
   errorCallback: (error: ErrorType) => void
   playbackCallback: (status: AVPlaybackStatus) => void
-  textStyle: TextStyle
   defaultControlsVisible: boolean
+  timeVisible: boolean
+  textStyle: TextStyle
   slider: {
     visible?: boolean
   } & SliderProps
@@ -91,7 +92,6 @@ type DefaultProps = {
     fullscreen?: JSX.Element
     exitFullscreen?: JSX.Element
   }
-  timeVisible: boolean
   fullscreen: {
     enterFullscreen?: () => void
     exitFullscreen?: () => void

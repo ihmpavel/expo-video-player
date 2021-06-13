@@ -1,20 +1,21 @@
 # Basic info
 Video component for Expo built on default Video component.
 
-The package has lot of configuration options to fit your needs. Only `source` and `inFullscreen` are required. See the props table below. The `Video` component also supports phones, which screen ratio is not standard.
+The package has lot of configuration options to fit all your needs. Only `source` in `videoProps: { source: {} }` is required. See the <a href='#props'>Props</a> table below.
 
-For compatibility information check <a href='#compatibility'>Compatibility</a>
+For compatibility information check <a href='#compatibility'>Compatibility</a>. FAQ is <a href='#faq'>here</a>
 
+# ⚠️ Updating from version 1.x to 2.x
+If you are updating from version 1.x to 2.x, you should check breaking changes in the API. [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/update-version-1x-to-2x.md)
 
 ## Installation
 - Expo video player
 `yarn add expo-video-player` _or_ `npm install expo-video-player`
 - Dependencies
-You may also need `expo-av`, `@react-native-community/netinfo` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/netinfo @react-native-community/slider`)
-
+You may also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
 
 ## Usage
-Example app can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
+Example app with various examples can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
 
 ```
 import { Video } from 'expo-av'
@@ -24,57 +25,35 @@ import VideoPlayer from 'expo-video-player'
   videoProps={{
     shouldPlay: true,
     resizeMode: Video.RESIZE_MODE_CONTAIN,
+    // ❗ source is required
     source: {
       uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     },
   }}
-  inFullscreen={true}
 />
 ```
 
-
 ## Props
-
-prop | type | default | required | description
----- | :-------: | :-------: | :-------: | -----------
-**debug** | `boolean` | `false` | :x: | Write internal logs to console
-_VIDEO PROPS_ |
-**videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | `{}` | :heavy_check_mark: | [Video props](https://docs.expo.io/versions/latest/sdk/video/#props) to Expo component (at least source is required)
-**inFullscreen** | `boolean` |  | :heavy_check_mark: | Specify if video is inFullscreen (show enter/leave fullscreen icons)
-**width** | `number` | `Dimensions.get('window').width` | :x: | Specify width of the video (automatically set height based on screen ratio)
-**height** | `number` | `Dimensions.get('window').height` | :x: | Specify height (automatically set width based on screen ratio)
-_ANIMATIONS_ |
-**fadeInDuration** | `number` | `200` | :x: | How long should the fadeIn animation for the controls run? (in milliseconds)
-**fadeOutDuration** | `number` | `1000` | :x: | How long should the fadeOut animation run? (in milliseconds)
-**hideControlsTimerDuration** | `number` | `4000` | :x: | If the user has not interacted with the controls, how long should the controls stay visible? (in milliseconds) Default value is 4000.
-**quickFadeOutDuration** | `number` | `200` | :x: | How long should the fadeOut animation run when the screen is tapped when the controls are visible?
-_ICONS_ |
-**fullscreenEnterIcon** | `JSX.Element` | `FullscreenEnterIcon` | :x: | Default icon for entering fullscreen video
-**fullscreenExitIcon** | `JSX.Element` | `FullscreenExitIcon` | :x: | Default icon for exiting fullscreen video
-**playIcon** | `JSX.Element` | `PlayIcon` | :x: | Default icon for playing the video
-**pauseIcon** | `JSX.Element` | `PauseIcon` | :x: | Default icon for pausing the video
-**replayIcon** | `JSX.Element` | `ReplayIcon` | :x: | Default icon for replaying the video
-**spinner** | `JSX.Element` | `ReplayIcon` | :x: | Default icon for pausing the video
-**showFullscreenButton** | `boolean` | `true` | :x: | Boolean indicating whether fullscreen icon should be visible
-_APPEARANCE_ |
-**thumbImage** | `source` | `undefined` | :x: | [thumbImage](https://facebook.github.io/react-native/docs/slider#thumbimage)
-**iosTrackImage** | `source` | `undefined` | :x: | iOS [trackImage](https://facebook.github.io/react-native/docs/slider#trackimage)
-**showControlsOnLoad** | `boolean` | `false` | :x: | Boolean indicating whether controls should be visible on load
-**disableSlider** | `boolean` | `false` | :x: | Boolean indicating whether controls are disabled or not
-**sliderColor** | `color` | `#009485` | :x: | Color for ANDROID [thumbTintColor](https://facebook.github.io/react-native/docs/slider#thumbtintcolor) and iOS [minimumTrackImage](https://facebook.github.io/react-native/docs/slider#thumbtintcolor)
-**textStyle** | `TextStyle` | `{color: '#FFF', fontSize: 12}` | :x: | Default styling for text (eg. errors)
-**videoBackground** | `color` | `#000` | :x: | Default background around video
-_CALLBACKS_ |
-**errorCallback** | `function` | `error => console.error('Error: ', error.message, error.type, error.obj)` | :x: | Function when an error occurs
-**playbackCallback** | `function` | `callback => {}` | :x: | Function when playing changes (buffering/seeking/...)
-**switchToPortrait** | `function` | `() => console.warn('Pass your logic to switchToPortrait prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
-**switchToLandscape** | `function` | `() => console.warn('Pass your logic to switchToLandscape prop')` | :x: | Pass your function to make something on click (eg. rotate phone)
-_OTHER_ |
-**videoRef** | `ref` | `null` | :x: | Reference to video to controlling some features
+For default prop values, please check [/lib/props.tsx](https://github.com/ihmpavel/expo-video-player/blob/master/lib/props.tsx#L11)
+prop | type | description
+---- | :-------: | -----------
+**videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | At least `source` is required
+**errorCallback** | (error: ErrorType) => void | Function, which is fired when an error occurs
+**playbackCallback** | (status: AVPlaybackStatus) => void | Function, which is fired every time `onPlaybackStatusUpdate` occurs
+**defaultControlsVisible** | `boolean` | Control, if on video start is visible darker overlay with icons. Default is `false`
+**timeVisible** | `boolean` | Control, if is visible current time and final length. Default is `true`
+**textStyle** | `TextStyle` | Object containing `<Text />` styling
+**slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Styling may break layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete`
+**activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator)
+**animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds
+**style** | `{ width?: number, height?: number, videoBackgroundColor?: ColorValue, controlsBackgroundColor?: ColorValue }` | Basic styling of `<VideoPlayer />`
+**icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+**fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
 
 ## Compatibility
 Library version | Expo SDK version
 ---- | -------
+2.x.x | >= SDK 38
 1.6.x | >= SDK 38
 1.5.x | >= SDK 34
 1.4.x | >= SDK 34
@@ -83,18 +62,27 @@ Library version | Expo SDK version
 1.1.x | >= SDK 32
 1.x.x | >= SDK 32
 
-
 ### CHANGELOG
 Changelog added in version 1.3.0
 Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/tree/master/CHANGELOG.md)
 
+### FAQ
+- **How to achieve fullscreen?**
+-- Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+- **How to use ref?**
+-- Please check [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+- **What to do, if I disconnect from internet in live video?**
+-- You need to stop/pause playback yourself. I highly recommend using [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) for this kind of stuff
+- **Do you support subtitles?**
+-- Please check [#1](https://github.com/ihmpavel/expo-video-player/issues/1)
+- **Can I support you?**
+-- Yes, please [Become a sponsor](https://github.com/sponsors/ihmpavel)
 
 ### TODO
-- [ ] make better example app
 - [ ] make tests
-
 
 #### Some articles
  - Inspired by [expo/videoplayer](https://github.com/expo/videoplayer) _(already deprecated)_
+ - [Typescript default props](https://github.com/typescript-cheatsheets/react/issues/415)
  - [Creating a typescript module](https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724)
  - [Creating a component for React](https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce)

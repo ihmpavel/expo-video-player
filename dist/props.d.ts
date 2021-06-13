@@ -14,8 +14,9 @@ declare type RequiredProps = {
 declare type DefaultProps = {
     errorCallback: (error: ErrorType) => void;
     playbackCallback: (status: AVPlaybackStatus) => void;
-    textStyle: TextStyle;
     defaultControlsVisible: boolean;
+    timeVisible: boolean;
+    textStyle: TextStyle;
     slider: {
         visible?: boolean;
     } & SliderProps;
@@ -40,7 +41,6 @@ declare type DefaultProps = {
         fullscreen?: JSX.Element;
         exitFullscreen?: JSX.Element;
     };
-    timeVisible: boolean;
     fullscreen: {
         enterFullscreen?: () => void;
         exitFullscreen?: () => void;

@@ -6,8 +6,9 @@ declare const VideoPlayer: {
     defaultProps: {
         errorCallback: (error: import("./constants").ErrorType) => void;
         playbackCallback: (status: AVPlaybackStatus) => void;
-        textStyle: import("react-native").TextStyle;
         defaultControlsVisible: boolean;
+        timeVisible: boolean;
+        textStyle: import("react-native").TextStyle;
         slider: {
             visible?: boolean | undefined;
         } & import("@react-native-community/slider").SliderProps;
@@ -32,7 +33,6 @@ declare const VideoPlayer: {
             fullscreen?: JSX.Element | undefined;
             exitFullscreen?: JSX.Element | undefined;
         };
-        timeVisible: boolean;
         fullscreen: {
             enterFullscreen?: (() => void) | undefined;
             exitFullscreen?: (() => void) | undefined;

@@ -1,6 +1,6 @@
 {
   "name": "expo-video-player",
-  "version": "2.0.0-rc1",
+  "version": "1.6.1",
   "description": "Customizable Video Player controls for Expo",
   "keywords": [
     "customizable",
@@ -61,7 +61,7 @@
   },
   "peerDependencies": {
     "@react-native-community/slider": ">=3.0.0",
-    "expo": ">=34.0.0",
+    "expo": ">=38.0.0",
     "expo-av": ">=5.0.2"
   },
   "dependencies": {
