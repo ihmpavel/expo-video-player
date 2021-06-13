@@ -1,9 +1,9 @@
 # Basic info
-Video component for Expo built on top of default Video component.
+Video component for Expo built on top of the default Video component.
 
 The package has a lot of configuration options to fit all your needs. Only `source` in `videoProps: { source: {} }` is required. Check the <a href='#props'>Props</a> table below.
 
-For compatibility information check <a href='#compatibility'>Compatibility</a>. FAQ is <a href='#faq'>here</a>
+For compatibility information, check <a href='#compatibility'>Compatibility</a>. The FAQ is <a href='#faq'>here</a>
 
 ## ⚠️ Updating from version 1.x to 2.x
 If you are updating from version 1.x to 2.x, there are some breaking changes in the API. Please visit [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/update-version-1x-to-2x.md) to make your transition as easy as possible.
@@ -13,7 +13,7 @@ If you are updating from version 1.x to 2.x, there are some breaking changes in 
 - You also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
 
 ## Usage
-Example app with various examples can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
+An Example app with various examples can be found in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app).
 
 ```
 import { Video } from 'expo-av'
