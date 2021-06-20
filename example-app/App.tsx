@@ -14,10 +14,10 @@ const App = () => {
 
   return (
     <ScrollView
-      scrollEnabled={!inFullscreen}
+      scrollEnabled={!inFullscreen2}
       ref={refScrollView}
       onContentSizeChange={() => {
-        if (inFullscreen) {
+        if (inFullscreen2) {
           refScrollView.current.scrollToEnd({ animated: true })
         }
       }}
