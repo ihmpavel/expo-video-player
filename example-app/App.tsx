@@ -181,7 +181,7 @@ const App = () => {
             })
           },
           exitFullscreen: async () => {
-            setStatusBarHidden(true, 'fade')
+            setStatusBarHidden(false, 'fade')
             setInFullsreen2(!inFullscreen2)
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
           },
