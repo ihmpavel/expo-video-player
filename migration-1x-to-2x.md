@@ -1,6 +1,6 @@
 # Updating to version 2.x
 
-Some properties has been renamed, removed, but a lot of functionality has been added. Please check [README.md](https://github.com/ihmpavel/expo-video-player/tree/master/README.md)
+Some properties has been renamed, removed, but a lot of functionality has been added. Please check [README.md](https://github.com/ihmpavel/expo-video-player/blob/master/README.md)
 
 Old property | State | Current property | Description
 ---- | :--: | :-----: | -----------
@@ -9,7 +9,7 @@ Old property | State | Current property | Description
 **width** | ⚠️ | **style.width** | Property moved to the object `style`
 **height** | ⚠️ | **style.height** | Property moved to the object `style`
 **videoBackground** | ⚠️ | **style.videoBackground** | Property moved to the object `style`
-**videoRef** | ⚠️ | **videoProps.ref** | Property moved to the object `videoProps`. See usage in the [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+**videoRef** | ⚠️ | **videoProps.ref** | Property moved to the object `videoProps`. See usage in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx)
 **fadeInDuration** | ⚠️ | **animation.fadeInDuration** | Property moved to the object `animation`
 **fadeOutDuration** | ⚠️ | **animation.fadeOutDuration** | Property moved to the object `animation`
 **hideControlsTimerDuration** | ❌ | - | Prop has been removed

@@ -6,14 +6,14 @@ The package has a lot of configuration options to fit all your needs. Only `sour
 For compatibility information, scroll down to <a href='#compatibility'>Compatibility</a>. The FAQ is <a href='#faq'>here</a>
 
 ## ⚠️ Updating from version 1.x to 2.x
-If you are updating from version 1.x to 2.x, there are some breaking changes in the API. Please visit [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/migration-1x-to-2x.md) to make your transition as easy as possible. In version 2.x [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) has been removed.
+If you are updating from version 1.x to 2.x, there are some breaking changes in the API. Please visit [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/blob/master/migration-1x-to-2x.md) to make your transition as easy as possible. In version 2.x [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) has been removed.
 
 ## Installation
 - Install Video Player component typing into terminal `yarn add expo-video-player` _or_ `npm install expo-video-player`
 - You also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
 
 ## Usage
-The showcase of some of the possibilities you can create is in the folder [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app). There is Fullscreen, ref, local file, custom icons, styling...
+The showcase of some of the possibilities you can create is in the folder [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app). There is Fullscreen, ref, local file, custom icons, styling...
 
 Minimal code to make `VideoPlayer` working
 ```
@@ -46,8 +46,8 @@ Property | Type | Description
 **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator)
 **animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds
 **style** | `{ width?: number, height?: number, videoBackgroundColor?: ColorValue, controlsBackgroundColor?: ColorValue }` | Basic styling of `<VideoPlayer />`
-**icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
-**fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx#L154)
+**icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx)
+**fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154)
 
 ## Compatibility
 Library version | Expo SDK version
@@ -63,11 +63,11 @@ Library version | Expo SDK version
 
 ### CHANGELOG
 Changelog added in version 1.3.0
-Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/tree/master/CHANGELOG.md)
+Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/blob/master/CHANGELOG.md)
 
 ### FAQ
-- **How to make fullscreen working?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx#L154)
-- **How to use ref?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/tree/master/example-app/App.tsx)
+- **How to make fullscreen working?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154)
+- **How to use ref?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx)
 - **What to do if I disconnect from the internet while playing video from remote source?** You need to stop/pause playback yourself. I highly recommend using [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) for this kind of stuff
 - **Do you support subtitles?** Have a look at [#1](https://github.com/ihmpavel/expo-video-player/issues/1)
 - **Can I support you?** Yes, please [Become a sponsor](https://github.com/sponsors/ihmpavel)
