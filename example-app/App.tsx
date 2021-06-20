@@ -7,7 +7,7 @@ import VideoPlayer from 'expo-video-player'
 
 const App = () => {
   const [inFullscreen, setInFullsreen] = useState(false)
-  const [inFullsreen2, setInFullsreen2] = useState(false)
+  const [inFullscreen2, setInFullsreen2] = useState(false)
   const refVideo = useRef(null)
   const refVideo2 = useRef(null)
   const refScrollView = useRef(null)
@@ -37,6 +37,16 @@ const App = () => {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
         }}
+      />
+
+      <Text style={styles.text}>Local file</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: require('./local.mp4'),
+        }}
+        style={{ height: 160 }}
       />
 
       <Text style={styles.text}>Only video without controls</Text>
@@ -134,18 +144,18 @@ const App = () => {
         }}
         fullscreen={{
           enterFullscreen: () => {
-            setInFullsreen2(!inFullsreen2)
+            setInFullsreen(!inFullscreen)
             refVideo.current.setStatusAsync({
               shouldPlay: true,
             })
           },
           exitFullscreen: () => {
-            setInFullsreen2(!inFullsreen2)
+            setInFullsreen(!inFullscreen)
             refVideo.current.setStatusAsync({
               shouldPlay: false,
             })
           },
-          inFullscreen: inFullsreen2,
+          inFullscreen,
         }}
         style={{ height: 160 }}
       />
@@ -161,10 +171,10 @@ const App = () => {
           ref: refVideo2,
         }}
         fullscreen={{
-          inFullscreen,
+          inFullscreen: inFullscreen2,
           enterFullscreen: async () => {
             setStatusBarHidden(true, 'fade')
-            setInFullsreen(!inFullscreen)
+            setInFullsreen2(!inFullscreen2)
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT)
             refVideo2.current.setStatusAsync({
               shouldPlay: true,
@@ -172,14 +182,14 @@ const App = () => {
           },
           exitFullscreen: async () => {
             setStatusBarHidden(true, 'fade')
-            setInFullsreen(!inFullscreen)
+            setInFullsreen2(!inFullscreen2)
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
           },
         }}
         style={{
           videoBackgroundColor: 'black',
-          height: inFullscreen ? Dimensions.get('window').width : 160,
-          width: inFullscreen ? Dimensions.get('window').height : 320,
+          height: inFullscreen2 ? Dimensions.get('window').width : 160,
+          width: inFullscreen2 ? Dimensions.get('window').height : 320,
         }}
       />
     </ScrollView>

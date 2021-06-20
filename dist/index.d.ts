@@ -30,6 +30,7 @@ declare const VideoPlayer: {
             pause?: JSX.Element | undefined;
             play?: JSX.Element | undefined;
             replay?: JSX.Element | undefined;
+            loading?: JSX.Element | undefined;
             fullscreen?: JSX.Element | undefined;
             exitFullscreen?: JSX.Element | undefined;
         };

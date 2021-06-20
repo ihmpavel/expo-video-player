@@ -1,8 +1,8 @@
 # ChangeLog
 
-## 2.0.0 (June 13, 2021)
+## 2.0.0 (June 20, 2021)
 - Rewritten, simplified
-- If you are upgrading from version `1.x`, please check [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/update-version-1x-to-2x.md)
+- If you are upgrading from version `1.x`, please check [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/tree/master/migration-1x-to-2x.md)
 
 ## 1.6.1 (October 10, 2020)
 - Enhancements: Updated packages and bumped Expo SDK version

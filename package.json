@@ -35,9 +35,9 @@
     "@types/react": "^17.0.11",
     "@types/react-native": "^0.64.10",
     "@types/react-test-renderer": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "@typescript-eslint/parser": "^4.26.1",
-    "eslint": "^7.28.0",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-import": "^2.23.4",
@@ -56,7 +56,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-test-renderer": "^17.0.2",
     "ts-jest": "^27.0.3",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.4"
   },
   "peerDependencies": {
     "@react-native-community/slider": ">=3.0.0",

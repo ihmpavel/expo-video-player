@@ -89,6 +89,7 @@ type DefaultProps = {
     pause?: JSX.Element
     play?: JSX.Element
     replay?: JSX.Element
+    loading?: JSX.Element
     fullscreen?: JSX.Element
     exitFullscreen?: JSX.Element
   }

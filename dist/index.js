@@ -161,7 +161,7 @@ const VideoPlayer = (tempProps) => {
                 height: videoHeight,
                 justifyContent: 'center',
             }}>
-        <ActivityIndicator {...props.activityIndicator}/>
+        {props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>}
       </View>);
     }
     return (<View style={{
@@ -183,7 +183,8 @@ const VideoPlayer = (tempProps) => {
             <View style={styles.iconWrapper}>
               <TouchableNativeFeedback onPress={togglePlay} background={TouchableNativeFeedback.Ripple('white', true)}>
                 <View>
-                  {playbackInstanceInfo.state === PlaybackStates.Buffering && (<ActivityIndicator {...props.activityIndicator}/>)}
+                  {playbackInstanceInfo.state === PlaybackStates.Buffering &&
+            (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
                   {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
                   {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
                   {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
