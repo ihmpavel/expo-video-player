@@ -2,7 +2,7 @@
 
 Some properties has been renamed, removed, but a lot of functionality has been added. Please check [README.md](https://github.com/ihmpavel/expo-video-player/blob/master/README.md)
 
-Old property | State | Current property | Description
+Old property name | State | Current property name | Description
 ---- | :--: | :-----: | -----------
 **debug** | ❌ | - | This prop has been removed
 **videoProps** | ✔️ | **videoProps** | Not changed
@@ -31,4 +31,9 @@ Old property | State | Current property | Description
 **playIcon** | ⚠️ | **icon.play** | Property moved to the object `icon`
 **pauseIcon** | ⚠️ | **icon.pause** | Property moved to the object `icon`
 **replayIcon** | ⚠️ | **icon.replay** | Property moved to the object `icon`
-**spinner** | ⚠️ | - | Property moved to the object `icon`, renamed to `loading`
+**spinner** | ⚠️ | **icon.loading** | Property moved to the object `icon`
+
+## Guide
+- ❌ - Property removed
+- ⚠️ - Something changed
+- ✔️ - Nothing changed
