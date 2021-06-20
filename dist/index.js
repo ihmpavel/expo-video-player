@@ -1,440 +1,249 @@
 import { __awaiter, __rest } from "tslib";
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Audio, Video } from 'expo-av';
-import { Animated, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
-import { FullscreenEnterIcon, FullscreenExitIcon, PauseIcon, PlayIcon, ReplayIcon, Spinner, } from './assets/icons';
-import { useNetInfo } from '@react-native-community/netinfo';
-import { withDefaultProps } from 'with-default-props';
-import { useEffect, useState } from 'react';
+import { ActivityIndicator, Animated, StyleSheet, Text, TouchableNativeFeedback, TouchableWithoutFeedback, View, } from 'react-native';
+import { ControlStates, ErrorSeverity, PlaybackStates } from './constants';
+import { ErrorMessage, deepMerge, getMinutesSecondsFromMilliseconds, styles } from './utils';
+import { MaterialIcons } from '@expo/vector-icons';
+import { defaultProps } from './props';
+import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Slider from '@react-native-community/slider';
-const SLIDER_COLOR = '#009485';
-const BUFFERING_SHOW_DELAY = 200;
-// UI states
-var ControlStates;
-(function (ControlStates) {
-    ControlStates["Shown"] = "Show";
-    ControlStates["Showing"] = "Showing";
-    ControlStates["Hidden"] = "Hidden";
-    ControlStates["Hiding"] = "Hiding";
-})(ControlStates || (ControlStates = {}));
-var PlaybackStates;
-(function (PlaybackStates) {
-    PlaybackStates["Loading"] = "Loading";
-    PlaybackStates["Playing"] = "Playing";
-    PlaybackStates["Paused"] = "Paused";
-    PlaybackStates["Buffering"] = "Buffering";
-    PlaybackStates["Error"] = "Error";
-    PlaybackStates["Ended"] = "Ended";
-})(PlaybackStates || (PlaybackStates = {}));
-var SeekStates;
-(function (SeekStates) {
-    SeekStates["NotSeeking"] = "NotSeeking";
-    SeekStates["Seeking"] = "Seeking";
-    SeekStates["Seeked"] = "Seeked";
-})(SeekStates || (SeekStates = {}));
-var ErrorSeverity;
-(function (ErrorSeverity) {
-    ErrorSeverity["Fatal"] = "Fatal";
-    ErrorSeverity["NonFatal"] = "NonFatal";
-})(ErrorSeverity || (ErrorSeverity = {}));
-const defaultProps = {
-    videoRef: null,
-    children: null,
-    debug: false,
-    inFullscreen: false,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    // Animations
-    fadeInDuration: 200,
-    fadeOutDuration: 1000,
-    quickFadeOutDuration: 200,
-    hideControlsTimerDuration: 4000,
-    // Icons
-    playIcon: PlayIcon,
-    replayIcon: ReplayIcon,
-    pauseIcon: PauseIcon,
-    spinner: Spinner,
-    fullscreenEnterIcon: FullscreenEnterIcon,
-    fullscreenExitIcon: FullscreenExitIcon,
-    // Appearance
-    showFullscreenButton: true,
-    thumbImage: null,
-    iosTrackImage: null,
-    textStyle: {
-        color: '#FFF',
-        fontSize: 12,
-    },
-    videoBackground: '#000',
-    // Callbacks
-    errorCallback: (error) => console.error('Error: ', error.message, error.type, error.obj),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    playbackCallback: (_callback) => { },
-    switchToLandscape: () => console.warn(`Pass your logic to 'switchToLandscape' prop`),
-    switchToPortrait: () => console.warn(`Pass your logic to 'switchToPortrait' prop`),
-    showControlsOnLoad: false,
-    sliderColor: SLIDER_COLOR,
-    disableSlider: false,
-};
-const VideoPlayer = (props) => {
+const VideoPlayer = (tempProps) => {
+    const props = deepMerge(defaultProps, tempProps);
     let playbackInstance = null;
-    let showingAnimation = null;
-    let hideAnimation = null;
-    let shouldPlayAtEndOfSeek = false;
     let controlsTimer = null;
-    const { isConnected } = useNetInfo();
-    const [playbackState, setPlaybackState] = useState(PlaybackStates.Loading);
-    const [lastPlaybackStateUpdate, setLastPlaybackStateUpdate] = useState(Date.now());
-    const [seekState, setSeekState] = useState(SeekStates.NotSeeking);
-    const [playbackInstancePosition, setPlaybackInstancePosition] = useState(0);
-    const [playbackInstanceDuration, setPlaybackInstanceDuration] = useState(0);
-    const [shouldPlay, setShouldPlay] = useState(false);
-    const [error, setError] = useState('');
-    const [sliderWidth, setSliderWidth] = useState(0);
-    const [controlsState, setControlsState] = useState(props.showControlsOnLoad ? ControlStates.Shown : ControlStates.Hidden);
-    const [controlsOpacity] = useState(new Animated.Value(props.showControlsOnLoad ? 1 : 0));
-    // Set audio mode to play even in silent mode (like the YouTube app)
-    const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { errorCallback } = props;
-        try {
-            yield Audio.setAudioModeAsync({
-                allowsRecordingIOS: false,
-                interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-                playsInSilentModeIOS: true,
-                shouldDuckAndroid: true,
-                interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-                playThroughEarpieceAndroid: false,
-                staysActiveInBackground: false,
-            });
-        }
-        catch (e) {
-            errorCallback({
-                type: ErrorSeverity.NonFatal,
-                message: 'setAudioModeAsync error',
-                obj: e,
-            });
-        }
+    let initialShow = props.defaultControlsVisible;
+    const [errorMessage, setErrorMessage] = useState('');
+    const controlsOpacity = useRef(new Animated.Value(props.defaultControlsVisible ? 1 : 0)).current;
+    const [controlsState, setControlsState] = useState(props.defaultControlsVisible ? ControlStates.Visible : ControlStates.Hidden);
+    const [playbackInstanceInfo, setPlaybackInstanceInfo] = useState({
+        position: 0,
+        duration: 0,
+        state: props.videoProps.source ? PlaybackStates.Loading : PlaybackStates.Error,
     });
+    // We need to extract ref, because of misstypes in <Slider />
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _a = props.slider, { ref: sliderRef } = _a, sliderProps = __rest(_a, ["ref"]);
+    const screenRatio = props.style.width / props.style.height;
+    let videoHeight = props.style.height;
+    let videoWidth = videoHeight * screenRatio;
+    if (videoWidth > props.style.width) {
+        videoWidth = props.style.width;
+        videoHeight = videoWidth / screenRatio;
+    }
     useEffect(() => {
-        const { videoProps } = props;
-        if (videoProps.source === null) {
-            console.error('`Source` is a required property');
-            throw new Error('`Source` is required');
-        }
         setAudio();
-    });
-    // Handle events during playback
-    const updatePlaybackState = (newPlaybackState) => {
-        if (playbackState !== newPlaybackState) {
-            const { debug } = props;
-            debug &&
-                console.info('[playback]', playbackState, ' -> ', newPlaybackState, ' [seek] ', seekState, ' [shouldPlay] ', shouldPlay);
-            setPlaybackState(newPlaybackState);
-            setLastPlaybackStateUpdate(Date.now());
-        }
-    };
-    const updateSeekState = (newSeekState) => {
-        const { debug } = props;
-        debug &&
-            console.info('[seek]', seekState, ' -> ', newSeekState, ' [playback] ', playbackState, ' [shouldPlay] ', shouldPlay);
-        setSeekState(newSeekState);
-        // Don't keep the controls timer running when the state is seeking
-        if (newSeekState === SeekStates.Seeking) {
-            controlsTimer && clearTimeout(controlsTimer);
-        }
-        else {
-            // Start the controlFs timer anew
-            resetControlsTimer();
-        }
-    };
-    const updatePlaybackCallback = (status) => {
-        const { errorCallback, playbackCallback } = props;
-        try {
-            playbackCallback(status);
-        }
-        catch (e) {
-            console.error('Uncaught error when calling props.playbackCallback', e);
-        }
-        if (!status.isLoaded) {
-            if (status.error) {
-                updatePlaybackState(PlaybackStates.Error);
-                const errorMsg = `Encountered a fatal error during playback: ${status.error}`;
-                setError(errorMsg);
-                errorCallback({ type: ErrorSeverity.Fatal, message: errorMsg, obj: {} });
-            }
-        }
-        else {
-            // Update current position, duration, and `shouldPlay`
-            setPlaybackInstancePosition(status.positionMillis || 0);
-            setPlaybackInstanceDuration(status.durationMillis || 0);
-            setShouldPlay(status.shouldPlay);
-            // Figure out what state should be next (only if we are not seeking,
-            // other the seek action handlers control the playback state, not this callback)
-            if (seekState === SeekStates.NotSeeking && playbackState !== PlaybackStates.Ended) {
-                if (status.didJustFinish && !status.isLooping) {
-                    updatePlaybackState(PlaybackStates.Ended);
-                }
-                else {
-                    // If the video is buffering but there is no Internet, you go to the Error state
-                    if (!isConnected && status.isBuffering) {
-                        updatePlaybackState(PlaybackStates.Error);
-                        setError('You are probably offline.' +
-                            'Please make sure you are connected to the Internet to watch this video');
-                    }
-                    else {
-                        updatePlaybackState(isPlayingOrBufferingOrPaused(status));
-                    }
-                }
-            }
-        }
-    };
-    // Seeking
-    const getSeekSliderPosition = () => playbackInstancePosition / playbackInstanceDuration || 0;
-    const onSeekSliderValueChange = () => __awaiter(void 0, void 0, void 0, function* () {
-        if (playbackInstance !== null && seekState !== SeekStates.Seeking) {
-            updateSeekState(SeekStates.Seeking);
-            // A seek might have finished (Seeked) but since we are not in NotSeeking yet, the `shouldPlay` flag is still false,
-            // but we really want it be the stored value from before the previous seek
-            shouldPlayAtEndOfSeek = seekState === SeekStates.Seeked ? shouldPlayAtEndOfSeek : shouldPlay;
-            // Pause the video
-            yield playbackInstance.setStatusAsync({ shouldPlay: false });
-        }
-    });
-    const onSeekSliderSlidingComplete = (value) => __awaiter(void 0, void 0, void 0, function* () {
-        if (playbackInstance !== null) {
-            const { debug } = props;
-            // Seeking is done, so go to Seeked, and set playbackState to Buffering
-            updateSeekState(SeekStates.Seeked);
-            // If the video is going to play after seek, the user expects a spinner.
-            // Otherwise, the user expects the play button
-            updatePlaybackState(shouldPlayAtEndOfSeek ? PlaybackStates.Buffering : PlaybackStates.Paused);
-            try {
-                const playback = yield playbackInstance.setStatusAsync({
-                    positionMillis: value * playbackInstanceDuration,
-                    shouldPlay: shouldPlayAtEndOfSeek,
+        return () => {
+            if (playbackInstance) {
+                playbackInstance.setStatusAsync({
+                    shouldPlay: false,
                 });
-                // The underlying <Video> has successfully updated playback position
-                // TODO: If `shouldPlayAtEndOfSeek` is false, should we still set the playbackState to Paused?
-                // But because we setStatusAsync(shouldPlay: false), so the AVPlaybackStatus return value will be Paused.
-                updateSeekState(SeekStates.NotSeeking);
-                updatePlaybackState(isPlayingOrBufferingOrPaused(playback));
             }
-            catch (e) {
-                debug && console.error('Seek error: ', e);
-            }
+        };
+    }, []);
+    useEffect(() => {
+        if (!props.videoProps.source) {
+            console.error('[VideoPlayer] `Source` is a required in `videoProps`. ' +
+                'Check https://docs.expo.io/versions/latest/sdk/video/#usage');
+            setErrorMessage('`Source` is a required in `videoProps`');
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Error }));
         }
-    });
-    const isPlayingOrBufferingOrPaused = (status) => {
-        if (!status.isLoaded) {
-            return PlaybackStates.Error;
+        else {
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Playing }));
         }
-        if (status.isPlaying) {
-            return PlaybackStates.Playing;
-        }
-        if (status.isBuffering) {
-            return PlaybackStates.Buffering;
-        }
-        return PlaybackStates.Paused;
-    };
-    const onSeekBarTap = (e) => {
-        if (!(playbackState === PlaybackStates.Loading ||
-            playbackState === PlaybackStates.Ended ||
-            playbackState === PlaybackStates.Error ||
-            controlsState !== ControlStates.Shown)) {
-            const value = e.nativeEvent.locationX / sliderWidth;
-            onSeekSliderValueChange();
-            onSeekSliderSlidingComplete(value);
-        }
-    };
-    // Capture the width of the seekbar slider for use in `_onSeekbarTap`
-    const onSliderLayout = (e) => {
-        setSliderWidth(e.nativeEvent.layout.width);
-    };
-    // Controls view
-    const getMMSSFromMillis = (millis) => {
-        const totalSeconds = millis / 1000;
-        const seconds = String(Math.floor(totalSeconds % 60));
-        const minutes = String(Math.floor(totalSeconds / 60));
-        return minutes.padStart(2, '0') + ':' + seconds.padStart(2, '0');
-    };
-    // Controls Behavior
-    const replay = () => __awaiter(void 0, void 0, void 0, function* () {
-        if (playbackInstance !== null) {
-            yield playbackInstance.setStatusAsync({
-                shouldPlay: true,
-                positionMillis: 0,
-            });
-            // Update playbackState to get out of Ended state
-            setPlaybackState(PlaybackStates.Playing);
-        }
-    });
-    const togglePlay = () => __awaiter(void 0, void 0, void 0, function* () {
-        if (controlsState === ControlStates.Hidden) {
-            return;
-        }
-        const shouldPlay = playbackState !== PlaybackStates.Playing;
-        if (playbackInstance !== null) {
-            yield playbackInstance.setStatusAsync({ shouldPlay });
-        }
-    });
-    const toggleControls = () => {
-        switch (controlsState) {
-            case ControlStates.Shown:
-                // If the controls are currently Shown, a tap should hide controls quickly
-                setControlsState(ControlStates.Hiding);
-                hideControls(true);
-                break;
-            case ControlStates.Hidden:
-                // If the controls are currently, show controls with fade-in animation
-                showControls();
-                setControlsState(ControlStates.Showing);
-                break;
-            case ControlStates.Hiding:
-                // If controls are fading out, a tap should reverse, and show controls
-                setControlsState(ControlStates.Showing);
-                showControls();
-                break;
-            case ControlStates.Showing:
-                // A tap when the controls are fading in should do nothing
-                break;
-        }
-    };
-    const showControls = () => {
-        const { fadeInDuration } = props;
-        showingAnimation = Animated.timing(controlsOpacity, {
-            toValue: 1,
-            duration: fadeInDuration,
-            useNativeDriver: true,
-        });
-        showingAnimation.start(({ finished }) => {
-            if (finished) {
-                setControlsState(ControlStates.Shown);
-                resetControlsTimer();
-            }
-        });
-    };
-    const hideControls = (immediately = false) => {
-        const { quickFadeOutDuration, fadeOutDuration } = props;
-        if (controlsTimer) {
-            clearTimeout(controlsTimer);
-        }
-        hideAnimation = Animated.timing(controlsOpacity, {
+    }, [props.videoProps.source]);
+    const hideAnimation = () => {
+        Animated.timing(controlsOpacity, {
             toValue: 0,
-            duration: immediately ? quickFadeOutDuration : fadeOutDuration,
+            duration: props.animation.fadeOutDuration,
             useNativeDriver: true,
-        });
-        hideAnimation.start(({ finished }) => {
+        }).start(({ finished }) => {
             if (finished) {
                 setControlsState(ControlStates.Hidden);
             }
         });
     };
-    const onTimerDone = () => {
-        // After the controls timer runs out, fade away the controls slowly
-        setControlsState(ControlStates.Hiding);
-        hideControls();
-    };
-    const resetControlsTimer = () => {
-        const { hideControlsTimerDuration } = props;
-        if (controlsTimer) {
-            clearTimeout(controlsTimer);
+    const animationToggle = () => {
+        if (controlsState === ControlStates.Hidden) {
+            Animated.timing(controlsOpacity, {
+                toValue: 1,
+                duration: props.animation.fadeInDuration,
+                useNativeDriver: true,
+            }).start(({ finished }) => {
+                if (finished) {
+                    setControlsState(ControlStates.Visible);
+                }
+            });
         }
-        controlsTimer = setTimeout(() => onTimerDone(), hideControlsTimerDuration);
+        else if (controlsState === ControlStates.Visible) {
+            hideAnimation();
+        }
+        if (controlsTimer === null) {
+            controlsTimer = setTimeout(() => {
+                if (playbackInstanceInfo.state === PlaybackStates.Playing &&
+                    controlsState === ControlStates.Hidden) {
+                    hideAnimation();
+                }
+                if (controlsTimer) {
+                    clearTimeout(controlsTimer);
+                }
+                controlsTimer = null;
+            }, 2000);
+        }
     };
-    const { playIcon: VideoPlayIcon, pauseIcon: VideoPauseIcon, spinner: VideoSpinner, fullscreenEnterIcon: VideoFullscreenEnterIcon, fullscreenExitIcon: VideoFullscreenExitIcon, replayIcon: VideoReplayIcon, switchToLandscape, switchToPortrait, inFullscreen, sliderColor, disableSlider, thumbImage, iosTrackImage, showFullscreenButton, textStyle, videoProps, videoBackground, width, height, } = props;
-    const centeredContentWidth = 60;
-    const screenRatio = width / height;
-    let videoHeight = height;
-    let videoWidth = videoHeight * screenRatio;
-    if (videoWidth > width) {
-        videoWidth = width;
-        videoHeight = videoWidth / screenRatio;
+    // Set audio mode to play even in silent mode (like the YouTube app)
+    const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Audio.setAudioModeAsync({
+                playsInSilentModeIOS: true,
+            });
+        }
+        catch (e) {
+            props.errorCallback({
+                type: ErrorSeverity.NonFatal,
+                message: 'Audio.setAudioModeAsync',
+                obj: e,
+            });
+        }
+    });
+    const updatePlaybackCallback = (status) => {
+        props.playbackCallback(status);
+        if (status.isLoaded) {
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position: status.positionMillis, duration: status.durationMillis || 0, state: status.didJustFinish
+                    ? PlaybackStates.Ended
+                    : status.isBuffering
+                        ? PlaybackStates.Buffering
+                        : status.shouldPlay
+                            ? PlaybackStates.Playing
+                            : PlaybackStates.Paused }));
+            if ((status.didJustFinish && controlsState === ControlStates.Hidden) ||
+                (status.isBuffering && controlsState === ControlStates.Hidden && initialShow)) {
+                animationToggle();
+                initialShow = false;
+            }
+        }
+        else {
+            if (status.isLoaded === false && status.error) {
+                const errorMsg = `Encountered a fatal error during playback: ${status.error}`;
+                setErrorMessage(errorMsg);
+                props.errorCallback({ type: ErrorSeverity.Fatal, message: errorMsg, obj: {} });
+            }
+        }
+    };
+    const togglePlay = () => __awaiter(void 0, void 0, void 0, function* () {
+        if (controlsState === ControlStates.Hidden) {
+            return;
+        }
+        const shouldPlay = playbackInstanceInfo.state !== PlaybackStates.Playing;
+        if (playbackInstance !== null) {
+            yield playbackInstance.setStatusAsync(Object.assign({ shouldPlay }, (playbackInstanceInfo.state === PlaybackStates.Ended && { positionMillis: 0 })));
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: playbackInstanceInfo.state === PlaybackStates.Playing
+                    ? PlaybackStates.Paused
+                    : PlaybackStates.Playing }));
+            if (shouldPlay) {
+                animationToggle();
+            }
+        }
+    });
+    if (playbackInstanceInfo.state === PlaybackStates.Error) {
+        return (<View style={{
+                backgroundColor: props.style.videoBackgroundColor,
+                width: videoWidth,
+                height: videoHeight,
+            }}>
+        <ErrorMessage style={props.textStyle} message={errorMessage}/>
+      </View>);
     }
-    // @ts-expect-error Do not let the user override `ref`, `callback`, and `style`
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { videoRef, ref, style, onPlaybackStatusUpdate, source } = videoProps, otherVideoProps = __rest(videoProps, ["videoRef", "ref", "style", "onPlaybackStatusUpdate", "source"]);
-    const Control = (_a) => {
-        var { callback, center, children, transparent = false } = _a, otherProps = __rest(_a, ["callback", "center", "children", "transparent"]);
-        return (_jsx(TouchableOpacity, Object.assign({}, otherProps, { hitSlop: { top: 20, left: 20, bottom: 20, right: 20 }, onPress: () => {
-                resetControlsTimer();
-                callback();
-            } }, { children: _jsx(View, Object.assign({ style: center && {
-                    backgroundColor: transparent ? 'transparent' : 'rgba(0, 0, 0, 0.4)',
-                    justifyContent: 'center',
-                    width: centeredContentWidth,
-                    height: centeredContentWidth,
-                    borderRadius: centeredContentWidth,
-                } }, { children: children }), void 0) }), void 0));
-    };
-    const CenteredView = (_a) => {
-        var { children, style: viewStyle } = _a, 
-        // pointerEvents,
-        otherProps = __rest(_a, ["children", "style"]);
-        return (_jsx(Animated.View, Object.assign({}, otherProps, { style: [
-                {
-                    position: 'absolute',
-                    left: (videoWidth - centeredContentWidth) / 2,
-                    top: (videoHeight - centeredContentWidth) / 2,
-                    width: centeredContentWidth,
-                    height: centeredContentWidth,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                viewStyle,
-            ] }, { children: children }), void 0));
-    };
-    const ErrorText = ({ text }) => (_jsx(View, Object.assign({ style: {
-            position: 'absolute',
-            top: videoHeight / 2,
-            width: videoWidth - 40,
-            marginRight: 20,
-            marginLeft: 20,
-        } }, { children: _jsx(Text, Object.assign({ style: [textStyle, { textAlign: 'center' }] }, { children: text }), void 0) }), void 0));
-    return (_jsx(TouchableWithoutFeedback, Object.assign({ onPress: toggleControls }, { children: _jsxs(View, Object.assign({ style: { backgroundColor: videoBackground } }, { children: [_jsx(Video, Object.assign({ source: source, ref: component => {
-                        playbackInstance = component;
-                        ref && ref(component);
-                        videoRef && videoRef(component);
-                    }, onPlaybackStatusUpdate: updatePlaybackCallback, style: {
-                        width: videoWidth,
-                        height: videoHeight,
-                    } }, otherVideoProps), void 0),
-                ((playbackState === PlaybackStates.Buffering &&
-                    Date.now() - lastPlaybackStateUpdate > BUFFERING_SHOW_DELAY) ||
-                    playbackState === PlaybackStates.Loading) && (_jsx(View, Object.assign({ style: {
-                        position: 'absolute',
-                        left: (videoWidth - centeredContentWidth) / 2,
-                        top: (videoHeight - centeredContentWidth) / 2,
-                        width: centeredContentWidth,
-                        height: centeredContentWidth,
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    } }, { children: _jsx(VideoSpinner, {}, void 0) }), void 0)),
-                seekState !== SeekStates.Seeking &&
-                    (playbackState === PlaybackStates.Playing || playbackState === PlaybackStates.Paused) && (_jsx(CenteredView, Object.assign({ pointerEvents: controlsState === ControlStates.Hidden ? 'none' : 'auto', 
-                    // @ts-expect-error Bad TS types
-                    style: { opacity: controlsOpacity } }, { children: _jsxs(Control, Object.assign({ center: true, callback: togglePlay }, { children: [playbackState === PlaybackStates.Playing && _jsx(VideoPauseIcon, {}, void 0),
-                            playbackState === PlaybackStates.Paused && _jsx(VideoPlayIcon, {}, void 0)] }), void 0) }), void 0)),
-                playbackState === PlaybackStates.Ended && (_jsx(CenteredView, { children: _jsx(Control, Object.assign({ center: true, callback: replay }, { children: _jsx(VideoReplayIcon, {}, void 0) }), void 0) }, void 0)),
-                playbackState === PlaybackStates.Error && _jsx(ErrorText, { text: error }, void 0),
-                _jsxs(Animated.View, Object.assign({ pointerEvents: controlsState === ControlStates.Hidden ? 'none' : 'auto', style: {
-                        position: 'absolute',
-                        bottom: 0,
-                        width: videoWidth,
-                        opacity: controlsOpacity,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingBottom: 4,
-                        paddingHorizontal: 4,
-                    } }, { children: [_jsx(Text, Object.assign({ style: [textStyle, { backgroundColor: 'transparent', marginLeft: 5 }] }, { children: getMMSSFromMillis(playbackInstancePosition) }), void 0),
-                        !disableSlider && (_jsx(TouchableWithoutFeedback, Object.assign({ onLayout: onSliderLayout, onPress: onSeekBarTap }, { children: _jsx(Slider, { style: { marginRight: 10, marginLeft: 10, flex: 1 }, thumbTintColor: sliderColor, minimumTrackTintColor: sliderColor, trackImage: iosTrackImage, thumbImage: thumbImage, value: getSeekSliderPosition(), onValueChange: onSeekSliderValueChange, onSlidingComplete: onSeekSliderSlidingComplete, disabled: playbackState === PlaybackStates.Loading ||
-                                    playbackState === PlaybackStates.Ended ||
-                                    playbackState === PlaybackStates.Error ||
-                                    controlsState !== ControlStates.Shown }, void 0) }), void 0)),
-                        _jsx(Text, Object.assign({ style: [textStyle, { backgroundColor: 'transparent', marginRight: 5 }] }, { children: getMMSSFromMillis(playbackInstanceDuration) }), void 0),
-                        showFullscreenButton && (_jsx(Control, Object.assign({ transparent: true, center: false, callback: () => {
-                                inFullscreen ? switchToPortrait() : switchToLandscape();
-                            } }, { children: inFullscreen ? _jsx(VideoFullscreenExitIcon, {}, void 0) : _jsx(VideoFullscreenEnterIcon, {}, void 0) }), void 0))] }), void 0)] }), void 0) }), void 0));
+    if (playbackInstanceInfo.state === PlaybackStates.Loading) {
+        return (<View style={{
+                backgroundColor: props.style.controlsBackgroundColor,
+                width: videoWidth,
+                height: videoHeight,
+                justifyContent: 'center',
+            }}>
+        {props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>}
+      </View>);
+    }
+    return (<View style={{
+            backgroundColor: props.style.videoBackgroundColor,
+            width: videoWidth,
+            height: videoHeight,
+        }}>
+      <Video style={styles.videoWrapper} {...props.videoProps} ref={component => {
+            playbackInstance = component;
+            if (props.videoProps.ref) {
+                props.videoProps.ref.current = component;
+            }
+        }} onPlaybackStatusUpdate={updatePlaybackCallback}/>
+
+      <TouchableWithoutFeedback onPress={animationToggle}>
+        <Animated.View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { opacity: controlsOpacity, justifyContent: 'center', alignItems: 'center' })}>
+          <View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { backgroundColor: props.style.controlsBackgroundColor, opacity: 0.5 })}/>
+          <View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}>
+            <View style={styles.iconWrapper}>
+              <TouchableNativeFeedback onPress={togglePlay} background={TouchableNativeFeedback.Ripple('white', true)}>
+                <View>
+                  {playbackInstanceInfo.state === PlaybackStates.Buffering &&
+            (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
+                  {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
+                  {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
+                  {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
+                  {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
+            (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
+            (playbackInstanceInfo.state === PlaybackStates.Paused &&
+                !props.icon.pause)) && (<MaterialIcons name={playbackInstanceInfo.state === PlaybackStates.Playing
+                ? 'pause'
+                : playbackInstanceInfo.state === PlaybackStates.Paused
+                    ? 'play-arrow'
+                    : 'replay'} style={props.icon.style} size={props.icon.size} color={props.icon.color}/>)}
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <Animated.View style={[
+            styles.bottomInfoWrapper,
+            {
+                opacity: controlsOpacity,
+            },
+        ]}>
+        {props.timeVisible && (<Text style={[props.textStyle, styles.timeLeft]}>
+            {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.position)}
+          </Text>)}
+        {props.slider.visible && (<Slider {...sliderProps} style={[{ flex: 1 }, props.slider.style]} value={playbackInstanceInfo.duration
+                ? playbackInstanceInfo.position / playbackInstanceInfo.duration
+                : 0} onSlidingStart={() => {
+                if (playbackInstanceInfo.state === PlaybackStates.Playing) {
+                    togglePlay();
+                    setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Paused }));
+                }
+            }} onSlidingComplete={(e) => __awaiter(void 0, void 0, void 0, function* () {
+                const position = e * playbackInstanceInfo.duration;
+                if (playbackInstance) {
+                    yield playbackInstance.setStatusAsync({
+                        positionMillis: position,
+                        shouldPlay: true,
+                    });
+                }
+                setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position }));
+            })}/>)}
+        {props.timeVisible && (<Text style={[props.textStyle, styles.timeRight]}>
+            {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.duration)}
+          </Text>)}
+        {props.fullscreen.visible && (<TouchableNativeFeedback onPress={() => props.fullscreen.inFullscreen
+                ? props.fullscreen.exitFullscreen()
+                : props.fullscreen.enterFullscreen()} background={TouchableNativeFeedback.Ripple('white', true)}>
+            <View>
+              {props.icon.fullscreen}
+              {props.icon.exitFullscreen}
+              {((!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
+                (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
+            </View>
+          </TouchableNativeFeedback>)}
+      </Animated.View>
+    </View>);
 };
-export default withDefaultProps(VideoPlayer, defaultProps);
+VideoPlayer.defaultProps = defaultProps;
+export default VideoPlayer;
