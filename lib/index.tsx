@@ -4,12 +4,17 @@ import {
   Animated,
   StyleSheet,
   Text,
-  TouchableNativeFeedback,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
 import { ControlStates, ErrorSeverity, PlaybackStates } from './constants'
-import { ErrorMessage, deepMerge, getMinutesSecondsFromMilliseconds, styles } from './utils'
+import {
+  ErrorMessage,
+  TouchableButton,
+  deepMerge,
+  getMinutesSecondsFromMilliseconds,
+  styles,
+} from './utils'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Props, defaultProps } from './props'
 import { useEffect, useRef, useState } from 'react'
@@ -220,6 +225,7 @@ const VideoPlayer = (tempProps: Props) => {
         backgroundColor: props.style.videoBackgroundColor,
         width: videoWidth,
         height: videoHeight,
+        maxWidth: '100%',
       }}
     >
       <Video
@@ -252,10 +258,7 @@ const VideoPlayer = (tempProps: Props) => {
           />
           <View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}>
             <View style={styles.iconWrapper}>
-              <TouchableNativeFeedback
-                onPress={togglePlay}
-                background={TouchableNativeFeedback.Ripple('white', true)}
-              >
+              <TouchableButton onPress={togglePlay}>
                 <View>
                   {playbackInstanceInfo.state === PlaybackStates.Buffering &&
                     (props.icon.loading || <ActivityIndicator {...props.activityIndicator} />)}
@@ -280,7 +283,7 @@ const VideoPlayer = (tempProps: Props) => {
                     />
                   )}
                 </View>
-              </TouchableNativeFeedback>
+              </TouchableButton>
             </View>
           </View>
         </Animated.View>
@@ -302,7 +305,7 @@ const VideoPlayer = (tempProps: Props) => {
         {props.slider.visible && (
           <Slider
             {...sliderProps}
-            style={[{ flex: 1 }, props.slider.style]}
+            style={[styles.slider, props.slider.style]}
             value={
               playbackInstanceInfo.duration
                 ? playbackInstanceInfo.position / playbackInstanceInfo.duration
@@ -335,13 +338,12 @@ const VideoPlayer = (tempProps: Props) => {
           </Text>
         )}
         {props.fullscreen.visible && (
-          <TouchableNativeFeedback
+          <TouchableButton
             onPress={() =>
               props.fullscreen.inFullscreen
                 ? props.fullscreen.exitFullscreen!()
                 : props.fullscreen.enterFullscreen!()
             }
-            background={TouchableNativeFeedback.Ripple('white', true)}
           >
             <View>
               {props.icon.fullscreen}
@@ -356,7 +358,7 @@ const VideoPlayer = (tempProps: Props) => {
                 />
               )}
             </View>
-          </TouchableNativeFeedback>
+          </TouchableButton>
         )}
       </Animated.View>
     </View>

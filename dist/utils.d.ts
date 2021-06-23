@@ -1,10 +1,14 @@
-/// <reference types="react" />
-import { TextStyle } from 'react-native';
+import { TextStyle, TouchableNativeFeedbackProps, TouchableOpacityProps } from 'react-native';
+import React from 'react';
 export declare const ErrorMessage: ({ message, style }: {
     message: string;
     style: TextStyle;
 }) => JSX.Element;
 export declare const getMinutesSecondsFromMilliseconds: (ms: number) => string;
+declare type ButtonProps = (TouchableNativeFeedbackProps | TouchableOpacityProps) & {
+    children: React.ReactNode;
+};
+export declare const TouchableButton: (props: ButtonProps) => JSX.Element;
 export declare const deepMerge: (target: {
     [x: string]: any;
 }, source: {
@@ -24,6 +28,7 @@ export declare const styles: {
     };
     videoWrapper: {
         flex: number;
+        justifyContent: "center";
     };
     iconWrapper: {
         borderRadius: number;
@@ -48,4 +53,9 @@ export declare const styles: {
         backgroundColor: string;
         marginRight: number;
     };
+    slider: {
+        flex: number;
+        paddingHorizontal: number;
+    };
 };
+export {};

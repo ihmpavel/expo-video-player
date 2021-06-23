@@ -1,4 +1,14 @@
-import { StyleSheet, Text, TextStyle, View } from 'react-native'
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableNativeFeedback,
+  TouchableNativeFeedbackProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native'
 import React from 'react'
 
 export const ErrorMessage = ({ message, style }: { message: string; style: TextStyle }) => (
@@ -14,6 +24,19 @@ export const getMinutesSecondsFromMilliseconds = (ms: number) => {
 
   return minutes.padStart(1, '0') + ':' + seconds.padStart(2, '0')
 }
+
+type ButtonProps = (TouchableNativeFeedbackProps | TouchableOpacityProps) & {
+  children: React.ReactNode
+}
+export const TouchableButton = (props: ButtonProps) =>
+  Platform.OS === 'android' ? (
+    <TouchableNativeFeedback
+      background={TouchableNativeFeedback.Ripple('white', true)}
+      {...props}
+    />
+  ) : (
+    <TouchableOpacity {...props} />
+  )
 
 // https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6#gistcomment-3585151
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,7 +60,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
   },
-  videoWrapper: { flex: 1 },
+  videoWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   iconWrapper: {
     borderRadius: 100,
     overflow: 'hidden',
@@ -55,4 +81,5 @@ export const styles = StyleSheet.create({
   },
   timeLeft: { backgroundColor: 'transparent', marginLeft: 5 },
   timeRight: { backgroundColor: 'transparent', marginRight: 5 },
+  slider: { flex: 1, paddingHorizontal: 10 },
 })

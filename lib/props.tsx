@@ -1,5 +1,5 @@
 import { AVPlaybackStatus, Video, VideoProps } from 'expo-av'
-import { ActivityIndicatorProps, Dimensions, TextStyle } from 'react-native'
+import { ActivityIndicatorProps, Dimensions, Platform, TextStyle } from 'react-native'
 import { ColorValue } from 'react-native'
 import { ErrorType } from './constants'
 import { MutableRefObject } from 'react'
@@ -32,7 +32,7 @@ export const defaultProps = {
     fadeOutDuration: 300,
   },
   style: {
-    width: Dimensions.get('window').width,
+    width: Platform.OS === 'web' ? '100%' : Dimensions.get('window').width,
     height: Dimensions.get('window').height,
     videoBackgroundColor: '#000',
     controlsBackgroundColor: '#000',

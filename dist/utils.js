@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View, } from 'react-native';
 import React from 'react';
 export const ErrorMessage = ({ message, style }) => (<View style={styles.errorWrapper}>
     <Text style={style}>{message}</Text>
@@ -9,6 +9,7 @@ export const getMinutesSecondsFromMilliseconds = (ms) => {
     const minutes = String(Math.floor(totalSeconds / 60));
     return minutes.padStart(1, '0') + ':' + seconds.padStart(2, '0');
 };
+export const TouchableButton = (props) => Platform.OS === 'android' ? (<TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('white', true)} {...props}/>) : (<TouchableOpacity {...props}/>);
 // https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6#gistcomment-3585151
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deepMerge = (target, source) => {
@@ -25,7 +26,10 @@ export const deepMerge = (target, source) => {
 };
 export const styles = StyleSheet.create({
     errorWrapper: Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { paddingHorizontal: 20, justifyContent: 'center' }),
-    videoWrapper: { flex: 1 },
+    videoWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+    },
     iconWrapper: {
         borderRadius: 100,
         overflow: 'hidden',
@@ -43,4 +47,5 @@ export const styles = StyleSheet.create({
     },
     timeLeft: { backgroundColor: 'transparent', marginLeft: 5 },
     timeRight: { backgroundColor: 'transparent', marginRight: 5 },
+    slider: { flex: 1, paddingHorizontal: 10 },
 });

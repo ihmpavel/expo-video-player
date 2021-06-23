@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 export const defaultProps = {
     errorCallback: error => console.error(`[VideoPlayer] ${error.type} Error - ${error.message}: ${error.obj}`),
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -22,7 +22,7 @@ export const defaultProps = {
         fadeOutDuration: 300,
     },
     style: {
-        width: Dimensions.get('window').width,
+        width: Platform.OS === 'web' ? '100%' : Dimensions.get('window').width,
         height: Dimensions.get('window').height,
         videoBackgroundColor: '#000',
         controlsBackgroundColor: '#000',
