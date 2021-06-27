@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 2.0.1
+## 2.0.1 (June 27, 2021)
 - Fix: Expo Web [#433](https://github.com/ihmpavel/expo-video-player/issues/433)
 
 ## 2.0.0 (June 20, 2021)

@@ -9,7 +9,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-community/netinfo": "6.0.0",
     "@react-native-community/slider": "3.0.3",
     "expo": "^41.0.1",
     "expo-av": "~9.1.2",
