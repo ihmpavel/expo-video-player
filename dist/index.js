@@ -1,8 +1,8 @@
 import { __awaiter, __rest } from "tslib";
 import { Audio, Video } from 'expo-av';
-import { ActivityIndicator, Animated, StyleSheet, Text, TouchableNativeFeedback, TouchableWithoutFeedback, View, } from 'react-native';
+import { ActivityIndicator, Animated, StyleSheet, Text, TouchableWithoutFeedback, View, } from 'react-native';
 import { ControlStates, ErrorSeverity, PlaybackStates } from './constants';
-import { ErrorMessage, deepMerge, getMinutesSecondsFromMilliseconds, styles } from './utils';
+import { ErrorMessage, TouchableButton, deepMerge, getMinutesSecondsFromMilliseconds, styles, } from './utils';
 import { MaterialIcons } from '@expo/vector-icons';
 import { defaultProps } from './props';
 import { useEffect, useRef, useState } from 'react';
@@ -168,6 +168,7 @@ const VideoPlayer = (tempProps) => {
             backgroundColor: props.style.videoBackgroundColor,
             width: videoWidth,
             height: videoHeight,
+            maxWidth: '100%',
         }}>
       <Video style={styles.videoWrapper} {...props.videoProps} ref={component => {
             playbackInstance = component;
@@ -181,7 +182,7 @@ const VideoPlayer = (tempProps) => {
           <View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { backgroundColor: props.style.controlsBackgroundColor, opacity: 0.5 })}/>
           <View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}>
             <View style={styles.iconWrapper}>
-              <TouchableNativeFeedback onPress={togglePlay} background={TouchableNativeFeedback.Ripple('white', true)}>
+              <TouchableButton onPress={togglePlay}>
                 <View>
                   {playbackInstanceInfo.state === PlaybackStates.Buffering &&
             (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
@@ -197,7 +198,7 @@ const VideoPlayer = (tempProps) => {
                     ? 'play-arrow'
                     : 'replay'} style={props.icon.style} size={props.icon.size} color={props.icon.color}/>)}
                 </View>
-              </TouchableNativeFeedback>
+              </TouchableButton>
             </View>
           </View>
         </Animated.View>
@@ -212,7 +213,7 @@ const VideoPlayer = (tempProps) => {
         {props.timeVisible && (<Text style={[props.textStyle, styles.timeLeft]}>
             {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.position)}
           </Text>)}
-        {props.slider.visible && (<Slider {...sliderProps} style={[{ flex: 1 }, props.slider.style]} value={playbackInstanceInfo.duration
+        {props.slider.visible && (<Slider {...sliderProps} style={[styles.slider, props.slider.style]} value={playbackInstanceInfo.duration
                 ? playbackInstanceInfo.position / playbackInstanceInfo.duration
                 : 0} onSlidingStart={() => {
                 if (playbackInstanceInfo.state === PlaybackStates.Playing) {
@@ -232,16 +233,16 @@ const VideoPlayer = (tempProps) => {
         {props.timeVisible && (<Text style={[props.textStyle, styles.timeRight]}>
             {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.duration)}
           </Text>)}
-        {props.fullscreen.visible && (<TouchableNativeFeedback onPress={() => props.fullscreen.inFullscreen
+        {props.fullscreen.visible && (<TouchableButton onPress={() => props.fullscreen.inFullscreen
                 ? props.fullscreen.exitFullscreen()
-                : props.fullscreen.enterFullscreen()} background={TouchableNativeFeedback.Ripple('white', true)}>
+                : props.fullscreen.enterFullscreen()}>
             <View>
               {props.icon.fullscreen}
               {props.icon.exitFullscreen}
               {((!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
                 (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
             </View>
-          </TouchableNativeFeedback>)}
+          </TouchableButton>)}
       </Animated.View>
     </View>);
 };
