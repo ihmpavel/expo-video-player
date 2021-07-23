@@ -3,6 +3,6 @@ example-app/
 .vscode/
 .github/
 .eslintrc.js
-.jest.config.js
 .prettierrc.js
 tsconfig.json
+jest.config.js
