@@ -34,20 +34,21 @@ import VideoPlayer from 'expo-video-player'
 
 ## Props
 For default prop values, please visit [/lib/props.tsx](https://github.com/ihmpavel/expo-video-player/blob/master/lib/props.tsx#L11)
-Property | Type | Description
----- | :-------: | -----------
-**videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | At least `source` is required
-**errorCallback** | (error: ErrorType) => void | Function which is fired when an error occurs
-**playbackCallback** | (status: AVPlaybackStatus) => void | Function which is fired every time `onPlaybackStatusUpdate` occurs
-**defaultControlsVisible** | `boolean` | Show controls on darker overlay when video starts playing. Default is `false`
-**timeVisible** | `boolean` | Show current time and final length in the bottom. Default is `true`
-**textStyle** | `TextStyle` | Object containing `<Text />` styling
-**slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Your styling may break default layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete`
-**activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator)
-**animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds
-**style** | `{ width?: number, height?: number, videoBackgroundColor?: ColorValue, controlsBackgroundColor?: ColorValue }` | Basic styling of `<VideoPlayer />`
-**icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx)
-**fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154)
+
+| Property | Type | Description |
+| ---- | :-------: | ----------- |
+| **videoProps** | [`VideoProps`](https://docs.expo.io/versions/latest/sdk/video/#props) | At least `source` is required |
+| **errorCallback** | (error: ErrorType) => void | Function which is fired when an error occurs |
+| **playbackCallback** | (status: AVPlaybackStatus) => void | Function which is fired every time `onPlaybackStatusUpdate` occurs |
+| **defaultControlsVisible** | `boolean` | Show controls on darker overlay when video starts playing. Default is `false` |
+| **timeVisible** | `boolean` | Show current time and final length in the bottom. Default is `true` |
+| **textStyle** | `TextStyle` | Object containing `<Text />` styling |
+| **slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Your styling may break default layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete` |
+| **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator) |
+| **animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds |
+| **style** | `{ width?: number, height?: number, videoBackgroundColor?: ColorValue, controlsBackgroundColor?: ColorValue }` | Basic styling of `<VideoPlayer />` |
+| **icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx) |
+| **fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154) |
 
 ## Compatibility
 Library version | Expo SDK version
