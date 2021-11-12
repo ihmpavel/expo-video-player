@@ -78,20 +78,20 @@ const VideoPlayer = (tempProps) => {
         else if (controlsState === ControlStates.Visible) {
             hideAnimation();
         }
- //  Prevent auto hide animation     
-//         if (controlsTimer === null) {
-//             controlsTimer = setTimeout(() => {
-//                 if (playbackInstanceInfo.state === PlaybackStates.Playing &&
-//                     controlsState === ControlStates.Hidden) {
-//                     hideAnimation();
-//                 }
-//                 if (controlsTimer) {
-//                     clearTimeout(controlsTimer);
-//                 }
-//                 controlsTimer = null;
-//             }, 2000);
+        if (controlsTimer === null && props.autoHidePlayer) {
+            controlsTimer = setTimeout(() => {
+                if (playbackInstanceInfo.state === PlaybackStates.Playing &&
+                    controlsState === ControlStates.Hidden) {
+                    hideAnimation();
+                }
+                if (controlsTimer) {
+                    clearTimeout(controlsTimer);
+                }
+                controlsTimer = null;
+            }, 2000);
      
-//         }
+        }
+    };
     };
     // Set audio mode to play even in silent mode (like the YouTube app)
     const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {
