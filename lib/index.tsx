@@ -130,7 +130,7 @@ const VideoPlayer = (tempProps: Props) => {
       props.errorCallback({
         type: ErrorSeverity.NonFatal,
         message: 'Audio.setAudioModeAsync',
-        obj: e,
+        obj: e as Record<string, unknown>,
       })
     }
   }
