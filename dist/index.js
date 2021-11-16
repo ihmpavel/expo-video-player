@@ -89,9 +89,7 @@ const VideoPlayer = (tempProps) => {
                 }
                 controlsTimer = null;
             }, 2000);
-     
         }
-    };
     };
     // Set audio mode to play even in silent mode (like the YouTube app)
     const setAudio = () => __awaiter(void 0, void 0, void 0, function* () {

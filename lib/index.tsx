@@ -104,7 +104,7 @@ const VideoPlayer = (tempProps: Props) => {
       hideAnimation()
     }
 
-    if (controlsTimer === null) {
+    if (controlsTimer === null && props.autoHidePlayer) {
       controlsTimer = setTimeout(() => {
         if (
           playbackInstanceInfo.state === PlaybackStates.Playing &&

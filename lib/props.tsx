@@ -54,6 +54,7 @@ export const defaultProps = {
     inFullscreen: false,
     visible: true,
   },
+  autoHidePlayer: true
 } as DefaultProps
 
 type RequiredProps = {
@@ -98,5 +99,6 @@ type DefaultProps = {
     exitFullscreen?: () => void
     inFullscreen?: boolean
     visible?: boolean
-  }
+  },
+  autoHidePlayer: boolean
 }
