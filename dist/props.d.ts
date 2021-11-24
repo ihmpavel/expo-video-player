@@ -25,6 +25,7 @@ declare type DefaultProps = {
         fadeInDuration?: number;
         fadeOutDuration?: number;
     };
+    renderHeaderComponent: React.ReactNode;
     style: {
         width?: number;
         height?: number;

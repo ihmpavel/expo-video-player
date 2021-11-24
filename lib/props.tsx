@@ -54,6 +54,7 @@ export const defaultProps = {
     inFullscreen: false,
     visible: true,
   },
+  renderHeaderComponent: undefined,
 } as DefaultProps
 
 type RequiredProps = {
@@ -76,6 +77,7 @@ type DefaultProps = {
     fadeInDuration?: number
     fadeOutDuration?: number
   }
+  renderHeaderComponent: React.ReactNode
   style: {
     width?: number
     height?: number
