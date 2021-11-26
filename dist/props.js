@@ -44,4 +44,5 @@ export const defaultProps = {
         inFullscreen: false,
         visible: true,
     },
+    renderHeaderComponent: undefined,
 };

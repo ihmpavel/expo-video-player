@@ -1,6 +1,6 @@
-/// <reference types="react" />
 import { AVPlaybackStatus } from 'expo-av';
 import { Props } from './props';
+import React from 'react';
 declare const VideoPlayer: {
     (tempProps: Props): JSX.Element;
     defaultProps: {
@@ -17,6 +17,7 @@ declare const VideoPlayer: {
             fadeInDuration?: number | undefined;
             fadeOutDuration?: number | undefined;
         };
+        renderHeaderComponent: React.ReactNode;
         style: {
             width?: number | undefined;
             height?: number | undefined;

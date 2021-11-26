@@ -45,6 +45,17 @@ export declare const styles: {
         left: number;
         right: number;
     };
+    topInfoWrapper: {
+        position: "absolute";
+        flexDirection: "row";
+        alignItems: "center";
+        justifyContent: "space-between";
+        flex: number;
+        bottom: number;
+        left: number;
+        right: number;
+        zIndex: number;
+    };
     timeLeft: {
         backgroundColor: string;
         marginLeft: number;
