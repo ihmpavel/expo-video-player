@@ -79,7 +79,7 @@ const VideoPlayer = (tempProps) => {
         else if (controlsState === ControlStates.Visible) {
             hideAnimation();
         }
-        if (controlsTimer === null) {
+        if (controlsTimer === null && props.autoHidePlayer) {
             controlsTimer = setTimeout(() => {
                 if (playbackInstanceInfo.state === PlaybackStates.Playing &&
                     controlsState === ControlStates.Hidden) {

@@ -41,6 +41,7 @@ declare const VideoPlayer: {
             inFullscreen?: boolean | undefined;
             visible?: boolean | undefined;
         };
+        autoHidePlayer: boolean;
     };
 };
 export default VideoPlayer;

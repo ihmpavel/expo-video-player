@@ -49,5 +49,6 @@ declare type DefaultProps = {
         inFullscreen?: boolean;
         visible?: boolean;
     };
+    autoHidePlayer: boolean;
 };
 export {};
