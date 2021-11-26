@@ -13,6 +13,7 @@ const VideoPlayer = (tempProps) => {
     let playbackInstance = null;
     let controlsTimer = null;
     let initialShow = props.defaultControlsVisible;
+    let renderHeaderComponent = props.renderHeaderComponent;
     const [errorMessage, setErrorMessage] = useState('');
     const controlsOpacity = useRef(new Animated.Value(props.defaultControlsVisible ? 1 : 0)).current;
     const [controlsState, setControlsState] = useState(props.defaultControlsVisible ? ControlStates.Visible : ControlStates.Hidden);
@@ -176,6 +177,15 @@ const VideoPlayer = (tempProps) => {
                 props.videoProps.ref.current = component;
             }
         }} onPlaybackStatusUpdate={updatePlaybackCallback}/>
+
+      <Animated.View style={[
+            styles.topInfoWrapper,
+            {
+                opacity: controlsOpacity,
+            },
+        ]}>
+        {renderHeaderComponent}
+      </Animated.View>
 
       <TouchableWithoutFeedback onPress={animationToggle}>
         <Animated.View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { opacity: controlsOpacity, justifyContent: 'center', alignItems: 'center' })}>

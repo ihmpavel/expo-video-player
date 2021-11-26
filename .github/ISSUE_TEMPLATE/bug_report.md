@@ -22,7 +22,7 @@ Link to reproduction on (Snack)[https://snack.expo.io/]
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Additional infofmation:**
+**Additional information:**
  - Type: [e.g. Simulator/Expo/Snack/Real device]
  - Device: [e.g. iPhone X]
  - OS: [e.g. iOS8.1]

@@ -27,6 +27,7 @@ const VideoPlayer = (tempProps: Props) => {
   let playbackInstance: Video | null = null
   let controlsTimer: NodeJS.Timeout | null = null
   let initialShow = props.defaultControlsVisible
+  let renderHeaderComponent = props.renderHeaderComponent;
 
   const [errorMessage, setErrorMessage] = useState('')
   const controlsOpacity = useRef(new Animated.Value(props.defaultControlsVisible ? 1 : 0)).current
@@ -130,7 +131,7 @@ const VideoPlayer = (tempProps: Props) => {
       props.errorCallback({
         type: ErrorSeverity.NonFatal,
         message: 'Audio.setAudioModeAsync',
-        obj: e,
+        obj: e as Record<string, unknown>,
       })
     }
   }
@@ -239,6 +240,15 @@ const VideoPlayer = (tempProps: Props) => {
         }}
         onPlaybackStatusUpdate={updatePlaybackCallback}
       />
+
+      <Animated.View style={[
+           styles.topInfoWrapper,
+           {
+             opacity: controlsOpacity,
+           },
+        ]}>
+        {renderHeaderComponent}
+      </Animated.View>
 
       <TouchableWithoutFeedback onPress={animationToggle}>
         <Animated.View
