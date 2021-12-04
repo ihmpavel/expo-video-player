@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 2.0.2 ()
+- Enhancements: Updated packages and bumped Expo SDK version
+- Enhancements: Added `autoHidePlayer` by (@hungvu193)[https://github.com/hungvu193] (#506)[https://github.com/ihmpavel/expo-video-player/pull/506]
+- Enhancements: Added `header` by (@Qeepsake)[https://github.com/Qeepsake] (#516)[https://github.com/ihmpavel/expo-video-player/pull/516]
+
 ## 2.0.1 (June 27, 2021)
 - Fix: Expo Web [#433](https://github.com/ihmpavel/expo-video-player/issues/433)
 

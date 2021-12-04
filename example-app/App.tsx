@@ -192,6 +192,21 @@ const App = () => {
           width: inFullscreen2 ? Dimensions.get('window').height : 320,
         }}
       />
+
+      <Text style={styles.text}>Custom title</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+        }}
+        style={{
+          videoBackgroundColor: 'black',
+        }}
+        header={<Text style={{ color: '#FFF' }}>Custom title</Text>}
+      />
     </ScrollView>
   )
 }

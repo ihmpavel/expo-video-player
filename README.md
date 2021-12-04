@@ -50,6 +50,7 @@ For default prop values, please visit [/lib/props.tsx](https://github.com/ihmpav
 | **icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx) |
 | **fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154) |
 | **autoHidePlayer** | `boolean` | Prevent player from hiding after certain time, by setting it to `false` you need to tap the screen again to hide the player. Default is `true` |
+| **header** | `ReactNode` | Render header component same as in YouTube app. Default `undefined` |
 
 ## Compatibility
 Library version | Expo SDK version

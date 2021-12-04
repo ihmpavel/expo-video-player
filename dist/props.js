@@ -45,5 +45,5 @@ export const defaultProps = {
         visible: true,
     },
     autoHidePlayer: true,
-    renderHeaderComponent: undefined,
+    header: undefined,
 };

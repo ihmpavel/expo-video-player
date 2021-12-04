@@ -2,7 +2,7 @@ import { AVPlaybackStatus, Video, VideoProps } from 'expo-av';
 import { ActivityIndicatorProps, TextStyle } from 'react-native';
 import { ColorValue } from 'react-native';
 import { ErrorType } from './constants';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, ReactNode } from 'react';
 import { SliderProps } from '@react-native-community/slider';
 export declare type Props = RequiredProps & DefaultProps;
 export declare const defaultProps: DefaultProps;
@@ -25,7 +25,7 @@ declare type DefaultProps = {
         fadeInDuration?: number;
         fadeOutDuration?: number;
     };
-    renderHeaderComponent: React.ReactNode;
+    header: ReactNode;
     style: {
         width?: number;
         height?: number;
