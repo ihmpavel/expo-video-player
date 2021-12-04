@@ -17,7 +17,7 @@ declare const VideoPlayer: {
             fadeInDuration?: number | undefined;
             fadeOutDuration?: number | undefined;
         };
-        renderHeaderComponent: React.ReactNode;
+        header: React.ReactNode;
         style: {
             width?: number | undefined;
             height?: number | undefined;

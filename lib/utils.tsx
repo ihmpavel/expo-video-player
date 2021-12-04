@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
-    bottom: 0,
+    top: 0,
     left: 0,
     right: 0,
     zIndex: 999,

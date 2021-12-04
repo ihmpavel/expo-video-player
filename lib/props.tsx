@@ -2,7 +2,7 @@ import { AVPlaybackStatus, Video, VideoProps } from 'expo-av'
 import { ActivityIndicatorProps, Dimensions, Platform, TextStyle } from 'react-native'
 import { ColorValue } from 'react-native'
 import { ErrorType } from './constants'
-import { MutableRefObject } from 'react'
+import { MutableRefObject, ReactNode } from 'react'
 import { SliderProps } from '@react-native-community/slider'
 
 // https://github.com/typescript-cheatsheets/react/issues/415
@@ -55,7 +55,7 @@ export const defaultProps = {
     visible: true,
   },
   autoHidePlayer: true,
-  renderHeaderComponent: undefined,
+  header: undefined,
 } as DefaultProps
 
 type RequiredProps = {
@@ -78,7 +78,7 @@ type DefaultProps = {
     fadeInDuration?: number
     fadeOutDuration?: number
   }
-  renderHeaderComponent: React.ReactNode
+  header: ReactNode
   style: {
     width?: number
     height?: number
@@ -101,6 +101,6 @@ type DefaultProps = {
     exitFullscreen?: () => void
     inFullscreen?: boolean
     visible?: boolean
-  },
+  }
   autoHidePlayer: boolean
 }
