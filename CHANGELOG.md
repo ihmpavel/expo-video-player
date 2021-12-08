@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2.0.3 (December84, 2021)
+- Fix: Rebuild app to include `header` on top of the component instead of bottom
+
 ## 2.0.2 (December 4, 2021)
 - Enhancements: Updated packages and bumped Expo SDK version
 - Enhancements: Added `autoHidePlayer` by (@hungvu193)[https://github.com/hungvu193] (#506)[https://github.com/ihmpavel/expo-video-player/pull/506]
