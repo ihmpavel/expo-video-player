@@ -2507,12 +2507,12 @@ expo-status-bar@~1.1.0:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.1.0.tgz#b1015a69c8563b7cadcb5b6c726227397610725d"
   integrity sha512-XgAbGfDV/Q6br2h4yzQwcZRYi37bZ/nvc06vvaJ7i7w9tRxb05OJmXBxl7ywkKlFCMcN6q3Miaf2wnzEgMwJoQ==
 
-expo-video-player@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-2.0.1.tgz#533d0c10c6405d9bdcd62719897d50625a491fe7"
-  integrity sha512-+bBgyOI9IgKFQBEV/x+NcCz5qZ5MDvohpokpmAV00XvQWKZYYiAo3mVQcjGuxVkEHYDjiUIuj6q2SjAUHK9rGA==
+expo-video-player@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-2.0.2.tgz#e830af55165786ed726088bce1f36fbe9ffca4be"
+  integrity sha512-B2ic22P4/zu2e345d2IBHpstP4XpjTeUZFhPsbKr4iiy7neQpWc/kc2Dz4ijOZOGxl94/I8lXpICgGJevl0XVg==
   dependencies:
-    tslib "^2.3.0"
+    tslib "^2.3.1"
 
 expo@^43.0.3:
   version "43.0.3"
@@ -5259,7 +5259,7 @@ ts-interface-checker@^0.1.9:
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
 
-tslib@^2.0.1, tslib@^2.3.0:
+tslib@^2.0.1, tslib@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==

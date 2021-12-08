@@ -51,7 +51,7 @@ export declare const styles: {
         alignItems: "center";
         justifyContent: "space-between";
         flex: number;
-        bottom: number;
+        top: number;
         left: number;
         right: number;
         zIndex: number;
