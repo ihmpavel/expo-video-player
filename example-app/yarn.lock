@@ -2507,10 +2507,10 @@ expo-status-bar@~1.1.0:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.1.0.tgz#b1015a69c8563b7cadcb5b6c726227397610725d"
   integrity sha512-XgAbGfDV/Q6br2h4yzQwcZRYi37bZ/nvc06vvaJ7i7w9tRxb05OJmXBxl7ywkKlFCMcN6q3Miaf2wnzEgMwJoQ==
 
-expo-video-player@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-2.0.2.tgz#e830af55165786ed726088bce1f36fbe9ffca4be"
-  integrity sha512-B2ic22P4/zu2e345d2IBHpstP4XpjTeUZFhPsbKr4iiy7neQpWc/kc2Dz4ijOZOGxl94/I8lXpICgGJevl0XVg==
+expo-video-player@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/expo-video-player/-/expo-video-player-2.0.3.tgz#607db406cac0bf8714967dc28a2435a1aa3c587f"
+  integrity sha512-yN8IhRqBiFO7GYaNHG8/vfdpVRjrDGodNhVu2KxGZ4tNi3nPutBIRecSsiPhLpc7WMSv4XIeZfr6IPJPrB+1vA==
   dependencies:
     tslib "^2.3.1"
 
