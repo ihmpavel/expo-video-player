@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 2.0.3 (December84, 2021)
+## 2.0.3 (December 8, 2021)
 - Fix: Rebuild app to include `header` on top of the component instead of bottom
 
 ## 2.0.2 (December 4, 2021)
