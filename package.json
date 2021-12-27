@@ -42,7 +42,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-react-native": "^3.11.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
-    "expo": "^43.0.3",
+    "expo": "^44.0.1",
     "expo-av": "^10.1.3",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
