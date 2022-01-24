@@ -144,13 +144,14 @@ const VideoPlayer = (tempProps: Props) => {
         ...playbackInstanceInfo,
         position: status.positionMillis,
         duration: status.durationMillis || 0,
-        state: status.didJustFinish
-          ? PlaybackStates.Ended
-          : status.isBuffering
-          ? PlaybackStates.Buffering
-          : status.shouldPlay
-          ? PlaybackStates.Playing
-          : PlaybackStates.Paused,
+        state:
+          status.positionMillis === status.durationMillis
+            ? PlaybackStates.Ended
+            : status.isBuffering
+            ? PlaybackStates.Buffering
+            : status.shouldPlay
+            ? PlaybackStates.Playing
+            : PlaybackStates.Paused,
       })
       if (
         (status.didJustFinish && controlsState === ControlStates.Hidden) ||

@@ -110,7 +110,7 @@ const VideoPlayer = (tempProps) => {
     const updatePlaybackCallback = (status) => {
         props.playbackCallback(status);
         if (status.isLoaded) {
-            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position: status.positionMillis, duration: status.durationMillis || 0, state: status.didJustFinish
+            setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position: status.positionMillis, duration: status.durationMillis || 0, state: status.positionMillis === status.durationMillis
                     ? PlaybackStates.Ended
                     : status.isBuffering
                         ? PlaybackStates.Buffering

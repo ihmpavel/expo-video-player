@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2.0.4 (January 24, 2021)
+- Fix: Replay icon on iOS (#469)[https://github.com/ihmpavel/expo-video-player/issues/469]
+
 ## 2.0.3 (December 8, 2021)
 - Fix: Rebuild app to include `header` on top of the component instead of bottom
 
