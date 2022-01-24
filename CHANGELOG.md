@@ -1,15 +1,15 @@
 # ChangeLog
 
 ## 2.0.4 (January 24, 2021)
-- Fix: Replay icon on iOS (#469)[https://github.com/ihmpavel/expo-video-player/issues/469]
+- Fix: Replay icon on iOS [#469](https://github.com/ihmpavel/expo-video-player/issues/469)
 
 ## 2.0.3 (December 8, 2021)
 - Fix: Rebuild app to include `header` on top of the component instead of bottom
 
 ## 2.0.2 (December 4, 2021)
 - Enhancements: Updated packages and bumped Expo SDK version
-- Enhancements: Added `autoHidePlayer` by (@hungvu193)[https://github.com/hungvu193] (#506)[https://github.com/ihmpavel/expo-video-player/pull/506]
-- Enhancements: Added `header` by (@Qeepsake)[https://github.com/Qeepsake] (#516)[https://github.com/ihmpavel/expo-video-player/pull/516]
+- Enhancements: Added `autoHidePlayer` by [@hungvu193](https://github.com/hungvu193) [#506](https://github.com/ihmpavel/expo-video-player/pull/506)
+- Enhancements: Added `header` by [@Qeepsake](https://github.com/Qeepsake) [#516](https://github.com/ihmpavel/expo-video-player/pull/516)
 
 ## 2.0.1 (June 27, 2021)
 - Fix: Expo Web [#433](https://github.com/ihmpavel/expo-video-player/issues/433)
