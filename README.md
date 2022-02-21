@@ -83,3 +83,9 @@ Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/blob/master/CH
  - [Typescript default props](https://github.com/typescript-cheatsheets/react/issues/415)
  - [Creating a typescript module](https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724)
  - [Creating a component for React](https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce)
+
+
+## More packages from me
+- [all-iso-language-codes](https://github.com/ihmpavel/all-iso-language-codes) - List of ISO 639-1, 639-2T, 639-2B and 639-3 codes with translations in all available languages
+- [expo-video-player](https://github.com/ihmpavel/expo-video-player) - Customizable Video Player controls for Expo
+- [free-email-domains-list](https://github.com/ihmpavel/expo-video-player) - Fresh list of all free email domain providers. Can be used to check if an email address belongs to a company. Updated weekly
