@@ -30,7 +30,7 @@
   "devDependencies": {
     "@react-native-community/slider": "^4.2.0",
     "@types/react": "^17.0.39",
-    "@types/react-native": "^0.66.16",
+    "@types/react-native": "^0.67.3",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",
