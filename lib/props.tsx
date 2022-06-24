@@ -56,6 +56,16 @@ export const defaultProps = {
   },
   autoHidePlayer: true,
   header: undefined,
+  mute: {
+    enterMute: () =>
+      // eslint-disable-next-line no-console
+      console.log('[VideoPlayer] - missing `enterMute` function in `mute` prop'),
+    exitMute: () =>
+      // eslint-disable-next-line no-console
+      console.log('[VideoPlayer] - missing `exitMute` function in `mute` prop'),
+    isMute: false,
+    visible: false,
+  },
 } as DefaultProps
 
 type RequiredProps = {
@@ -95,6 +105,8 @@ type DefaultProps = {
     loading?: JSX.Element
     fullscreen?: JSX.Element
     exitFullscreen?: JSX.Element
+    mute?: JSX.Element
+    exitMute?: JSX.Element
   }
   fullscreen: {
     enterFullscreen?: () => void
@@ -103,4 +115,10 @@ type DefaultProps = {
     visible?: boolean
   }
   autoHidePlayer: boolean
+  mute: {
+    enterMute?: () => void
+    exitMute?: () => void
+    isMute?: boolean
+    visible?: boolean
+  }
 }

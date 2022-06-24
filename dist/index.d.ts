@@ -34,6 +34,8 @@ declare const VideoPlayer: {
             loading?: JSX.Element | undefined;
             fullscreen?: JSX.Element | undefined;
             exitFullscreen?: JSX.Element | undefined;
+            mute?: JSX.Element | undefined;
+            exitMute?: JSX.Element | undefined;
         };
         fullscreen: {
             enterFullscreen?: (() => void) | undefined;
@@ -42,6 +44,12 @@ declare const VideoPlayer: {
             visible?: boolean | undefined;
         };
         autoHidePlayer: boolean;
+        mute: {
+            enterMute?: (() => void) | undefined;
+            exitMute?: (() => void) | undefined;
+            isMute?: boolean | undefined;
+            visible?: boolean | undefined;
+        };
     };
 };
 export default VideoPlayer;

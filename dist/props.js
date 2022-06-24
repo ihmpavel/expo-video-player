@@ -46,4 +46,14 @@ export const defaultProps = {
     },
     autoHidePlayer: true,
     header: undefined,
+    mute: {
+        enterMute: () => 
+        // eslint-disable-next-line no-console
+        console.log('[VideoPlayer] - missing `enterMute` function in `mute` prop'),
+        exitMute: () => 
+        // eslint-disable-next-line no-console
+        console.log('[VideoPlayer] - missing `exitMute` function in `mute` prop'),
+        isMute: false,
+        visible: false,
+    },
 };

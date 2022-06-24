@@ -17,13 +17,13 @@ The showcase of some of the possibilities you can create is in the folder [examp
 
 Minimal code to make `VideoPlayer` working
 ```
-import { Video } from 'expo-av'
+import { ResizeMode } from 'expo-av'
 import VideoPlayer from 'expo-video-player'
 
 <VideoPlayer
   videoProps={{
     shouldPlay: true,
-    resizeMode: Video.RESIZE_MODE_CONTAIN,
+    resizeMode: ResizeMode.CONTAIN,
     // ❗ source is required https://docs.expo.io/versions/latest/sdk/video/#props
     source: {
       uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -47,14 +47,16 @@ For default prop values, please visit [/lib/props.tsx](https://github.com/ihmpav
 | **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator) |
 | **animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds |
 | **style** | `{ width?: number, height?: number, videoBackgroundColor?: ColorValue, controlsBackgroundColor?: ColorValue }` | Basic styling of `<VideoPlayer />` |
-| **icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx) |
-| **fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154) |
+| **icon** | `{ size?: number, color?: ColorValue, style?: TextStyle, pause?: JSX.Element, play?: JSX.Element, replay?: JSX.Element, fullscreen?: JSX.Element, exitFullscreen?: JSX.Element, mute?: JSX.Element, exitMute?: JSX.Element }` | Icon styling. Check more in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx) |
+| **fullscreen** | `{ enterFullscreen?: () => void, exitFullscreen?: () => void, inFullscreen?: boolean, visible?: boolean }` | Usage of `Fullscreen` mode is in the [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L182) |
 | **autoHidePlayer** | `boolean` | Prevent player from hiding after certain time, by setting it to `false` you need to tap the screen again to hide the player. Default is `true` |
 | **header** | `ReactNode` | Render header component same as in YouTube app. Default `undefined` |
+| **mute** | `{ enterMute?: () => void, exitMute?: () => void, isMute?: boolean, visible?: boolean }` | Usage of `mute` mode is in the [example-app](example-app/App.tsx) |
 
 ## Compatibility
 Library version | Expo SDK version
 ---- | -------
+2.1.x | >= SDK 45
 2.x.x | >= SDK 38
 1.6.x | >= SDK 38
 1.5.x | >= SDK 34
@@ -69,7 +71,7 @@ Changelog added in version 1.3.0
 Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/blob/master/CHANGELOG.md)
 
 ### FAQ
-- **How to make fullscreen working?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L154)
+- **How to make fullscreen working?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx#L182)
 - **How to use ref?** Please visit [example-app](https://github.com/ihmpavel/expo-video-player/blob/master/example-app/App.tsx)
 - **What to do if I disconnect from the internet while playing video from remote source?** You need to stop/pause playback yourself. I highly recommend using [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) for this kind of stuff
 - **Do you support subtitles?** Have a look at [#1](https://github.com/ihmpavel/expo-video-player/issues/1)

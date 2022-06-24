@@ -42,6 +42,8 @@ declare type DefaultProps = {
         loading?: JSX.Element;
         fullscreen?: JSX.Element;
         exitFullscreen?: JSX.Element;
+        mute?: JSX.Element;
+        exitMute?: JSX.Element;
     };
     fullscreen: {
         enterFullscreen?: () => void;
@@ -50,5 +52,11 @@ declare type DefaultProps = {
         visible?: boolean;
     };
     autoHidePlayer: boolean;
+    mute: {
+        enterMute?: () => void;
+        exitMute?: () => void;
+        isMute?: boolean;
+        visible?: boolean;
+    };
 };
 export {};

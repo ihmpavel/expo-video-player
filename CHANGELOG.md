@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2.1.0 (June 24, 2022)
+- Enhancements: Updated packages and bumped Expo SDK version
+- Enhancements: Added `mute` functionality
+
 ## 2.0.4 (January 24, 2021)
 - Fix: Replay icon on iOS [#469](https://github.com/ihmpavel/expo-video-player/issues/469)
 

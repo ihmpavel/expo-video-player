@@ -1,6 +1,6 @@
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { Dimensions, ScrollView, StyleSheet, Text } from 'react-native'
-import { Video } from 'expo-av'
+import { ResizeMode } from 'expo-av'
 import { setStatusBarHidden } from 'expo-status-bar'
 import React, { useRef, useState } from 'react'
 import VideoPlayer from 'expo-video-player'
@@ -8,6 +8,7 @@ import VideoPlayer from 'expo-video-player'
 const App = () => {
   const [inFullscreen, setInFullsreen] = useState(false)
   const [inFullscreen2, setInFullsreen2] = useState(false)
+  const [isMute, setIsMute] = useState(false)
   const refVideo = useRef(null)
   const refVideo2 = useRef(null)
   const refScrollView = useRef(null)
@@ -32,7 +33,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: true,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -43,7 +44,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: require('./local.mp4'),
         }}
         style={{ height: 160 }}
@@ -53,7 +54,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -72,7 +73,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -88,7 +89,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -104,7 +105,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -117,11 +118,29 @@ const App = () => {
         }}
       />
 
+      <Text style={styles.text}>With Mute</Text>
+      <VideoPlayer
+        videoProps={{
+          shouldPlay: false,
+          resizeMode: ResizeMode.CONTAIN,
+          source: {
+            uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+          isMuted: isMute,
+        }}
+        mute={{
+          enterMute: () => setIsMute(!isMute),
+          exitMute: () => setIsMute(!isMute),
+          isMute,
+        }}
+        style={{ height: 160 }}
+      />
+
       <Text style={styles.text}>Fullscren icon hidden</Text>
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -136,7 +155,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -164,7 +183,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },
@@ -197,7 +216,7 @@ const App = () => {
       <VideoPlayer
         videoProps={{
           shouldPlay: false,
-          resizeMode: Video.RESIZE_MODE_CONTAIN,
+          resizeMode: ResizeMode.CONTAIN,
           source: {
             uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           },

@@ -243,6 +243,14 @@ const VideoPlayer = (tempProps) => {
         {props.timeVisible && (<Text style={[props.textStyle, styles.timeRight]}>
             {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.duration)}
           </Text>)}
+        {props.mute.visible && (<TouchableButton onPress={() => { var _a, _b, _c, _d; return (props.mute.isMute ? (_b = (_a = props.mute).exitMute) === null || _b === void 0 ? void 0 : _b.call(_a) : (_d = (_c = props.mute).enterMute) === null || _d === void 0 ? void 0 : _d.call(_c)); }}>
+            <View>
+              {props.icon.mute}
+              {props.icon.exitMute}
+              {((!props.icon.mute && props.mute.isMute) ||
+                (!props.icon.exitMute && !props.mute.isMute)) && (<MaterialIcons name={props.mute.isMute ? 'volume-up' : 'volume-off'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
+            </View>
+          </TouchableButton>)}
         {props.fullscreen.visible && (<TouchableButton onPress={() => props.fullscreen.inFullscreen
                 ? props.fullscreen.exitFullscreen()
                 : props.fullscreen.enterFullscreen()}>
