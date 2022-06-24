@@ -90,4 +90,4 @@ Read [CHANGELOG.md](https://github.com/ihmpavel/expo-video-player/blob/master/CH
 ## More packages from me
 - [all-iso-language-codes](https://github.com/ihmpavel/all-iso-language-codes) - List of ISO 639-1, 639-2T, 639-2B and 639-3 codes with translations in all available languages
 - [expo-video-player](https://github.com/ihmpavel/expo-video-player) - Customizable Video Player controls for Expo
-- [free-email-domains-list](https://github.com/ihmpavel/expo-video-player) - Fresh list of all free email domain providers. Can be used to check if an email address belongs to a company. Updated weekly
+- [free-email-domains-list](https://github.com/ihmpavel/free-email-domains-list) - Fresh list of all free email domain providers. Can be used to check if an email address belongs to a company. Updated weekly
