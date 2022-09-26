@@ -378,10 +378,10 @@ const VideoPlayer = (tempProps: Props) => {
             }
           >
             <View>
-              {props.icon.fullscreen}
-              {props.icon.exitFullscreen}
-              {((!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
-                (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen)) && (
+              {!props.fullscreen.inFullscreen && props.icon.fullscreen}
+              {props.fullscreen.inFullscreen && props.icon.exitFullscreen}
+              {((!props.icon.fullscreen && !props.fullscreen.inFullscreen) ||
+                (!props.icon.exitFullscreen && props.fullscreen.inFullscreen)) && (
                 <MaterialIcons
                   name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'}
                   style={props.icon.style}
