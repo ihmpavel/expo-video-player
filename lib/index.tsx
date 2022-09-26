@@ -243,6 +243,7 @@ const VideoPlayer = (tempProps: Props) => {
       />
 
       <Animated.View
+        pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}
         style={[
           styles.topInfoWrapper,
           {
