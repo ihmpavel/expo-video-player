@@ -243,6 +243,7 @@ const VideoPlayer = (tempProps: Props) => {
       />
 
       <Animated.View
+        pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}
         style={[
           styles.topInfoWrapper,
           {
@@ -303,7 +304,8 @@ const VideoPlayer = (tempProps: Props) => {
       </TouchableWithoutFeedback>
 
       <Animated.View
-        style={[
+          pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}
+          style={[
           styles.bottomInfoWrapper,
           {
             opacity: controlsOpacity,
