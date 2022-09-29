@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2.2.0 (September 29, 2022)
+- Fix: Prevent accidental pressing of buttons in overlay header when the overlay is not visible by [@lpezzolla](https://github.com/lpezzolla) [#724](https://github.com/ihmpavel/expo-video-player/pull/724)
+- Fix: Use fullscreen icons passed in props as an alternative to package-defined icons by [@lpezzolla](https://github.com/lpezzolla) [#727](https://github.com/ihmpavel/expo-video-player/pull/727)
+
 ## 2.1.0 (June 24, 2022)
 - Enhancements: Updated packages and bumped Expo SDK version
 - Enhancements: Added `mute` functionality

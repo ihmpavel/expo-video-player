@@ -178,7 +178,7 @@ const VideoPlayer = (tempProps) => {
             }
         }} onPlaybackStatusUpdate={updatePlaybackCallback}/>
 
-      <Animated.View style={[
+      <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
             styles.topInfoWrapper,
             {
                 opacity: controlsOpacity,
@@ -214,7 +214,7 @@ const VideoPlayer = (tempProps) => {
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <Animated.View style={[
+      <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
             styles.bottomInfoWrapper,
             {
                 opacity: controlsOpacity,
@@ -255,10 +255,10 @@ const VideoPlayer = (tempProps) => {
                 ? props.fullscreen.exitFullscreen()
                 : props.fullscreen.enterFullscreen()}>
             <View>
-              {props.icon.fullscreen}
-              {props.icon.exitFullscreen}
-              {((!props.icon.fullscreen && props.fullscreen.inFullscreen) ||
-                (!props.icon.exitFullscreen && !props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
+              {!props.fullscreen.inFullscreen && props.icon.fullscreen}
+              {props.fullscreen.inFullscreen && props.icon.exitFullscreen}
+              {((!props.icon.fullscreen && !props.fullscreen.inFullscreen) ||
+                (!props.icon.exitFullscreen && props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
             </View>
           </TouchableButton>)}
       </Animated.View>
