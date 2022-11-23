@@ -9,6 +9,8 @@ import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Slider from '@react-native-community/slider';
 const VideoPlayer = (tempProps) => {
+    const DEFAULT_STEP_SIZE = 500;
+
     const props = deepMerge(defaultProps, tempProps);
     let playbackInstance = null;
     let controlsTimer = null;
@@ -63,6 +65,19 @@ const VideoPlayer = (tempProps) => {
                 setControlsState(ControlStates.Hidden);
             }
         });
+    };
+    const animationShow = () => {
+        if (controlsState === ControlStates.Hidden) {
+            Animated.timing(controlsOpacity, {
+                toValue: 1,
+                duration: props.animation.fadeInDuration,
+                useNativeDriver: true,
+            }).start(({ finished }) => {
+                if (finished) {
+                    setControlsState(ControlStates.Visible);
+                }
+            });
+        }
     };
     const animationToggle = () => {
         if (controlsState === ControlStates.Hidden) {
@@ -131,6 +146,25 @@ const VideoPlayer = (tempProps) => {
             }
         }
     };
+
+    const shiftPosition= (stepSize) => __awaiter(void 0, void 0, void 0, function* () {
+        if (controlsState === ControlStates.Hidden) {
+            return;
+        }
+
+        if (playbackInstance !== null) {
+            const oldPos = playbackInstanceInfo.position;
+            playbackInstance.setPositionAsync(oldPos + stepSize, {
+                toleranceMillisBefore: DEFAULT_STEP_SIZE/3,
+                toleranceMillisAfter: DEFAULT_STEP_SIZE/3
+            }).then(function (status) {
+                const newPos = status.positionMillis;
+                console.log('oldPos= ' + oldPos, 'newPos= ' + newPos, 'diff=  '+(newPos-oldPos));
+            }).catch(function (e) {
+            });
+        }
+    });
+
     const togglePlay = () => __awaiter(void 0, void 0, void 0, function* () {
         if (controlsState === ControlStates.Hidden) {
             return;
@@ -142,126 +176,145 @@ const VideoPlayer = (tempProps) => {
                     ? PlaybackStates.Paused
                     : PlaybackStates.Playing }));
             if (shouldPlay) {
-                animationToggle();
+                // animationToggle(); // comment to disable video gray overlay
             }
         }
     });
     if (playbackInstanceInfo.state === PlaybackStates.Error) {
         return (<View style={{
-                backgroundColor: props.style.videoBackgroundColor,
-                width: videoWidth,
-                height: videoHeight,
-            }}>
-        <ErrorMessage style={props.textStyle} message={errorMessage}/>
-      </View>);
-    }
-    if (playbackInstanceInfo.state === PlaybackStates.Loading) {
-        return (<View style={{
-                backgroundColor: props.style.controlsBackgroundColor,
-                width: videoWidth,
-                height: videoHeight,
-                justifyContent: 'center',
-            }}>
-        {props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>}
-      </View>);
-    }
-    return (<View style={{
             backgroundColor: props.style.videoBackgroundColor,
             width: videoWidth,
             height: videoHeight,
-            maxWidth: '100%',
         }}>
-      <Video style={styles.videoWrapper} {...props.videoProps} ref={component => {
+            <ErrorMessage style={props.textStyle} message={errorMessage}/>
+        </View>);
+    }
+    if (playbackInstanceInfo.state === PlaybackStates.Loading) {
+        return (<View style={{
+            backgroundColor: props.style.controlsBackgroundColor,
+            width: videoWidth,
+            height: videoHeight,
+            justifyContent: 'center',
+        }}>
+            {props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>}
+        </View>);
+    }
+    return (<View style={{
+        backgroundColor: props.style.videoBackgroundColor,
+        width: videoWidth,
+        height: videoHeight,
+        maxWidth: '100%',
+    }}>
+        <Video style={styles.videoWrapper} {...props.videoProps} ref={component => {
             playbackInstance = component;
             if (props.videoProps.ref) {
                 props.videoProps.ref.current = component;
             }
         }} onPlaybackStatusUpdate={updatePlaybackCallback}/>
 
-      <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
+        <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
             styles.topInfoWrapper,
             {
                 opacity: controlsOpacity,
             },
         ]}>
-        {header}
-      </Animated.View>
-
-      <TouchableWithoutFeedback onPress={animationToggle}>
-        <Animated.View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { opacity: controlsOpacity, justifyContent: 'center', alignItems: 'center' })}>
-          <View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { backgroundColor: props.style.controlsBackgroundColor, opacity: 0.5 })}/>
-          <View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}>
-            <View style={styles.iconWrapper}>
-              <TouchableButton onPress={togglePlay}>
-                <View>
-                  {playbackInstanceInfo.state === PlaybackStates.Buffering &&
-            (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
-                  {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
-                  {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
-                  {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
-                  {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
-            (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
-            (playbackInstanceInfo.state === PlaybackStates.Paused &&
-                !props.icon.pause)) && (<MaterialIcons name={playbackInstanceInfo.state === PlaybackStates.Playing
-                ? 'pause'
-                : playbackInstanceInfo.state === PlaybackStates.Paused
-                    ? 'play-arrow'
-                    : 'replay'} style={props.icon.style} size={props.icon.size} color={props.icon.color}/>)}
-                </View>
-              </TouchableButton>
-            </View>
-          </View>
+            {header}
         </Animated.View>
-      </TouchableWithoutFeedback>
 
-      <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
+        <TouchableWithoutFeedback onPress={animationShow}>
+            <Animated.View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), {
+                opacity: 0.2, // change to 0 to disable grey overlay
+                justifyContent: 'center', alignItems: 'center' })}>
+                <View style={Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { backgroundColor: props.style.controlsBackgroundColor, opacity: 0.5 })}/>
+                <View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'}>
+                    <View style={styles.iconWrapper}>
+                        <TouchableButton style={styles.touchableBtn} onPress={()=>{shiftPosition(-DEFAULT_STEP_SIZE)}}>
+                            <View>
+                                <MaterialIcons name='arrow-back' style={props.icon.style} size={props.icon.size} color={props.icon.color}/>
+                            </View>
+                        </TouchableButton>
+                        <TouchableButton style={styles.touchableBtn} onPress={togglePlay}>
+                            <View>
+                                {playbackInstanceInfo.state === PlaybackStates.Buffering &&
+                                (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
+                                {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
+                                {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
+                                {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
+                                {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
+                                    (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
+                                    (playbackInstanceInfo.state === PlaybackStates.Paused &&
+                                        !props.icon.pause)) && (<MaterialIcons name={playbackInstanceInfo.state === PlaybackStates.Playing
+                                    ? 'pause'
+                                    : playbackInstanceInfo.state === PlaybackStates.Paused
+                                        ? 'play-arrow'
+                                        : 'replay'} style={props.icon.style} size={props.icon.size} color={props.icon.color}/>)}
+                            </View>
+                        </TouchableButton>
+                        <TouchableButton style={styles.touchableBtn} onPress={()=>{shiftPosition(DEFAULT_STEP_SIZE)}}>
+                            <View>
+                                <MaterialIcons name='arrow-forward' style={props.icon.style} size={props.icon.size} color={props.icon.color}/>
+                            </View>
+                        </TouchableButton>
+                    </View>
+                </View>
+            </Animated.View>
+        </TouchableWithoutFeedback>
+
+        <Animated.View pointerEvents={controlsState === ControlStates.Visible ? 'auto' : 'none'} style={[
             styles.bottomInfoWrapper,
             {
                 opacity: controlsOpacity,
             },
         ]}>
-        {props.timeVisible && (<Text style={[props.textStyle, styles.timeLeft]}>
-            {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.position)}
-          </Text>)}
-        {props.slider.visible && (<Slider {...sliderProps} style={[styles.slider, props.slider.style]} value={playbackInstanceInfo.duration
+            {props.timeVisible && (<Text style={[props.textStyle, styles.timeLeft]}>
+                {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.position)}
+            </Text>)}
+            {props.slider.visible && (<Slider {...sliderProps} style={[styles.slider, props.slider.style]} value={playbackInstanceInfo.duration
                 ? playbackInstanceInfo.position / playbackInstanceInfo.duration
-                : 0} onSlidingStart={() => {
+                : 0} onSlidingStart={(e) =>__awaiter(void 0, void 0, void 0, function* (){
+
+                // const position = e * playbackInstanceInfo.duration;
+                // if (playbackInstance) {
+                //     yield playbackInstance.setStatusAsync({
+                //         positionMillis: position,
+                //         shouldPlay: false,
+                //     });
+                // }
+                // setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position }));
+
                 if (playbackInstanceInfo.state === PlaybackStates.Playing) {
                     togglePlay();
                     setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { state: PlaybackStates.Paused }));
                 }
-            }} onSlidingComplete={(e) => __awaiter(void 0, void 0, void 0, function* () {
+            })} onValueChange={(e) => __awaiter(void 0, void 0, void 0, function* () {
                 const position = e * playbackInstanceInfo.duration;
                 if (playbackInstance) {
-                    yield playbackInstance.setStatusAsync({
-                        positionMillis: position,
-                        shouldPlay: true,
-                    });
+                    yield playbackInstance.setPositionAsync(position).catch(function(error) {});
                 }
                 setPlaybackInstanceInfo(Object.assign(Object.assign({}, playbackInstanceInfo), { position }));
             })}/>)}
-        {props.timeVisible && (<Text style={[props.textStyle, styles.timeRight]}>
-            {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.duration)}
-          </Text>)}
-        {props.mute.visible && (<TouchableButton onPress={() => { var _a, _b, _c, _d; return (props.mute.isMute ? (_b = (_a = props.mute).exitMute) === null || _b === void 0 ? void 0 : _b.call(_a) : (_d = (_c = props.mute).enterMute) === null || _d === void 0 ? void 0 : _d.call(_c)); }}>
-            <View>
-              {props.icon.mute}
-              {props.icon.exitMute}
-              {((!props.icon.mute && props.mute.isMute) ||
-                (!props.icon.exitMute && !props.mute.isMute)) && (<MaterialIcons name={props.mute.isMute ? 'volume-up' : 'volume-off'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
-            </View>
-          </TouchableButton>)}
-        {props.fullscreen.visible && (<TouchableButton onPress={() => props.fullscreen.inFullscreen
+            {props.timeVisible && (<Text style={[props.textStyle, styles.timeRight]}>
+                {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.duration)}
+            </Text>)}
+            {props.mute.visible && (<TouchableButton onPress={() => { var _a, _b, _c, _d; return (props.mute.isMute ? (_b = (_a = props.mute).exitMute) === null || _b === void 0 ? void 0 : _b.call(_a) : (_d = (_c = props.mute).enterMute) === null || _d === void 0 ? void 0 : _d.call(_c)); }}>
+                <View>
+                    {props.icon.mute}
+                    {props.icon.exitMute}
+                    {((!props.icon.mute && props.mute.isMute) ||
+                        (!props.icon.exitMute && !props.mute.isMute)) && (<MaterialIcons name={props.mute.isMute ? 'volume-up' : 'volume-off'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
+                </View>
+            </TouchableButton>)}
+            {props.fullscreen.visible && (<TouchableButton onPress={() => props.fullscreen.inFullscreen
                 ? props.fullscreen.exitFullscreen()
                 : props.fullscreen.enterFullscreen()}>
-            <View>
-              {!props.fullscreen.inFullscreen && props.icon.fullscreen}
-              {props.fullscreen.inFullscreen && props.icon.exitFullscreen}
-              {((!props.icon.fullscreen && !props.fullscreen.inFullscreen) ||
-                (!props.icon.exitFullscreen && props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
-            </View>
-          </TouchableButton>)}
-      </Animated.View>
+                <View>
+                    {!props.fullscreen.inFullscreen && props.icon.fullscreen}
+                    {props.fullscreen.inFullscreen && props.icon.exitFullscreen}
+                    {((!props.icon.fullscreen && !props.fullscreen.inFullscreen) ||
+                        (!props.icon.exitFullscreen && props.fullscreen.inFullscreen)) && (<MaterialIcons name={props.fullscreen.inFullscreen ? 'fullscreen-exit' : 'fullscreen'} style={props.icon.style} size={props.icon.size / 2} color={props.icon.color}/>)}
+                </View>
+            </TouchableButton>)}
+        </Animated.View>
     </View>);
 };
 VideoPlayer.defaultProps = defaultProps;
