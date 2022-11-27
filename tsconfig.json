@@ -9,6 +9,7 @@
       "esnext"
     ],
     "allowJs": true,
+    "noImplicitAny": false,
     "checkJs": true,
     "jsx": "react-native",
     "declaration": true,
@@ -16,8 +17,8 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,

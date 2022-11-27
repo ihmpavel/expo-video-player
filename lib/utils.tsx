@@ -64,10 +64,35 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  iconWrapperOuter:{
+    flex: 1,
+    alignSelf: "stretch",
+  },
   iconWrapper: {
-    borderRadius: 100,
-    overflow: 'hidden',
-    padding: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+    alignSelf: "stretch",
+    opacity: 0
+  },
+  touchableBtnSide: {
+    alignSelf: "stretch",
+    justifyContent: "center",
+    flex: 1,
+    alignItems: 'center'
+  },
+  touchableBtnMiddle: {
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  iconSide:{
+    padding: 0,
+    fontSize: 50
+  },
+  iconMiddle:{
+    padding: 20,
+    fontSize: 50
   },
   bottomInfoWrapper: {
     position: 'absolute',

@@ -5,7 +5,7 @@ export declare const ErrorMessage: ({ message, style }: {
     style: TextStyle;
 }) => JSX.Element;
 export declare const getMinutesSecondsFromMilliseconds: (ms: number) => string;
-declare type ButtonProps = (TouchableNativeFeedbackProps | TouchableOpacityProps) & {
+type ButtonProps = (TouchableNativeFeedbackProps | TouchableOpacityProps) & {
     children: React.ReactNode;
 };
 export declare const TouchableButton: (props: ButtonProps) => JSX.Element;
@@ -30,10 +30,35 @@ export declare const styles: {
         flex: number;
         justifyContent: "center";
     };
+    iconWrapperOuter: {
+        flex: number;
+        alignSelf: "stretch";
+    };
     iconWrapper: {
-        borderRadius: number;
-        overflow: "hidden";
+        alignItems: "center";
+        flexDirection: "row";
+        flex: number;
+        alignSelf: "stretch";
+        opacity: number;
+    };
+    touchableBtnSide: {
+        alignSelf: "stretch";
+        justifyContent: "center";
+        flex: number;
+        alignItems: "center";
+    };
+    touchableBtnMiddle: {
+        alignSelf: "stretch";
+        justifyContent: "center";
+        alignItems: "center";
+    };
+    iconSide: {
         padding: number;
+        fontSize: number;
+    };
+    iconMiddle: {
+        padding: number;
+        fontSize: number;
     };
     bottomInfoWrapper: {
         position: "absolute";

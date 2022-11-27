@@ -14,7 +14,7 @@ export declare enum ErrorSeverity {
     Fatal = "Fatal",
     NonFatal = "NonFatal"
 }
-export declare type ErrorType = {
+export type ErrorType = {
     type: ErrorSeverity;
     message: string;
     obj: Record<string, unknown>;

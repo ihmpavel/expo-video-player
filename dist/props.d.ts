@@ -4,14 +4,14 @@ import { ColorValue } from 'react-native';
 import { ErrorType } from './constants';
 import { MutableRefObject, ReactNode } from 'react';
 import { SliderProps } from '@react-native-community/slider';
-export declare type Props = RequiredProps & DefaultProps;
+export type Props = RequiredProps & DefaultProps;
 export declare const defaultProps: DefaultProps;
-declare type RequiredProps = {
+type RequiredProps = {
     videoProps: VideoProps & {
         ref?: MutableRefObject<Video>;
     };
 };
-declare type DefaultProps = {
+type DefaultProps = {
     errorCallback: (error: ErrorType) => void;
     playbackCallback: (status: AVPlaybackStatus) => void;
     defaultControlsVisible: boolean;
