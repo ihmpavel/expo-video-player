@@ -8,7 +8,7 @@ import { defaultProps } from './props';
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Slider from '@react-native-community/slider';
-import { DoubleClick } from 'react-native-double-tap';
+import DoubleClick from 'react-native-double-tap';
 const VideoPlayer = (tempProps) => {
     const DEFAULT_STEP_SIZE = 500;
     const DEFAULT_CONTROLS_OPACITY = 0.9;

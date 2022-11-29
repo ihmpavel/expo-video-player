@@ -22,7 +22,7 @@ import React from 'react'
 import Slider from '@react-native-community/slider'
 import {__awaiter} from "tslib";
 
-import {DoubleClick} from 'react-native-double-tap'
+import DoubleClick from 'react-native-double-tap'
 
 const VideoPlayer = (tempProps: Props) => {
     const DEFAULT_STEP_SIZE = 500;
