@@ -22,17 +22,13 @@ import React from 'react'
 import Slider from '@react-native-community/slider'
 import {__awaiter} from "tslib";
 
-import { TapGestureHandler, State } from 'react-native-gesture-handler';
-
+import {DoubleClick} from 'react-native-double-tap'
 
 const VideoPlayer = (tempProps: Props) => {
     const DEFAULT_STEP_SIZE = 500;
     const DEFAULT_CONTROLS_OPACITY = 0.9;
 
     const props = deepMerge(defaultProps, tempProps) as Props
-
-    let backCount = 0
-    let backTimer:any = 0
 
     let playbackInstance: Video | null = null
     let controlsTimer: NodeJS.Timeout | null = null
@@ -61,22 +57,6 @@ const VideoPlayer = (tempProps: Props) => {
     if (videoWidth > props.style.width!) {
         videoWidth = props.style.width!
         videoHeight = videoWidth / screenRatio
-    }
-
-    function DoubleTapButton({ onDoubleTap, children }) {
-        const onHandlerStateChange = ({ nativeEvent }) => {
-            if (nativeEvent.state === State.ACTIVE) {
-                onDoubleTap && onDoubleTap();
-            }
-        };
-
-        return (
-            <TapGestureHandler
-                onHandlerStateChange={onHandlerStateChange}
-                numberOfTaps={2}>
-                {children}
-            </TapGestureHandler>
-        );
     }
 
     useEffect(() => {
@@ -335,34 +315,43 @@ const VideoPlayer = (tempProps: Props) => {
                                                    color={props.icon.color}/>
                                 </View>
                             </TouchableButton>
-                            <DoubleTapButton onDoubleTap={() => alert('double tap!!!')}>
+                            <DoubleClick
+                                singleTap={() => {
+                                    console.log("single tap");
+                                }}
+                                doubleTap={() => {
+                                    console.log("double tap");
+                                }}
+                                delay={200}
+                            >
 
-                                    <View>
-                                        {playbackInstanceInfo.state === PlaybackStates.Buffering &&
-                                        (props.icon.loading || <ActivityIndicator {...props.activityIndicator} />)}
-                                        {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
-                                        {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
-                                        {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
-                                        {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
-                                            (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
-                                            (playbackInstanceInfo.state === PlaybackStates.Paused &&
-                                                !props.icon.pause)) && (
-                                            <MaterialIcons
-                                                name={
-                                                    playbackInstanceInfo.state === PlaybackStates.Playing
-                                                        ? 'pause'
-                                                        : playbackInstanceInfo.state === PlaybackStates.Paused
-                                                        ? 'play-arrow'
-                                                        : 'replay'
-                                                }
-                                                style={styles.iconMiddle}
-                                                size={props.icon.size}
-                                                color={props.icon.color}
-                                            />
-                                        )}
-                                    </View>
 
-                            </DoubleTapButton>
+                                <View>
+                                    {playbackInstanceInfo.state === PlaybackStates.Buffering &&
+                                    (props.icon.loading || <ActivityIndicator {...props.activityIndicator} />)}
+                                    {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
+                                    {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
+                                    {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
+                                    {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
+                                        (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
+                                        (playbackInstanceInfo.state === PlaybackStates.Paused &&
+                                            !props.icon.pause)) && (
+                                        <MaterialIcons
+                                            name={
+                                                playbackInstanceInfo.state === PlaybackStates.Playing
+                                                    ? 'pause'
+                                                    : playbackInstanceInfo.state === PlaybackStates.Paused
+                                                    ? 'play-arrow'
+                                                    : 'replay'
+                                            }
+                                            style={styles.iconMiddle}
+                                            size={props.icon.size}
+                                            color={props.icon.color}
+                                        />
+                                    )}
+                                </View>
+
+                            </DoubleClick>
                             <TouchableButton style={styles.touchableBtnSide} onPress={() => {
                                 shiftPosition(DEFAULT_STEP_SIZE)
                             }}>

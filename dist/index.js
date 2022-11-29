@@ -8,13 +8,11 @@ import { defaultProps } from './props';
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Slider from '@react-native-community/slider';
-import { TapGestureHandler, State } from 'react-native-gesture-handler';
+import { DoubleClick } from 'react-native-double-tap';
 const VideoPlayer = (tempProps) => {
     const DEFAULT_STEP_SIZE = 500;
     const DEFAULT_CONTROLS_OPACITY = 0.9;
     const props = deepMerge(defaultProps, tempProps);
-    let backCount = 0;
-    let backTimer = 0;
     let playbackInstance = null;
     let controlsTimer = null;
     let initialShow = props.defaultControlsVisible;
@@ -36,16 +34,6 @@ const VideoPlayer = (tempProps) => {
     if (videoWidth > props.style.width) {
         videoWidth = props.style.width;
         videoHeight = videoWidth / screenRatio;
-    }
-    function DoubleTapButton({ onDoubleTap, children }) {
-        const onHandlerStateChange = ({ nativeEvent }) => {
-            if (nativeEvent.state === State.ACTIVE) {
-                onDoubleTap && onDoubleTap();
-            }
-        };
-        return (<TapGestureHandler onHandlerStateChange={onHandlerStateChange} numberOfTaps={2}>
-                {children}
-            </TapGestureHandler>);
     }
     useEffect(() => {
         setAudio();
@@ -240,15 +228,20 @@ const VideoPlayer = (tempProps) => {
                                     <MaterialIcons name='arrow-back' style={styles.iconSide} size={props.icon.size} color={props.icon.color}/>
                                 </View>
                             </TouchableButton>
-                            <DoubleTapButton onDoubleTap={() => alert('double tap!!!')}>
+                            <DoubleClick singleTap={() => {
+            console.log("single tap");
+        }} doubleTap={() => {
+            console.log("double tap");
+        }} delay={200}>
 
-                                    <View>
-                                        {playbackInstanceInfo.state === PlaybackStates.Buffering &&
+
+                                <View>
+                                    {playbackInstanceInfo.state === PlaybackStates.Buffering &&
             (props.icon.loading || <ActivityIndicator {...props.activityIndicator}/>)}
-                                        {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
-                                        {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
-                                        {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
-                                        {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
+                                    {playbackInstanceInfo.state === PlaybackStates.Playing && props.icon.pause}
+                                    {playbackInstanceInfo.state === PlaybackStates.Paused && props.icon.play}
+                                    {playbackInstanceInfo.state === PlaybackStates.Ended && props.icon.replay}
+                                    {((playbackInstanceInfo.state === PlaybackStates.Ended && !props.icon.replay) ||
             (playbackInstanceInfo.state === PlaybackStates.Playing && !props.icon.pause) ||
             (playbackInstanceInfo.state === PlaybackStates.Paused &&
                 !props.icon.pause)) && (<MaterialIcons name={playbackInstanceInfo.state === PlaybackStates.Playing
@@ -256,9 +249,9 @@ const VideoPlayer = (tempProps) => {
                 : playbackInstanceInfo.state === PlaybackStates.Paused
                     ? 'play-arrow'
                     : 'replay'} style={styles.iconMiddle} size={props.icon.size} color={props.icon.color}/>)}
-                                    </View>
+                                </View>
 
-                            </DoubleTapButton>
+                            </DoubleClick>
                             <TouchableButton style={styles.touchableBtnSide} onPress={() => {
             shiftPosition(DEFAULT_STEP_SIZE);
         }}>
