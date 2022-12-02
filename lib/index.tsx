@@ -227,6 +227,22 @@ const VideoPlayer = (tempProps: Props) => {
         }
     }
 
+    const singleTapOnMiddleBtn = () => {
+        togglePlay();
+    }
+    const doubleTapOnMiddleBtn = () => {
+        triggerFullscreen();
+    }
+
+    const triggerFullscreen = () => {
+        console.log('VideoPlayer triggerFullscreen');
+
+        !props.onTriggerFullscreen || props.onTriggerFullscreen();
+    }
+
+    //
+    // Render variants
+
     if (playbackInstanceInfo.state === PlaybackStates.Error) {
         return (
             <View
@@ -316,12 +332,8 @@ const VideoPlayer = (tempProps: Props) => {
                                 </View>
                             </TouchableButton>
                             <DoubleClick
-                                singleTap={() => {
-                                    console.log("single tap");
-                                }}
-                                doubleTap={() => {
-                                    console.log("double tap");
-                                }}
+                                singleTap={singleTapOnMiddleBtn}
+                                doubleTap={doubleTapOnMiddleBtn}
                                 delay={200}
                             >
 

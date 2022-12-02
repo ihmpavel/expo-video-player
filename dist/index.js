@@ -175,6 +175,18 @@ const VideoPlayer = (tempProps) => {
                     : PlaybackStates.Playing }));
         }
     });
+    const singleTapOnMiddleBtn = () => {
+        togglePlay();
+    };
+    const doubleTapOnMiddleBtn = () => {
+        triggerFullscreen();
+    };
+    const triggerFullscreen = () => {
+        console.log('VideoPlayer triggerFullscreen');
+        !props.onTriggerFullscreen || props.onTriggerFullscreen();
+    };
+    //
+    // Render variants
     if (playbackInstanceInfo.state === PlaybackStates.Error) {
         return (<View style={{
                 backgroundColor: props.style.videoBackgroundColor,
@@ -228,11 +240,7 @@ const VideoPlayer = (tempProps) => {
                                     <MaterialIcons name='arrow-back' style={styles.iconSide} size={props.icon.size} color={props.icon.color}/>
                                 </View>
                             </TouchableButton>
-                            <DoubleClick singleTap={() => {
-            console.log("single tap");
-        }} doubleTap={() => {
-            console.log("double tap");
-        }} delay={200}>
+                            <DoubleClick singleTap={singleTapOnMiddleBtn} doubleTap={doubleTapOnMiddleBtn} delay={200}>
 
 
                                 <View>
