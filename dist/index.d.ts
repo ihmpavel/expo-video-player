@@ -50,6 +50,8 @@ declare const VideoPlayer: {
             isMute?: boolean | undefined;
             visible?: boolean | undefined;
         };
+        onTriggerFullscreen?: (() => void) | undefined;
+        onCancelFullscreen?: (() => void) | undefined;
     };
 };
 export default VideoPlayer;

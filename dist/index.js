@@ -25,6 +25,7 @@ const VideoPlayer = (tempProps) => {
         duration: 0,
         state: props.videoProps.source ? PlaybackStates.Loading : PlaybackStates.Error,
     });
+    const [isFullscreenActive, setIsFullscreenActive] = useState(false);
     // We need to extract ref, because of misstypes in <Slider />
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const _a = props.slider, { ref: sliderRef } = _a, sliderProps = __rest(_a, ["ref"]);
@@ -179,11 +180,18 @@ const VideoPlayer = (tempProps) => {
         togglePlay();
     };
     const doubleTapOnMiddleBtn = () => {
-        triggerFullscreen();
+        toggleFullscreen();
     };
-    const triggerFullscreen = () => {
-        console.log('VideoPlayer triggerFullscreen');
-        !props.onTriggerFullscreen || props.onTriggerFullscreen();
+    const toggleFullscreen = () => {
+        console.log('VideoPlayer toggleFullscreen');
+        if (isFullscreenActive) {
+            setIsFullscreenActive(false);
+            !props.onCancelFullscreen || props.onCancelFullscreen();
+        }
+        else {
+            setIsFullscreenActive(true);
+            !props.onTriggerFullscreen || props.onTriggerFullscreen();
+        }
     };
     //
     // Render variants

@@ -121,4 +121,7 @@ type DefaultProps = {
     isMute?: boolean
     visible?: boolean
   }
+
+  onTriggerFullscreen?: () => void
+  onCancelFullscreen?: () => void
 }
