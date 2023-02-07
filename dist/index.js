@@ -219,6 +219,7 @@ const VideoPlayer = (tempProps) => {
             {
                 opacity: controlsOpacity,
             },
+            props.controlsStyle
         ]}>
         {props.timeVisible && (<Text style={[props.textStyle, styles.timeLeft]}>
             {getMinutesSecondsFromMilliseconds(playbackInstanceInfo.position)}
