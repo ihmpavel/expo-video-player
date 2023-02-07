@@ -1,6 +1,6 @@
 {
-    "name": "expo-video-player",
-    "version": "2.2.0",
+    "name": "clwy-expo-video-player",
+    "version": "2.2.1",
     "private": false,
     "description": "Customizable Video Player controls for Expo",
     "keywords": [
@@ -13,8 +13,8 @@
         "videoplayer",
         "expo-videoplayer"
     ],
-    "homepage": "https://github.com/ihmpavel/expo-video-player",
-    "bugs": "https://github.com/ihmpavel/expo-video-player/issues",
+    "homepage": "https://github.com/clwy-cn/clwy-expo-video-player",
+    "bugs": "https://github.com/clwy-cn/clwy-expo-video-player/issues",
     "repository": {
         "type": "git"
     },

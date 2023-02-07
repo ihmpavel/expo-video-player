@@ -9,7 +9,7 @@ For compatibility information, scroll down to <a href='#compatibility'>Compatibi
 If you are updating from version 1.x to 2.x, there are some breaking changes in the API. Please visit [Migration guide to version 2](https://github.com/ihmpavel/expo-video-player/blob/master/migration-1x-to-2x.md) to make your transition as easy as possible. In version 2.x [@react-native-community/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) has been removed.
 
 ## Installation
-- Install Video Player component typing into terminal `yarn add expo-video-player` _or_ `npm install expo-video-player`
+- Install Video Player component typing into terminal `yarn add clwy-expo-video-player` _or_ `npm install clwy-expo-video-player`
 - You also need `expo-av` and `@react-native-community/slider`. Install them with `expo-cli` (`expo install expo-av @react-native-community/slider`)
 
 ## Usage
@@ -18,7 +18,7 @@ The showcase of some of the possibilities you can create is in the folder [examp
 Minimal code to make `VideoPlayer` working
 ```
 import { ResizeMode } from 'expo-av'
-import VideoPlayer from 'expo-video-player'
+import VideoPlayer from 'clwy-expo-video-player'
 
 <VideoPlayer
   videoProps={{
@@ -42,6 +42,7 @@ For default prop values, please visit [/lib/props.tsx](https://github.com/ihmpav
 | **playbackCallback** | (status: AVPlaybackStatus) => void | Function which is fired every time `onPlaybackStatusUpdate` occurs |
 | **defaultControlsVisible** | `boolean` | Show controls on darker overlay when video starts playing. Default is `false` |
 | **timeVisible** | `boolean` | Show current time and final length in the bottom. Default is `true` |
+| **controlsStyle** | `ControlsStyle` | Object containing `Controls` styling |
 | **textStyle** | `TextStyle` | Object containing `<Text />` styling |
 | **slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Your styling may break default layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete` |
 | **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator) |
