@@ -9,6 +9,7 @@ declare const VideoPlayer: {
         defaultControlsVisible: boolean;
         timeVisible: boolean;
         textStyle: import("react-native").TextStyle;
+        controlsStyle: import("react-native").FlexStyle;
         slider: {
             visible?: boolean | undefined;
         } & import("@react-native-community/slider").SliderProps;
