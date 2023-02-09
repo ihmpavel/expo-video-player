@@ -1,5 +1,5 @@
 import { AVPlaybackStatus, Video, VideoProps } from 'expo-av'
-import { ActivityIndicatorProps, Dimensions, Platform, TextStyle } from 'react-native'
+import { ActivityIndicatorProps, Dimensions, Platform, TextStyle, FlexStyle } from 'react-native'
 import { ColorValue } from 'react-native'
 import { ErrorType } from './constants'
 import { MutableRefObject, ReactNode } from 'react'
@@ -22,6 +22,16 @@ export const defaultProps = {
     color: '#FFF',
     fontSize: 12,
     textAlign: 'center',
+  },
+  controlsStyle: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   activityIndicator: {
     size: 'large',
@@ -80,6 +90,7 @@ type DefaultProps = {
   defaultControlsVisible: boolean
   timeVisible: boolean
   textStyle: TextStyle
+  controlsStyle: FlexStyle
   slider: {
     visible?: boolean
   } & SliderProps

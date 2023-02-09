@@ -35,16 +35,6 @@ export declare const styles: {
         overflow: "hidden";
         padding: number;
     };
-    bottomInfoWrapper: {
-        position: "absolute";
-        flexDirection: "row";
-        alignItems: "center";
-        justifyContent: "space-between";
-        flex: number;
-        bottom: number;
-        left: number;
-        right: number;
-    };
     topInfoWrapper: {
         position: "absolute";
         flexDirection: "row";

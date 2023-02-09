@@ -43,6 +43,7 @@ For default prop values, please visit [/lib/props.tsx](https://github.com/ihmpav
 | **defaultControlsVisible** | `boolean` | Show controls on darker overlay when video starts playing. Default is `false` |
 | **timeVisible** | `boolean` | Show current time and final length in the bottom. Default is `true` |
 | **textStyle** | `TextStyle` | Object containing `<Text />` styling |
+| **controlsStyle** | `FlexStyle` | Basic styling of `Controls` |
 | **slider** | `{ visible?: boolean } & SliderProps` | Object containing any of [@react-native-community/slider](https://github.com/callstack/react-native-slider) props. Your styling may break default layout. Also hide slider by providing `visible: false` prop. You are unable to overwrite `ref`, `value`, `onSlidingStart` and `onSlidingComplete` |
 | **activityIndicator** | `ActivityIndicatorProps` | Any values from [ActivityIndicator](https://reactnative.dev/docs/activityindicator) |
 | **animation** | `{ fadeInDuration?: number, fadeOutDuration?: number }` | Duration of animations in milliseconds |

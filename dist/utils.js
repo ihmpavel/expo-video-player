@@ -35,16 +35,6 @@ export const styles = StyleSheet.create({
         overflow: 'hidden',
         padding: 10,
     },
-    bottomInfoWrapper: {
-        position: 'absolute',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flex: 1,
-        bottom: 0,
-        left: 0,
-        right: 0,
-    },
     topInfoWrapper: {
         position: 'absolute',
         flexDirection: 'row',

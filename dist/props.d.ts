@@ -1,5 +1,5 @@
 import { AVPlaybackStatus, Video, VideoProps } from 'expo-av';
-import { ActivityIndicatorProps, TextStyle } from 'react-native';
+import { ActivityIndicatorProps, TextStyle, FlexStyle } from 'react-native';
 import { ColorValue } from 'react-native';
 import { ErrorType } from './constants';
 import { MutableRefObject, ReactNode } from 'react';
@@ -17,6 +17,7 @@ declare type DefaultProps = {
     defaultControlsVisible: boolean;
     timeVisible: boolean;
     textStyle: TextStyle;
+    controlsStyle: FlexStyle;
     slider: {
         visible?: boolean;
     } & SliderProps;

@@ -13,6 +13,16 @@ export const defaultProps = {
         fontSize: 12,
         textAlign: 'center',
     },
+    controlsStyle: {
+        position: 'absolute',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flex: 1,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
     activityIndicator: {
         size: 'large',
         color: '#999',
