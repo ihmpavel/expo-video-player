@@ -114,7 +114,7 @@ const VideoPlayer = (tempProps) => {
                     ? PlaybackStates.Ended
                     : status.isBuffering
                         ? PlaybackStates.Buffering
-                        : status.shouldPlay
+                        : status.isPlaying || status.shouldPlay
                             ? PlaybackStates.Playing
                             : PlaybackStates.Paused }));
             if ((status.didJustFinish && controlsState === ControlStates.Hidden) ||
